@@ -1,0 +1,335 @@
+{% extends "palapp/base.html" %}
+
+ {% load static %} <!-- Cargar URL raíz -->
+
+ {% load widget_tweaks %}
+
+{% block content %}
+
+<img src="{% static 'palapp/images/plano.jpg' %}" usemap="#image-map">
+
+<map name="image-map">
+    <area target="_parent" alt="A-1" title="a1" href="detmap/{{1}}" coords="2540,1517,2534,1471,2433,1443,2442,1523" shape="poly">
+    <area target="_parent" alt="A-2" title="a2" href="a2" coords="2367,1427,2361,1514,2436,1519,2430,1445" shape="poly">
+    <area target="_parent" alt="A-3" title="a3" href="a3" coords="2304,1519,2361,1514,2361,1427,2304,1410" shape="poly">
+    <area target="_parent" alt="A-4" title="a4" href="a4" coords="2304,1519,2304,1409,2258,1409,2258,1514" shape="poly">
+    <area target="_parent" alt="A-5" title="a5" href="a5" coords="2263,1514,2258,1409,2208,1405,2212,1514" shape="poly">
+    <area target="_parent" alt="A-6" title="a6" href="a6" coords="2212,1523,2208,1405,2167,1405,2167,1528" shape="poly">
+    <area target="_parent" alt="A-7" title="a7" href="a7" coords="2167,1528,2162,1405,2121,1400,2117,1514" shape="poly">
+    <area target="_parent" alt="A-8" title="a8" href="a8" coords="2121,1400,2117,1514,2075,1510,2075,1405" shape="poly">
+    <area target="_parent" alt="A-9" title="a9" href="a9" coords="2075,1510,2075,1405,2030,1405,2030,1514" shape="poly">
+    <area target="_parent" alt="A-10" title="a10" href="a10" coords="2030,1405,2030,1514,1984,1514,1984,1405" shape="poly">
+    <area target="_parent" alt="A-17" title="a17" href="a17" coords="1710,1514,1710,1405,1664,1405,1664,1519" shape="poly">
+    <area target="_parent" alt="A-18" title="a18" href="a18" coords="1664,1519,1660,1405,1614,1405,1619,1510" shape="poly">
+    <area target="_parent" alt="A-19" title="a19" href="a19" coords="1619,1519,1619,1409,1573,1405,1573,1519" shape="poly">
+    <area target="_parent" alt="A-20" title="a20" href="a20" coords="1573,1519,1573,1405,1527,1405,1527,1523" shape="poly">
+    <area target="_parent" alt="A-21" title="a21" href="a21" coords="1527,1523,1527,1409,1482,1409,1482,1514" shape="poly">
+    <area target="_parent" alt="A-22" title="a22" href="a22" coords="1478,1523,1478,1409,1433,1409,1433,1514" shape="poly">
+    <area target="_parent" alt="A-23" title="a23" href="a23" coords="1433,1518,1433,1404,1388,1404,1388,1509" shape="poly">
+    <area target="_parent" alt="A-24" title="a24" href="a24" coords="1393,1523,1393,1409,1348,1409,1348,1514" shape="poly">
+    <area target="_parent" alt="A-25" title="a25" href="a25" coords="1344,1523,1344,1409,1299,1409,1299,1514" shape="poly">
+    <area target="_parent" alt="A-26" title="a26" href="a26" coords="1300,1523,1300,1409,1208,1405,1208,1514" shape="poly">
+    <area target="_parent" alt="A-27" title="a27" href="a27" coords="1208,1523,1208,1409,1158,1405,1158,1514" shape="poly">
+    <area target="_parent" alt="A-28" title="a28" href="a29" coords="1162,1523,1164,1404,1114,1400,1116,1514" shape="poly">
+    <area target="_parent" alt="A-29" title="a29" href="a29.html" coords="1117,1528,1119,1409,1069,1405,1071,1519" shape="poly">
+    <area target="_parent" alt="A-30" title="a30" href="a30.html" coords="1072,1528,1074,1409,1024,1405,1026,1519" shape="poly">
+    <area target="_parent" alt="A-31" title="a31" href="a31.html" coords="1027,1528,1029,1409,984,1405,981,1519" shape="poly">
+    <area target="_parent" alt="A-32" title="a32" href="a32.html" coords="978,1528,980,1409,935,1405,932,1519" shape="poly">
+    <area target="_parent" alt="A-33" title="a33" href="a33.html" coords="930,1528,932,1409,887,1405,884,1519" shape="poly">
+    <area target="_parent" alt="A-34" title="a34" href="a34.html" coords="890,1528,892,1409,847,1405,844,1519" shape="poly">
+    <area target="_parent" alt="A-35" title="a35" href="a35.html" coords="843,1528,845,1409,800,1405,797,1519" shape="poly">
+    <area target="_parent" alt="A-36" title="a36" href="a36.html" coords="798,1528,800,1409,755,1405,752,1519" shape="poly">
+    <area target="_parent" alt="A-37" title="a37" href="a37.html" coords="749,1528,751,1409,706,1405,703,1519" shape="poly">
+    <area target="_parent" alt="A-38" title="a38" href="a38.html" coords="705,1533,707,1414,662,1410,659,1524" shape="poly">
+    <area target="_parent" alt="A-39" title="a39" href="a39.html" coords="657,1528,659,1409,614,1405,611,1519" shape="poly">
+    <area target="_parent" alt="A-40" title="a40" href="a40.html" coords="612,1528,614,1409,569,1405,566,1519" shape="poly">
+    <area target="_parent" alt="A-41" title="a41" href="a41.html" coords="572,1533,574,1414,529,1410,526,1524" shape="poly">
+    <area target="_parent" alt="A-42" title="a42" href="a42.html" coords="519,1528,521,1409,477,1368,473,1519" shape="poly">
+    <area target="_parent" alt="A-43" title="a43" href="a43.html" coords="475,1518,472,1364,331,1131,258,1131,258,1514" shape="poly">
+
+    <area target="_parent" alt="B-1" title="b1" href="b1.html" coords="2971,1135,2984,1089,2888,1062,2870,1103" shape="poly">
+    <area target="_parent" alt="B-2" title="b2" href="b2.html" coords="2916,1186,2934,1126,2866,1103,2797,1149" shape="poly">
+    <area target="_parent" alt="B-3" title="b3" href="b3.html" coords="2824,1222,2843,1158,2796,1142,2729,1190" shape="poly">
+    <area target="_parent" alt="B-4" title="b4" href="b4.html" coords="2898,1242,2917,1178,2843,1163,2829,1222" shape="poly">
+    <area target="_parent" alt="B-5" title="b5" href="b5.html" coords="2948,1257,2975,1140,2934,1131,2902,1240" shape="poly">
+    <area target="_parent" alt="B-6" title="b6" href="b6.html" coords="3030,1277,3025,1158,2978,1136,2943,1259" shape="poly">
+    <area target="_parent" alt="B-7" title="B7" href="b7.html" coords="3025,1441,3035,1293,2988,1271,2943,1423" shape="poly">
+    <area target="_parent" alt="B-8" title="B8" href="b8.html" coords="2943,1428,2962,1355,2896,1316,2870,1400" shape="poly">
+    <area target="_parent" alt="B-9" title="B9" href="b9.html" coords="2870,1400,2898,1304,2855,1276,2824,1386" shape="poly">
+    <area target="_parent" alt="B-10" title="B10" href="b10.html" coords="2824,1391,2852,1277,2815,1261,2783,1373" shape="poly">
+    <area target="_parent" alt="B-11" title="B11" href="b11.html" coords="2775,1381,2803,1267,2766,1251,2734,1363" shape="poly">
+    <area target="_parent" alt="B-12" title="B12" href="b12.html" coords="2730,1371,2765,1250,2721,1241,2689,1353" shape="poly">
+    <area target="_parent" alt="B-13" title="B13" href="b13.html" coords="2685,1361,2720,1240,2676,1231,2644,1343" shape="poly">
+    <area target="_parent" alt="B-14" title="B14" href="b14.html" coords="2645,1341,2680,1220,2674,1222,2541,1304" shape="poly">
+    <area target="_parent" alt="B-15" title="B15" href="b15.html" coords="2637,1382,2642,1336,2532,1304,2487,1344" shape="poly">
+    <area target="_parent" alt="B-16" title="B16" href="b16.html" coords="2532,1418,2550,1359,2482,1341,2407,1394" shape="poly">
+    <area target="_parent" alt="B-17" title="B17" href="b17.html" coords="2614,1446,2635,1384,2555,1359,2537,1423" shape="poly">
+    <area target="_parent" alt="B-18" title="B18" href="b18.html" coords="2660,1459,2687,1350,2646,1336,2616,1453" shape="poly">
+    <area target="_parent" alt="B-19" title="B19" href="b19.html" coords="2705,1474,2732,1365,2691,1351,2655,1473" shape="poly">
+    <area target="_parent" alt="B-20" title="B20" href="b20.html" coords="2742,1523,2777,1380,2736,1366,2697,1519" shape="poly">
+    <area target="_parent" alt="B-21" title="B21" href="b21.html" coords="3035,1519,3025,1446,2779,1377,2737,1518" shape="poly">
+
+    <area target="_parent" alt="C-1" title="C1" href="c1.html" coords="2560,1240,2592,1208,2454,1167,2441,1208" shape="poly">
+    <area target="_parent" alt="C-2" title="C2" href="c2.html" coords="2423,1268,2450,1163,2405,1152,2377,1259" shape="poly">
+    <area target="_parent" alt="C-3" title="C3" href="c3.html" coords="2378,1253,2405,1148,2360,1137,2332,1244" shape="poly">
+    <area target="_parent" alt="C-4" title="C4" href="c4.html" coords="2339,1243,2366,1138,2321,1127,2293,1234" shape="poly">
+    <area target="_parent" alt="C-5" title="C5" href="c5.html" coords="2291,1233,2318,1128,2273,1117,2245,1224" shape="poly">
+    <area target="_parent" alt="C-6" title="C6" href="c6.html" coords="2246,1223,2273,1118,2228,1107,2200,1214" shape="poly">
+    <area target="_parent" alt="C-7" title="C7" href="c7.html" coords="2206,1208,2233,1103,2188,1092,2160,1199" shape="poly">
+    <area target="_parent" alt="C-8" title="C8" href="c8.html" coords="2161,1198,2188,1093,2143,1082,2115,1189" shape="poly">
+    <area target="_parent" alt="C-9" title="C9" href="c9.html" coords="2117,1183,2144,1078,2099,1067,2071,1174" shape="poly">
+    <area target="_parent" alt="C-10" title="C10" href="c10.html" coords="2087,1290,2114,1185,2069,1174,2041,1281" shape="poly">
+    <area target="_parent" alt="C-11" title="C11" href="c11.html" coords="2129,1305,2156,1200,2111,1189,2083,1296" shape="poly">
+    <area target="_parent" alt="C-12" title="C12" href="c12.html" coords="2172,1320,2199,1215,2154,1204,2126,1311" shape="poly">
+    <area target="_parent" alt="C-13" title="C13" href="c13.html" coords="2216,1330,2243,1225,2198,1214,2170,1321" shape="poly">
+    <area target="_parent" alt="C-14" title="C14" href="c14.html" coords="2261,1345,2288,1240,2243,1229,2215,1336" shape="poly">
+    <area target="_parent" alt="C-15" title="C15" href="c15.html" coords="2306,1355,2333,1250,2288,1239,2260,1346" shape="poly">
+    <area target="_parent" alt="C-16" title="C16" href="c16.html" coords="2477,1291,2550,1240,2440,1209,2423,1272" shape="poly">
+    <area target="_parent" alt="C-17" title="C17" href="c17.html" coords="2423,1323,2477,1291,2334,1249,2318,1291" shape="poly">
+    <area target="_parent" alt="C-18" title="C18" href="c18.html" coords="2345,1368,2423,1323,2319,1297,2304,1355" shape="poly">
+
+    <area target="_parent" alt="D-1" title="D1" href="d1.html" coords="2002,1154,2034,1049,1992,1037,1961,1145" shape="poly">
+    <area target="_parent" alt="D-2" title="D-2" href="d2.html" coords="1958,1139,1990,1034,1948,1022,1917,1130" shape="poly">
+    <area target="_parent" alt="D-3" title="D-3" href="d3.html" coords="1913,1129,1945,1024,1903,1012,1872,1120" shape="poly">
+    <area target="_parent" alt="D-4" title="D-4" href="d4.html" coords="1868,1119,1900,1014,1842,999,1827,1110" shape="poly">
+    <area target="_parent" alt="D-5" title="D-5" href="d5.html" coords="1824,1106,1841,999,1783,984,1779,1102" shape="poly">
+    <area target="_parent" alt="D-6" title="D-6" href="d6.html" coords="1774,1102,1779,992,1714,989,1728,1106" shape="poly">
+    <area target="_parent" alt="D-7" title="D-7" href="d7.html" coords="1728,1106,1710,997,1659,999,1683,1120" shape="poly">
+    <area target="_parent" alt="D-8" title="D-8" href="d8.html" coords="1680,1111,1655,1006,1611,1004,1635,1125" shape="poly">
+    <area target="_parent" alt="D-9" title="D-9" href="d9.html" coords="1636,1121,1611,1016,1568,1020,1591,1135" shape="poly">
+    <area target="_parent" alt="D-10" title="D-10" href="d10.html" coords="1591,1131,1566,1026,1523,1030,1546,1145" shape="poly">
+    <area target="_parent" alt="D-11" title="D-11" href="d11.html" coords="1546,1141,1521,1036,1478,1040,1501,1155" shape="poly">
+    <area target="_parent" alt="D-12" title="D-12" href="d12.html" coords="1502,1151,1477,1046,1434,1050,1457,1165" shape="poly">
+    <area target="_parent" alt="D-13" title="D-13" href="d13.html" coords="1453,1161,1428,1056,1390,1065,1413,1175" shape="poly">
+    <area target="_parent" alt="D-14" title="D-14" href="d14.html" coords="1413,1175,1386,1061,1346,1074,1369,1184" shape="poly">
+    <area target="_parent" alt="D-15" title="D-15" href="d15.html" coords="1368,1185,1341,1071,1301,1084,1324,1194" shape="poly">
+    <area target="_parent" alt="D-16" title="D-16" href="d16.html" coords="1326,1202,1302,1081,1262,1094,1285,1204" shape="poly">
+    <area target="_parent" alt="D-17" title="D-17" href="d17.html" coords="1349,1312,1321,1193,1281,1206,1304,1316" shape="poly">
+    <area target="_parent" alt="D-18" title="D-18" href="d18.html" coords="1393,1307,1365,1188,1325,1201,1348,1311" shape="poly">
+    <area target="_parent" alt="D-19" title="D-19" href="d19.html" coords="1438,1297,1410,1178,1370,1191,1393,1301" shape="poly">
+    <area target="_parent" alt="D-20" title="D-20" href="d20.html" coords="1483,1281,1455,1162,1415,1175,1438,1285" shape="poly">
+    <area target="_parent" alt="D-21" title="D-21" href="d21.html" coords="1527,1271,1500,1156,1459,1165,1482,1275" shape="poly">
+    <area target="_parent" alt="D-22" title="D-22" href="d22.html" coords="1571,1266,1544,1151,1503,1160,1526,1270" shape="poly">
+    <area target="_parent" alt="D-23" title="D-23" href="d23.html" coords="1616,1256,1589,1141,1548,1150,1571,1260" shape="poly">
+    <area target="_parent" alt="D-24" title="D-24" href="d24.html" coords="1656,1242,1637,1129,1588,1136,1611,1246" shape="poly">
+    <area target="_parent" alt="D-25" title="D-25" href="d25.html" coords="1705,1233,1686,1120,1637,1127,1660,1237" shape="poly">
+    <area target="_parent" alt="D-26" title="D-26" href="d26.html" coords="1750,1223,1737,1111,1682,1117,1705,1227" shape="poly">
+    <area target="_parent" alt="D-27" title="D-27" href="d27.html" coords="1797,1216,1806,1102,1731,1107,1754,1217" shape="poly">
+    <area target="_parent" alt="D-28" title="D-28" href="d28.html" coords="1842,1234,1870,1112,1806,1106,1801,1216" shape="poly">
+    <area target="_parent" alt="D-29" title="D-29" href="d29.html" coords="1884,1248,1914,1127,1870,1120,1842,1229" shape="poly">
+    <area target="_parent" alt="D-30" title="D-30" href="d30.html" coords="1929,1258,1957,1143,1915,1130,1887,1239" shape="poly">
+    <area target="_parent" alt="D-31" title="D-31" href="d31.html" coords="1974,1268,2002,1153,1960,1140,1932,1249" shape="poly">
+
+    <area target="_parent" alt="E-1" title="E-1" href="e1.html" coords="1176,1229,1150,1121,1112,1111,1125,1239" shape="poly">
+    <area target="_parent" alt="E-2" title="E-2" href="e2.html" coords="1125,1239,1107,1134,1062,1131,1071,1248" shape="poly">
+    <area target="_parent" alt="E-3" title="E-3" href="e3.html" coords="1071,1243,1062,1134,1017,1131,1020,1248" shape="poly">
+    <area target="_parent" alt="E-4" title="E-4" href="e4.html" coords="1016,1248,1014,1134,969,1131,972,1248" shape="poly">
+    <area target="_parent" alt="E-5" title="E-5" href="e5.html" coords="972,1248,970,1134,925,1131,928,1248" shape="poly">
+    <area target="_parent" alt="E-6" title="E-6" href="e6.html" coords="924,1243,922,1129,877,1126,880,1243" shape="poly">
+    <area target="_parent" alt="E-7" title="E-7" href="e7.html" coords="879,1248,877,1134,832,1131,835,1248" shape="poly">
+    <area target="_parent" alt="E-8" title="E-8" href="e8.html" coords="831,1248,829,1134,784,1131,787,1248" shape="poly">
+    <area target="_parent" alt="E-9" title="E-9" href="e9.html" coords="786,1248,784,1134,739,1131,742,1248" shape="poly">
+    <area target="_parent" alt="E-10" title="E-10" href="e10.html" coords="741,1248,739,1134,694,1131,697,1248" shape="poly">
+    <area target="_parent" alt="E-11" title="E-11" href="e11.html" coords="697,1248,695,1134,650,1131,653,1248" shape="poly">
+    <area target="_parent" alt="E-12" title="E-12" href="e12.html" coords="648,1248,646,1134,601,1131,604,1248" shape="poly">
+    <area target="_parent" alt="E-13" title="E-13" href="e13.html" coords="603,1248,601,1134,556,1131,559,1248" shape="poly">
+    <area target="_parent" alt="E-14" title="E-14" href="e14.html" coords="564,1248,562,1134,517,1131,518,1243" shape="poly">
+    <area target="_parent" alt="E-15" title="E-15" href="e15.html" coords="516,1248,514,1134,408,1134,470,1243" shape="poly">
+    <area target="_parent" alt="E-16" title="E-16" href="e16.html" coords="605,1293,605,1243,467,1242,495,1293" shape="poly">
+    <area target="_parent" alt="E-17" title="E-17" href="e17.html" coords="609,1357,605,1292,495,1293,550,1357" shape="poly">
+    <area target="_parent" alt="E-18" title="E-18" href="e18.html" coords="654,1352,650,1243,605,1239,605,1357" shape="poly">
+    <area target="_parent" alt="E-19" title="E-19" href="e19.html" coords="698,1357,694,1248,649,1244,649,1362" shape="poly">
+    <area target="_parent" alt="E-20" title="E-20" href="e20.html" coords="742,1357,738,1248,693,1244,693,1362" shape="poly">
+    <area target="_parent" alt="E-21" title="E-21" href="e21.html" coords="792,1357,788,1248,743,1244,743,1362" shape="poly">
+    <area target="_parent" alt="E-22" title="E-22" href="e22.html" coords="837,1352,833,1243,788,1239,788,1357" shape="poly">
+    <area target="_parent" alt="E-23" title="E-23" href="e23.html" coords="881,1352,877,1243,832,1239,832,1357" shape="poly">
+    <area target="_parent" alt="E-24" title="E-24" href="e24.html" coords="925,1352,921,1243,876,1239,876,1357" shape="poly">
+    <area target="_parent" alt="E-25" title="E-25" href="e25.html" coords="975,1357,971,1248,926,1244,926,1362" shape="poly">
+    <area target="_parent" alt="E-26" title="E-26" href="e26.html" coords="1020,1357,1016,1248,971,1244,971,1362" shape="poly">
+    <area target="_parent" alt="E-27" title="E-27" href="e27.html" coords="1080,1353,1066,1248,1020,1244,1020,1362" shape="poly">
+    <area target="_parent" alt="E-28" title="E-28" href="e28.html" coords="1144,1348,1125,1239,1071,1243,1080,1357" shape="poly">
+    <area target="_parent" alt="E-29" title="E-29" href="e29.html" coords="1198,1338,1179,1229,1125,1233,1144,1348" shape="poly">
+
+    <area target="_parent" alt="F-1" title="F-1" href="f1.html" coords="1153,823,1180,709,1139,700,1112,805" shape="poly">
+    <area target="_parent" alt="F-2" title="F-2" href="f2.html" coords="1108,808,1135,694,1094,685,1067,790" shape="poly">
+    <area target="_parent" alt="F-3" title="F-3" href="f3.html" coords="1063,788,1090,674,1049,665,1022,770" shape="poly">
+    <area target="_parent" alt="F-4" title="F-4" href="f4.html" coords="1018,778,1056,662,983,657,977,760" shape="poly">
+    <area target="_parent" alt="F-5" title="F-5" href="f5.html" coords="974,780,988,648,923,647,928,762" shape="poly">
+    <area target="_parent" alt="F-6" title="F-6" href="f6.html" coords="933,767,923,663,846,671,887,776" shape="poly">
+    <area target="_parent" alt="F-7" title="F-7" href="f7.html" coords="883,780,846,666,787,694,842,801" shape="poly">
+    <area target="_parent" alt="F-8" title="F-8" href="f8.html" coords="846,799,791,698,746,721,796,821" shape="poly">
+    <area target="_parent" alt="F-9" title="F-9" href="f9.html" coords="800,826,746,732,701,755,764,844" shape="poly">
+    <area target="_parent" alt="F-10" title="F-10" href="f10.html" coords="760,846,706,752,661,775,727,872" shape="poly">
+    <area target="_parent" alt="F-11" title="F-11" href="f11.html" coords="725,871,671,777,626,800,691,899" shape="poly">
+    <area target="_parent" alt="F-12" title="F-12" href="f12.html" coords="685,896,631,802,586,825,645,917" shape="poly">
+    <area target="_parent" alt="F-13" title="F-13" href="f13.html" coords="645,916,591,822,546,845,609,940" shape="poly">
+    <area target="_parent" alt="F-14" title="F-14" href="f14.html" coords="605,941,549,844,506,870,569,965" shape="poly">
+    <area target="_parent" alt="F-15" title="F-15" href="f15.html" coords="563,966,507,869,464,895,526,990" shape="poly">
+    <area target="_parent" alt="F-16" title="F-16" href="f16.html" coords="531,990,476,894,434,915,490,1013" shape="poly">
+    <area target="_parent" alt="F-17" title="F-17" href="f17.html" coords="491,1015,436,919,394,940,450,1038" shape="poly">
+    <area target="_parent" alt="F-18" title="F-18" href="f18.html" coords="453,1031,391,937,349,958,417,1059" shape="poly">
+    <area target="_parent" alt="F-19" title="F-19" href="f19.html" coords="412,1059,356,962,314,983,376,1082" shape="poly">
+    <area target="_parent" alt="F-20" title="F-20" href="f20.html" coords="371,1086,307,986,284,999,266,1041,284,1082" shape="poly">
+    <area target="_parent" alt="F-21" title="F-21" href="f21.html" coords="371,1086,522,990,581,1082" shape="poly">
+    <area target="_parent" alt="F-22" title="F-22" href="f22.html" coords="586,1086,522,986,563,963,631,1063" shape="poly">
+    <area target="_parent" alt="F-23" title="F-23" href="f23.html" coords="625,1066,568,968,602,943,670,1043" shape="poly">
+    <area target="_parent" alt="F-24" title="F-24" href="f24.html" coords="673,1045,609,940,642,924,710,1024" shape="poly">
+    <area target="_parent" alt="F-25" title="F-25" href="f25.html" coords="705,1013,650,917,681,897,749,997" shape="poly">
+    <area target="_parent" alt="F-26" title="F-26" href="f26.html" coords="745,988,691,894,721,872,789,972" shape="poly">
+    <area target="_parent" alt="F-27" title="F-27" href="f27.html" coords="780,963,726,869,756,847,824,947" shape="poly">
+    <area target="_parent" alt="F-28" title="F-28" href="f28.html" coords="825,943,764,844,801,827,869,927" shape="poly">
+    <area target="_parent" alt="F-29" title="F-29" href="f29.html" coords="864,917,800,821,846,799,901,899" shape="poly">
+    <area target="_parent" alt="F-30" title="F-30" href="f30.html" coords="896,894,845,796,928,771,942,881" shape="poly">
+    <area target="_parent" alt="F-31" title="F-31" href="f31.html" coords="947,881,933,767,1020,776,988,885" shape="poly">
+    <area target="_parent" alt="F-32" title="F-32" href="f32.html" coords="992,891,1020,771,1065,786,1033,895" shape="poly">
+    <area target="_parent" alt="F-33" title="F-33" href="f33.html" coords="1038,894,1065,790,1105,806,1073,915" shape="poly">
+    <area target="_parent" alt="F-34" title="F-34" href="f34.html" coords="1082,909,1109,805,1149,821,1117,930" shape="poly">
+
+    <area target="_parent" alt="G-1" title="G-1" href="g1-html" coords="1974,762,1947,657,1910,666,1933,776" shape="poly">
+    <area target="_parent" alt="G-2" title="G-2" href="g2-html" coords="1929,776,1906,671,1887,785,1865,680" shape="poly">
+    <area target="_parent" alt="G-3" title="G-3" href="g3.html" coords="1887,785,1865,685,1819,689,1842,794" shape="poly">
+    <area target="_parent" alt="G-4" title="G-4" href="g4.html" coords="1846,799,1820,700,1778,703,1801,808" shape="poly">
+    <area target="_parent" alt="G-5" title="G-5" href="g5.html" coords="1801,812,1775,700,1733,703,1755,817" shape="poly">
+    <area target="_parent" alt="G-6" title="G-6" href="g6.html" coords="1756,827,1730,715,1688,718,1710,832" shape="poly">
+    <area target="_parent" alt="G-7" title="G-7" href="g7.html" coords="1711,837,1685,725,1643,728,1665,842" shape="poly">
+    <area target="_parent" alt="G-8" title="G-8" href="g8.html" coords="1666,852,1640,740,1598,743,1620,857" shape="poly">
+    <area target="_parent" alt="G-9" title="G-9" href="g9.html" coords="1621,852,1595,740,1553,743,1575,857" shape="poly">
+    <area target="_parent" alt="G-10" title="G-10" href="g10.html" coords="1576,862,1550,750,1508,753,1530,867" shape="poly">
+    <area target="_parent" alt="G-11" title="G-11" href="g11.html" coords="1536,872,1510,760,1468,763,1472,876" shape="poly">
+    <area target="_parent" alt="G-12" title="G-12" href="g12.html" coords="1467,881,1463,771,1417,776,1403,885" shape="poly">
+    <area target="_parent" alt="G-13" title="G-13" href="g13.html" coords="1403,885,1418,766,1371,762,1344,867" shape="poly">
+    <area target="_parent" alt="G-14" title="G-14" href="g14.html" coords="1339,876,1373,756,1326,752,1299,857" shape="poly">
+    <area target="_parent" alt="G-15" title="G-15" href="g15.html" coords="1299,856,1333,736,1286,732,1259,837" shape="poly">
+    <area target="_parent" alt="G-16" title="G-16" href="g16.html" coords="1264,971,1298,851,1251,847,1224,952" shape="poly">
+    <area target="_parent" alt="G-17" title="G-17" href="g17.html" coords="1307,981,1338,866,1291,862,1264,967" shape="poly">
+    <area target="_parent" alt="G-18" title="G-18" href="g18.html" coords="1371,990,1388,876,1341,872,1314,977" shape="poly">
+    <area target="_parent" alt="G-19" title="G-19" href="g19.html" coords="1435,995,1438,886,1391,882,1376,995" shape="poly">
+    <area target="_parent" alt="G-20" title="G-20" href="g20.html" coords="1495,990,1483,886,1436,882,1435,1004" shape="poly">
+    <area target="_parent" alt="G-21" title="G-21" href="g21.html" coords="1559,990,1536,872,1486,882,1499,999" shape="poly">
+    <area target="_parent" alt="G-22" title="G-22" href="g22.html" coords="1604,968,1577,858,1535,867,1559,986" shape="poly">
+    <area target="_parent" alt="G-23" title="G-23" href="g23.html" coords="1649,958,1622,848,1580,857,1604,976" shape="poly">
+    <area target="_parent" alt="G-24" title="G-24" href="g24.html" coords="1694,953,1667,843,1625,852,1649,971" shape="poly">
+    <area target="_parent" alt="G-25" title="G-25" href="g25.html" coords="1734,938,1707,828,1665,837,1689,956" shape="poly">
+    <area target="_parent" alt="G-26" title="G-26" href="g26.html" coords="1779,928,1752,818,1710,827,1734,946" shape="poly">
+    <area target="_parent" alt="G-27" title="G-27" href="g27.html" coords="1829,923,1802,813,1760,822,1784,941" shape="poly">
+    <area target="_parent" alt="G-28" title="G-28" href="g28.html" coords="1869,913,1842,803,1800,812,1824,931" shape="poly">
+    <area target="_parent" alt="G-29" title="G-29" href="g29.html" coords="1914,903,1887,793,1845,802,1869,913" shape="poly">
+    <area target="_parent" alt="G-30" title="G-30" href="g30.html" coords="1959,893,1932,783,1890,792,1914,903" shape="poly">
+    <area target="_parent" alt="G-31" title="G-31" href="g31.html" coords="2004,888,1977,778,1935,787,1959,898" shape="poly">
+
+
+    <area target="_parent" alt="H-1" title="H-1" href="h1.html" coords="2851,1050,2865,999,2769,975,2760,1022" shape="poly">
+    <area target="_parent" alt="H-2" title="H-2" href="h2.html" coords="2737,1086,2769,972,2724,965,2691,1068" shape="poly">
+    <area target="_parent" alt="H-3" title="H-3" href="h3.html" coords="2692,1070,2723,958,2679,949,2650,1054" shape="poly">
+    <area target="_parent" alt="H-4" title="H-4" href="h4.html" coords="2647,1060,2678,948,2634,939,2605,1044" shape="poly">
+    <area target="_parent" alt="H-5" title="H-5" href="h5.html" coords="2602,1045,2637,936,2589,924,2545,1027" shape="poly">
+    <area target="_parent" alt="H-6" title="H-6" href="h6.html" coords="2550,1022,2592,921,2554,894,2500,995" shape="poly">
+    <area target="_parent" alt="H-7" title="H-7" href="h7.html" coords="2500,995,2552,896,2513,872,2449,968" shape="poly">
+    <area target="_parent" alt="H-8" title="H-8" href="h8.html" coords="2449,968,2512,871,2477,844,2413,931" shape="poly">
+    <area target="_parent" alt="H-9" title="H-9" href="h9.html" coords="2408,936,2477,846,2442,819,2367,894" shape="poly">
+    <area target="_parent" alt="H-10" title="H-10" href="h10.html" coords="2367,894,2448,812,2413,785,2335,858" shape="poly">
+    <area target="_parent" alt="H-11" title="H-11" href="h11.html" coords="2331,858,2417,780,2378,745,2303,826" shape="poly">
+    <area target="_parent" alt="H-12" title="H-12" href="h12.html" coords="2303,826,2381,739,2328,705,2267,799" shape="poly">
+    <area target="_parent" alt="H-13" title="H-13" href="h13.html" coords="2267,799,2326,703,2268,675,2225,776" shape="poly">
+    <area target="_parent" alt="H-14" title="H-14" href="h14.html" coords="2225,776,2271,671,2214,650,2184,762" shape="poly">
+    <area target="_parent" alt="H-15" title="H-15" href="h15.html" coords="2180,762,2211,656,2152,639,2134,753" shape="poly">
+    <area target="_parent" alt="H-16" title="H-16" href="h16.html" coords="2139,748,2148,639,2088,639,2093,748" shape="poly">
+    <area target="_parent" alt="H-17" title="H-17" href="h17.html" coords="2088,748,2083,639,2020,639,2047,753" shape="poly">
+    <area target="_parent" alt="H-18" title="H-18" href="h18.html" coords="2113,865,2120,753,2045,756,2072,870" shape="poly">
+    <area target="_parent" alt="H-19" title="H-19" href="h19.html" coords="2162,876,2194,768,2120,748,2120,863" shape="poly">
+    <area target="_parent" alt="H-20" title="H-20" href="h20.html" coords="2203,890,2264,793,2198,762,2162,876" shape="poly">
+    <area target="_parent" alt="H-21" title="H-21" href="h21.html" coords="2235,926,2309,833,2267,799,2203,894" shape="poly">
+    <area target="_parent" alt="H-22" title="H-22" href="h22.html" coords="2267,954,2339,873,2312,835,2239,926" shape="poly">
+    <area target="_parent" alt="H-23" title="H-23" href="h23.html" coords="2297,989,2369,908,2342,870,2267,958" shape="poly">
+    <area target="_parent" alt="H-24" title="H-24" href="h24.html" coords="2335,1018,2404,936,2372,905,2297,993" shape="poly">
+    <area target="_parent" alt="H-25" title="H-25" href="h25.html" coords="2376,1054,2445,963,2407,935,2332,1023" shape="poly">
+    <area target="_parent" alt="H-26" title="H-26" href="h26.html" coords="2422,1086,2480,988,2442,960,2381,1054" shape="poly">
+    <area target="_parent" alt="H-27" title="H-27" href="h27.html" coords="2468,1114,2520,1013,2482,985,2426,1086" shape="poly">
+    <area target="_parent" alt="H-28" title="H-28" href="h28.html" coords="2518,1130,2563,1029,2522,1008,2472,1111" shape="poly">
+    <area target="_parent" alt="H-29" title="H-29" href="h29.html" coords="2568,1152,2605,1047,2564,1031,2522,1130" shape="poly">
+    <area target="_parent" alt="H-30" title="H-30" href="h30.html" coords="2618,1166,2648,1061,2607,1045,2568,1157" shape="poly">
+    <area target="_parent" alt="H-31" title="H-31" href="h31.html" coords="2664,1175,2737,1130,2639,1100,2623,1166" shape="poly">
+    <area target="_parent" alt="H-32" title="H-32" href="h32.html" coords="2737,1130,2787,1098,2649,1059,2637,1098" shape="poly">
+    <area target="_parent" alt="H-33" title="H-33" href="h33.html" coords="2787,1102,2860,1052,2754,1018,2737,1084" shape="poly">
+
+
+    <area target="_parent" alt="I-1" title="I-1" href="i1.html" coords="2746,616,2774,507,2725,494,2700,593" shape="poly">
+    <area target="_parent" alt="I-2" title="I-2" href="i2.html" coords="2789,629,2820,514,2779,506,2745,618" shape="poly">
+    <area target="_parent" alt="I-3" title="I-3" href="i3.html" coords="2832,645,2866,521,2824,512,2789,630" shape="poly">
+    <area target="_parent" alt="I-4" title="I-4" href="i4.html" coords="2877,657,2911,533,2869,524,2834,642" shape="poly">
+    <area target="_parent" alt="I-5" title="I-5" href="i5.html" coords="2967,681,2949,566,2908,556,2878,655" shape="poly">
+    <area target="_parent" alt="I-6" title="I-6" href="i6.html" coords="2975,767,2966,676,2925,666,2898,744" shape="poly">
+    <area target="_parent" alt="I-7" title="I-7" href="i7.html" coords="2984,849,2972,765,2859,729,2832,807" shape="poly">
+    <area target="_parent" alt="I-8" title="I-8" href="i8.html" coords="2834,806,2852,734,2814,681,2777,791" shape="poly">
+    <area target="_parent" alt="I-9" title="I-9" href="i9.html" coords="2780,794,2806,685,2766,673,2737,777" shape="poly">
+    <area target="_parent" alt="I-10" title="I-10" href="i10.html" coords="2737,783,2764,667,2724,655,2682,763" shape="poly">
+    <area target="_parent" alt="I-11" title="I-11" href="i11.html" coords="2685,763,2720,654,2679,637,2622,732" shape="poly">
+    <area target="_parent" alt="I-12" title="I-12" href="i12.html" coords="2616,731,2682,639,2648,610,2564,691" shape="poly">
+    <area target="_parent" alt="I-13" title="I-13" href="i13.html" coords="2564,688,2652,603,2618,574,2536,653" shape="poly">
+    <area target="_parent" alt="I-14" title="I-14" href="i14.html" coords="2536,653,2616,573,2582,538,2507,619" shape="poly">
+    <area target="_parent" alt="I-15" title="I-15" href="i15.html" coords="2501,620,2580,537,2541,499,2467,588" shape="poly">
+    <area target="_parent" alt="I-16" title="I-16" href="i16.html" coords="2473,587,2539,501,2499,466,2432,564" shape="poly">
+    <area target="_parent" alt="I-17" title="I-17" href="i17.html" coords="2432,560,2498,468,2452,437,2392,537" shape="poly">
+    <area target="_parent" alt="I-18" title="I-18" href="i18.html" coords="2395,536,2452,436,2404,413,2355,511" shape="poly">
+    <area target="_parent" alt="I-19" title="I-19" href="i19.html" coords="2352,514,2401,411,2360,394,2312,497" shape="poly">
+    <area target="_parent" alt="I-20" title="I-20" href="i20.html" coords="2313,493,2362,390,2321,373,2273,476" shape="poly">
+    <area target="_parent" alt="I-21" title="I-21" href="i21.html" coords="2269,484,2317,375,2276,358,2228,461" shape="poly">
+    <area target="_parent" alt="I-22" title="I-22" href="i22.html" coords="2230,460,2278,351,2197,319,2189,437" shape="poly">
+    <area target="_parent" alt="I-23" title="I-23" href="i23.html" coords="2220,589,2254,468,2185,437,2165,578" shape="poly">
+    <area target="_parent" alt="I-24" title="I-24" href="i24.html" coords="2266,603,2308,492,2251,470,2220,585" shape="poly">
+    <area target="_parent" alt="I-25" title="I-25" href="i25.html" coords="2306,622,2358,518,2303,495,2266,604" shape="poly">
+    <area target="_parent" alt="I-26" title="I-26" href="i26.html" coords="2343,645,2409,541,2357,519,2306,622" shape="poly">
+    <area target="_parent" alt="I-27" title="I-27" href="i27.html" coords="2386,668,2451,577,2406,547,2349,642" shape="poly">
+    <area target="_parent" alt="I-28" title="I-28" href="i28.html" coords="2421,695,2498,611,2454,577,2386,663" shape="poly">
+    <area target="_parent" alt="I-29" title="I-29" href="i29.html" coords="2450,731,2536,656,2502,610,2418,702" shape="poly">
+    <area target="_parent" alt="I-30" title="I-30" href="i30.html" coords="2487,763,2564,689,2536,654,2452,729" shape="poly">
+    <area target="_parent" alt="I-31" title="I-31" href="i31.html" coords="2533,810,2603,719,2575,684,2487,767" shape="poly">
+    <area target="_parent" alt="I-32" title="I-32" href="i32.html" coords="2582,845,2642,744,2605,717,2530,813" shape="poly">
+    <area target="_parent" alt="I-33" title="I-33" href="i33.html" coords="2639,871,2682,762,2644,741,2585,842" shape="poly">
+    <area target="_parent" alt="I-34" title="I-34" href="i34.html" coords="2694,885,2725,773,2683,762,2639,871" shape="poly">
+    <area target="_parent" alt="I-35" title="I-35" href="i35.html" coords="2739,897,2770,785,2728,774,2691,885" shape="poly">
+    <area target="_parent" alt="I-36" title="I-36" href="i36.html" coords="2781,909,2812,797,2770,786,2737,900" shape="poly">
+    <area target="_parent" alt="I-37" title="I-37" href="i37.html" coords="2826,927,2857,815,2815,804,2782,918" shape="poly">
+    <area target="_parent" alt="I-38" title="I-38" href="i38.html" coords="2868,936,2899,824,2857,813,2824,927" shape="poly">
+    <area target="_parent" alt="I-39" title="I-39" href="i39.html" coords="2913,951,2944,839,2902,828,2869,942" shape="poly">
+    <area target="_parent" alt="I-40" title="I-40" href="i40.html" coords="2958,966,2989,854,2947,843,2914,957" shape="poly">
+
+    <area target="_parent" alt="K-1" title="K-1" href="k1.html" coords="421,739,467,813,401,856,375,819" shape="poly">
+    <area target="_parent" alt="K-2" title="K-2" href="k2.html" coords="451,688,513,790,473,816,418,739" shape="poly">
+    <area target="_parent" alt="K-3" title="K-3" href="k3.html" coords="490,658,559,767,512,786,456,698" shape="poly">
+    <area target="_parent" alt="K-4" title="K-4" href="k4.html" coords="533,641,598,743,556,767,496,667" shape="poly">
+    <area target="_parent" alt="K-5" title="K-5" href="k5.html" coords="572,617,637,719,595,743,535,643" shape="poly">
+    <area target="_parent" alt="K-6" title="K-6" href="k6.html" coords="608,590,673,692,631,716,571,616" shape="poly">
+    <area target="_parent" alt="K-7" title="K-7" href="k7.html" coords="653,572,709,664,676,698,616,598" shape="poly">
+    <area target="_parent" alt="K-8" title="K-8" href="k8.html" coords="692,548,748,640,715,674,655,574" shape="poly">
+    <area target="_parent" alt="K-9" title="K-9" href="k9.html" coords="743,521,792,622,752,648,697,550" shape="poly">
+    <area target="_parent" alt="K-10" title="K-10" href="k10.html" coords="800,497,832,608,792,626,749,519" shape="poly">
+    <area target="_parent" alt="K-11" title="K-11" href="k11.html" coords="858,482,883,596,835,605,798,502" shape="poly">
+    <area target="_parent" alt="K-12" title="K-12" href="k12.html" coords="913,474,925,596,875,589,858,486" shape="poly">
+    <area target="_parent" alt="K-13" title="K-13" href="k13.html" coords="973,470,970,582,926,595,915,476" shape="poly">
+    <area target="_parent" alt="K-14" title="K-14" href="k14.html" coords="1050,485,1019,594,974,595,976,465" shape="poly">
+    <area target="_parent" alt="K-15" title="K-15" href="k15.html" coords="1088,498,1059,604,1016,599,1045,484" shape="poly">
+    <area target="_parent" alt="K-16" title="K-16" href="k16.html" coords="1059,601,1088,494,993,463,1033,356,1180,394,1226,359,1315,351,1231,649" shape="poly">
+
+
+
+    <area target="_parent" alt="L-1" title="L-1" href="l1.html" coords="352,571,410,674,381,706,312,591" shape="poly">
+    <area target="_parent" alt="L-2" title="L-2" href="l2.html" coords="388,547,444,645,410,668,348,567" shape="poly">
+    <area target="_parent" alt="L-3" title="L-3" href="l3.html" coords="430,526,486,624,452,647,390,546" shape="poly">
+    <area target="_parent" alt="L-4" title="L-4" href="l4.html" coords="466,502,525,597,488,623,426,522" shape="poly">
+    <area target="_parent" alt="L-5" title="L-5" href="l5.html" coords="505,478,564,573,527,599,465,498" shape="poly">
+    <area target="_parent" alt="L-6" title="L-6" href="l6.html" coords="547,457,606,552,569,578,507,477" shape="poly">
+    <area target="_parent" alt="L-7" title="L-7" href="l7.html" coords="583,430,642,525,605,551,543,450" shape="poly">
+    <area target="_parent" alt="L-8" title="L-8" href="l8.html" coords="619,406,678,501,641,527,579,426" shape="poly">
+    <area target="_parent" alt="L-9" title="L-9" href="l9.html" coords="661,385,720,480,683,506,621,405" shape="poly">
+</map>
+
+
+
+<center>
+  <a href="./" type="submit" class="btn btn-primary">Cancelar</a>
+</center>
+
+
+
+{% endblock %}

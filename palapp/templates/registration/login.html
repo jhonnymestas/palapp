@@ -1,0 +1,44 @@
+{% extends "registration/base.html" %}
+
+{% block content %}
+
+<center>
+    <font color="#ffffff"></font>
+    {% if form.errors %}
+    <p><b>El usuario o contraseña NO coinciden. Favor ingrese los datos correctos.</b></p>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+        <p><b>EL usuario no tiene acceso a esta página. Para proceder,
+        proporcione una cuenta que tenga acceso.</b></p>
+        {% else %}
+        <p><b>Favor haga login para ver esta página.</b></p>
+        {% endif %}
+    {% endif %}
+</center>
+<font color="#000001"></font>
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+
+<center>
+    <div>
+      <td>{{ form.username.label_tag }}</td>
+      <td>{{ form.username }}</td>
+    </div>
+    <div>
+      <td>{{ form.password.label_tag }}</td> &emsp; &emsp; &ensp;
+      <td>{{ form.password }}</td>
+    </div>
+
+    <div>
+      <input type="submit" value="login" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </div>
+</center>
+</form>
+<center>
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <p><a href="{% url 'password_reset' %}"><b>Recuperar Contraseña?</b></a></p>
+</center>
+{% endblock %}

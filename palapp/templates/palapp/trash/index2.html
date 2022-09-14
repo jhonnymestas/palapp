@@ -1,0 +1,26 @@
+{% extends "palapp/base.html" %}
+
+{% block content %}
+<h1>Palmar Beach House Home</h1>
+
+  <p>Welcome to <em>LocalLibrary</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
+
+<h2>Dynamic content</h2>
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'palapp/style.css' %}">
+{% if user.is_authenticated %}
+    {% if latest_question_list %}
+        <ul>
+        {% for question in latest_question_list %}
+            <li><a href="/palapp/{{ question.id }}/">{{ question.question_text }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No resultados are available.</p>
+    {% endif %}
+{% else %}
+    <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+{% endif %}
+{% endblock %}

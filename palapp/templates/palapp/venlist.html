@@ -1,0 +1,116 @@
+{% extends "palapp/base.html" %}
+
+ {% load static %} <!-- Cargar URL raíz -->
+
+ {% load widget_tweaks %}
+
+{% block content %}
+
+<p style="background-color: green; color: #ffffff; font-weight: bold; font-size: x-large"> VENDEDORES </p>
+
+<style>
+    .cuerpo {
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+</style>
+
+<div>
+{% if messages %}
+  <ul class="messages list-group mb-3">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-primary"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+</div>
+
+<div>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Jefatura</th>
+      <th width="20%">Nombre</th>
+      <th>DNI</th>
+      <th>RUC</th>
+      <th>Tfno. móvil</th>
+      <th>EMail</th>
+      <th>Fec.Creac.</th>
+    </tr>
+  </thead>
+  <tbody>
+
+
+  <!-- Recorremos los registros de la tabla 'jefes' y los mostramos -->
+  {% for vend in object_list %}
+    <tr>
+      <td>{{ vend.jefe }}</td>
+      <td>{{ vend.appat }} {{ vend.apmat }} {{ vend.nomb }}</td>
+      <td>{{ vend.dni }}</td>
+      <td>{{ vend.ruc }}</td>
+      <td>{{ vend.cel1 }}</td>
+      <td>{{ vend.correo }}</td>
+      <td>{{ vend.fecha_creacion }}</td>
+      <td>
+
+        <!-- Formulario para eliminar un registro desde la misma tabla HTML -->
+        <form method="POST" action="eliminar/{{jefe.id}}">
+          {% csrf_token %}
+          <div class="btn-group">
+
+            <!-- Creamos 3 botones Detalle, Editar y Eliminar -->
+            <a href="detven/{{vend.id}}" title="Detalle" type="button" class="btn btn-success">Ver </a>
+            <a href="edtven/{{vend.id}}" title="Editar" type="button" class="btn btn-primary">Editar </a>
+            <button hidden="false" class="btn btn-danger" onclick="return eliminar();" type="submit">
+			Eliminar
+			</button>
+          </div>
+        </form>
+
+      </td>
+    </tr>
+  {% endfor %}
+
+  </tbody>
+</table>
+<center>
+<div align="center" class="btn_crear mb-3">
+  <a href="addven" type="button" class="btn btn-primary">Añadir Vendedor</a>
+  <a href="./" type="submit" class="btn btn-primary">Cancelar</a>
+</div>
+</center>
+</div>
+
+    <script type="text/javascript">
+      function eliminar() {
+        var x = confirm("¿Está seguro de que desea eliminar el contacto?");
+        if (x)
+          return true;
+        else
+          return false;
+      }
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; primera</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">prox.</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+{% endblock %}

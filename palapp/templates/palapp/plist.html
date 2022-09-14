@@ -1,0 +1,10 @@
+  {% extends "palapp/base.html" %}
+  {% block content %}
+  <h2>Personas</h2>
+<em>Empresa - RUC</em>
+<ul>
+    {% for inmobiliaria in object_list %}
+      <li>{{ inmobiliaria.rassoc }} - {{ inmobiliaria.ruc }} </li>
+    {% endfor %}
+  </ul>
+  {% endblock %}
