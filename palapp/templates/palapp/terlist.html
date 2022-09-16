@@ -49,11 +49,12 @@
   <thead>
     <tr>
       <th>Código</th>
-      <th width="20%">Descripción</th>
-      <th>Etapa</th>
-      <th>Area</th>
+      <th>Manzana</th>
+      <th>lote</th>
       <th>Vendedor</th>
       <th>Cliente</th>
+      <th>Area</th>
+      <th width="20%">Observaciones</th>
       <th>Estado</th>
     </tr>
   </thead>
@@ -64,11 +65,12 @@
   {% for terr in object_list %}
     <tr>
       <td>{{ terr.codigo }}</td>
-      <td>{{ terr.descripcion }}</td>
-      <td>{{ terr.etapa }}</td>
-      <td>{{ terr.area }}</td>
+      <td>{{ terr.manzana }}</td>
+      <td>{{ terr.lote }}</td>
       <td>{{ terr.vendedor }}</td>
       <td>{{ terr.cliente }}</td>
+      <td>{{ terr.area }}</td>
+      <td>{{ terr.observaciones }}</td>
       <td>
       {% if 'L' == terr.estado %}
         <p style="background-color: green; color: #ffffff; font-weight: bold"> LIBRE </p>

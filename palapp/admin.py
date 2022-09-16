@@ -3,6 +3,8 @@ from django.contrib import admin
 from .models import Cliente, Inmobiliaria, Jefe, Vendedor
 from .models import Terreno, Tramites, Notaria, Venta, Pagos
 
+from import_export.admin import ImportExportModelAdmin
+from import_export import resources
 
 class ClienteAdmin(admin.ModelAdmin):
     list_display = ['id', 'vendedor', 'dni', 'appat', 'apmat', 'nomb', 'direccion', 'telfij', 'cel1', 'cel2',
@@ -46,6 +48,15 @@ class VentaAdmin(admin.ModelAdmin):
 class PagosAdmin(admin.ModelAdmin):
     list_display = ['id', 'venta', 'cuota', 'fec_vcto', 'fec_pago', 'preciod', 'precios', 'gastosd', 'gastoss', 'nrooper',
                     'banco', 'observ', 'estado', 'foto_vouc', 'usuario_crea']
+
+
+class TerrenoResource(resources.ModelResource):
+    class Meta:
+        model = Terreno
+
+
+class TerrenoAdmin(ImportExportModelAdmin):
+    resource_class = TerrenoResource
 
 
 admin.site.register(Cliente, ClienteAdmin)

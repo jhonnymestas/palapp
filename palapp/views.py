@@ -4,6 +4,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect, HttpRequest
 from django.shortcuts import get_object_or_404, render, redirect
+from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 from django.utils import timezone

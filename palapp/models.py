@@ -13,7 +13,7 @@ class Inmobiliaria(models.Model):
     telfij = models.CharField("Teléfono Fijo", max_length=15, null=True, default="", blank=True)
     cel1 = models.CharField("Celular 1", max_length=15, default="")
     cel2 = models.CharField("Celular 2", max_length=15, null=True, default="", blank=True)
-    fecha_inicon = models.DateTimeField("Fecha Inicio de Contrato", default=timezone.now)
+    fecha_inicon = models.DateTimeField("Fecha Inicio de Contrato", default=timezone.now, null=False)
     activo = models.BooleanField(null=False, default=1)
 
     fecha_creacion = models.DateTimeField(
@@ -139,7 +139,7 @@ class Vendedor(models.Model):
         default=timezone.now)
     fecha_cese = models.DateTimeField("Fecha de Cese", null=True, blank=True)
     fecha_creacion = models.DateTimeField(
-        default=timezone.now)
+        default=timezone.now, null=False)
     fecact = models.DateTimeField(
         default=timezone.now,
         blank=True, null=True)
@@ -149,6 +149,7 @@ class Vendedor(models.Model):
         if not len(self.cel1) >= 9:
             raise ValidationError(
                 {'cel1': "Celular 1 NO VALIDO"})
+
 
     def save(self, *args, **kwargs):
         self.appat = (self.appat).upper()
@@ -235,13 +236,13 @@ class Terreno(models.Model):
     precios = models.DecimalField("P.Venta S/", max_digits=10, decimal_places=2, default=0)
     comision = models.DecimalField("Comisión %", max_digits=5, decimal_places=2, default=0)
     lfrente = models.TextField("Limite de Frente", default="", null=True)
-    mlfrente = models.DecimalField("Mts Lin. de Frente", max_digits=7, decimal_places=2, default=0, null=True)
+    mlfrente = models.TextField("Mts Lin. de Frente", default="", null=True)
     lder = models.TextField("Limite Derecho", default="", null=True)
-    mlder = models.DecimalField("Mts Lin. Derecha", max_digits=7, decimal_places=2, default=0, null=True)
+    mlder = models.TextField("Mts Lin. Derecha", default="", null=True)
     lizq = models.TextField("Limite Izquierda", default="", null=True)
-    mlizq = models.DecimalField("Mts Lin. Izquierda", max_digits=7, decimal_places=2, default=0, null=True)
+    mlizq = models.TextField("Mts Lin. Izquierda", default="", null=True)
     lfondo = models.TextField("Limite Fondo", default="", null=True)
-    mlfondo = models.DecimalField("Mts Lin. Fondo", max_digits=7, decimal_places=2, default=0, null=True)
+    mlfondo = models.TextField("Mts Lin. Fondo", default="", null=True)
     norte = models.TextField("Norte", default="", null=True)
     sur = models.TextField("Sur", default="", null=True)
     este = models.TextField("Este", default="", null=True)
@@ -349,7 +350,7 @@ class Venta(models.Model):
 
     id = models.AutoField(primary_key=True)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name="Cliente", default=0)
-    terreno = models.ForeignKey(Terreno, on_delete=models.CASCADE, verbose_name="Terreno", default=0)
+    terreno = models.ForeignKey(Terreno, on_delete=models.CASCADE, verbose_name="Terreno", default=0, unique=True)
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE, verbose_name="Vendedor", default=0)
     notaria = models.ForeignKey(Notaria, on_delete=models.CASCADE, verbose_name="Notaria", default=0)
     banco = models.TextField("Banco", max_length=40, null=True, default="", blank=True)
@@ -371,7 +372,7 @@ class Venta(models.Model):
         self.save()
 
     def clean(self):
-        if not (self.precios+self.preciod > 0 ):
+        if not (self.precios+self.preciod > 0):
             raise ValidationError(
                 {'preciod': "Debe llenar precio de Venta en Soles o Dólares"})
 
