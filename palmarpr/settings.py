@@ -35,7 +35,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ['DEBUG']
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "103.54.59.231"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -100,12 +100,6 @@ DATABASES = {
         'PASSWORD': os.environ['PASSWORD'],
         'HOST': os.environ['HOST'],
         'PORT': os.environ['PORT'],
-
-        # 'NAME': 'palmar',
-        # 'USER': 'palmar',
-        # 'PASSWORD': 'palmar215577',
-        # 'HOST': 'localhost',
-        # 'PORT': '5432',
     }
 }
 # DATABASES = {
