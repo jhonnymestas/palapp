@@ -312,7 +312,7 @@ class Tramites(models.Model):
     fec_prox = models.DateTimeField("Fecha proximo trámite", default=timezone.now)
     lugar = models.CharField("Donde", choices=LUGAR, max_length=1)
     nivel = models.CharField("Nivel de Interes", choices=INTERES, max_length=1)
-    observ=models.TextField("Observaciones", blank=True)
+    observ = models.TextField("Observaciones", blank=True)
     fecha_creacion = models.DateTimeField(
         default=timezone.now)
     fecact = models.DateTimeField(

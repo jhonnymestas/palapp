@@ -72,6 +72,10 @@ urlpatterns = [
     path('detpag/<int:pk>', PagosDetalle.as_view(template_name="palapp/detpag.html"), name='detpag'),
     path('edtpag/<int:pk>', UpdtPagos.as_view(template_name="palapp/edtpag.html"), name='edtpag'),
 
+    # Seguridad
+    path('profile', views.Profile, name='profile'),
+    path('change_password', views.Change_Password, name='change_password'),
+
     # Mostrar formulario de alta de nuevo registro///// sin uso
 
 

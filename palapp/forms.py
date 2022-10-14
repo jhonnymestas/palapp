@@ -13,7 +13,7 @@ class InmobiliariaForm(ModelForm):
     telfij = forms.CharField(label="Tel.Fijo", required=False, max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
     cel1 = forms.CharField(label="Nro.Celular 1", max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
     cel2 = forms.CharField(label="Nro.Celular 2", required=False, max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    fecha_inicon = forms.DateField(label="Fecha de Inicio de Contrato", required=False, widget=forms.DateInput(attrs={'class': 'form-control'}))
+    fecha_inicon = forms.DateField(label="Fecha de Inicio de Contrato", required=True, widget=forms.DateInput(attrs={'class': 'form-control'}))
     fecha_creacion = forms.DateTimeField(disabled=True, initial=timezone.now())
 
     class Meta:

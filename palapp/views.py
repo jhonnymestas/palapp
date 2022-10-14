@@ -1,13 +1,17 @@
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect, HttpRequest
-from django.shortcuts import get_object_or_404, render, redirect
-from django.template import loader
+from django.shortcuts import get_object_or_404, render
+from django.core.mail import send_mail
 from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 from django.utils import timezone
+
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 
 from django.contrib import messages
 
@@ -18,6 +22,9 @@ from . models import Inmobiliaria, Question, Choice, Jefe, Vendedor, Cliente, Te
 from . models import Notaria, Pagos, Venta
 from .forms import InmobiliariaForm, JefeForm, VendedorForm, ClienteForm, TerrenoForm, TramitesForm, NotariaForm
 from .forms import VentaForm, PagosForm
+
+def is_in_multiple_groups(user):
+    return user.groups.filter(name__in=['administrador', 'responsable']).exists()
 
 
 # Seccion Listar
@@ -96,13 +103,26 @@ class Tramiteslistar(ListView):
     ordering = ['-fecha_creacion']
 
     def get_queryset(self):
-        if self.request.GET.get('buscar') is not None:
-            q=self.request.GET.get('buscar')
+        if is_in_multiple_groups(self.request.user):
 
-            return Tramites.objects.filter(Q(descrip__icontains=q) | Q(lugar__icontains=q) |
-                                          Q(resultado__icontains=q) | Q(por_hacer__icontains=q) |
-                                          Q(nivel__icontains=q) | Q(observ__icontains=q) |
-                                          Q(fec_prox__icontains=q))
+            if self.request.GET.get('buscar') is not None:
+                q = self.request.GET.get('buscar')
+
+                return Tramites.objects.filter(Q(descrip__icontains=q) | Q(lugar__icontains=q) |
+                                              Q(resultado__icontains=q) | Q(por_hacer__icontains=q) |
+                                              Q(nivel__icontains=q) | Q(observ__icontains=q) |
+                                              Q(fec_prox__icontains=q))
+        else:
+            if self.request.GET.get('buscar') is not None:
+                q = self.request.GET.get('buscar')
+
+                return Tramites.objects.filter((Q(descrip__icontains=q) | Q(lugar__icontains=q) |
+                                               Q(resultado__icontains=q) | Q(por_hacer__icontains=q) |
+                                               Q(nivel__icontains=q) | Q(observ__icontains=q) |
+                                               Q(fec_prox__icontains=q)) & Q(usuario_crea=self.request.user))
+            else:
+                return Tramites.objects.filter(Q(usuario_crea=self.request.user))
+
         return super().get_queryset()
 
 
@@ -519,6 +539,31 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = 'palapp/results.html'
 
+
+# Vista de la plantilla que muestra el perfil del usuario autenticado.
+
+@login_required(login_url='login')
+def Profile(request):
+    user = request.user
+    return render(request, 'palapp/profile.html', {'user':user})
+
+
+# Vista de la plantilla que se muestra el formulario para cambiar la contraseña del usuario logeado.
+
+@login_required(login_url='login')
+def Change_Password(request):
+    user = request.user
+    form = PasswordChangeForm(user=request.user)
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            success_message = 'Contraseña cambiada Correctamente.'
+            return HttpResponseRedirect('./')
+        else:
+            success_message = 'ERROR EN LAS CONTRASEÑAS PROPORCIONADAS.'
+            return HttpResponseRedirect('change_password')
+    return render(request, 'palapp/change_password.html', {'form': form})
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
