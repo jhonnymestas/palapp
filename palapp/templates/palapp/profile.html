@@ -1,0 +1,35 @@
+{% extends "palapp/base.html" %}
+
+ {% load static %} <!-- Cargar URL raíz -->
+
+ {% load widget_tweaks %}
+
+{% block content %}
+
+<p style="background-color: green; color: #ffffff; font-weight: bold; font-size: x-large"> Perfil de Usuario </p>
+
+<style>
+    .cuerpo {
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+
+</style>
+<div id>
+  <div class="cuerpo">
+
+<form action="" method="post"> {% csrf_token %}
+	<center>
+    <p><span style="font-weight: bold;">Nombre de Usuario:</span> <br style="margin-left: 60px;"> {{user.username}}</p>
+    <p><span style="font-weight: bold;">Nombres:</span> <br> {{user.first_name}}</p>
+    <p><span style="font-weight: bold;">Apellidos:</span> <br> {{user.last_name}}</p>
+    <p><span style="font-weight: bold;">eMail:</span> <br> {{user.email}}</p>
+	</center>
+</form>
+<br />
+<center>
+  <a href="./" type="submit" class="btn btn-primary">Cancelar</a>
+</center>
+ </div>
+</div>
+{% endblock %}
