@@ -65,6 +65,7 @@ urlpatterns = [
     path('addvta', views.add_venta, name='addvta'),
     path('detvta/<int:pk>', VentaDetalle.as_view(template_name="palapp/detvta.html"), name='detvta'),
     path('edtvta/<int:pk>', UpdtVenta.as_view(template_name="palapp/edtvta.html"), name='edtvta'),
+    path('edtvta/cplan/<int:pk>', UpdtVenta.as_view(template_name="palapp/cplan.html"), name='cplan'),
 
     # Pagos
     path('lispag', Pagoslistar.as_view(template_name="palapp/lispag.html"), name='lispag'),

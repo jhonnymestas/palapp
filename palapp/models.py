@@ -164,7 +164,10 @@ class Vendedor(models.Model):
         self.save()
 
     def __str__(self):
-        return f"{self.appat} {self.apmat} {self.nomb} {self.dni}"
+        return f"{self.appat} {self.apmat} {self.nomb} {'-'} {self.dni}"
+
+    class Meta:
+        ordering = ['appat', 'apmat', 'nomb']
 
 
 class Cliente(models.Model):
@@ -216,6 +219,9 @@ class Cliente(models.Model):
 
     def __str__(self):
         return f"{self.appat} {self.apmat} {self.nomb}"
+
+    class Meta:
+        ordering = ['appat', 'apmat', 'nomb']
 
 
 class Terreno(models.Model):
@@ -274,12 +280,12 @@ class Terreno(models.Model):
         return super(Terreno, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.codigo} {self.manzana} {self.lote}"
+        return f"{self.manzana} {'-'} {self.lote} {'/'} {self.codigo}"
 
     class Meta:
         verbose_name = 'terreno'
         verbose_name_plural = 'terrenos'
-
+        ordering = ['manzana', 'lote']
 
 class Tramites(models.Model):
     POR_HACER = (
@@ -344,8 +350,9 @@ class Tramites(models.Model):
 class Venta(models.Model):
     CONDICION = (
         ('C', 'Contado'),
-        ('B', 'Financiamiento Banco'),
-        ('P', 'FInanciamiento Propio'),
+        ('B', 'Financ.Banco'),
+        ('P', 'FInanc.Propio Efectivo'),
+        ('L', 'FInanc.Propio Letras'),
     )
 
     id = models.AutoField(primary_key=True)
@@ -366,6 +373,9 @@ class Venta(models.Model):
     fecact = models.DateTimeField(
         blank=True, null=True)
     usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1, )
+    aprobado = models.BooleanField("Aprobado", default=False)
+    plan_generado = models.BooleanField("Plan de Pago Generado", default=False)
+    foto_contrato = models.ImageField("Foto Voucher", blank=True)
 
     def fact(self):
         self.fecact = timezone.now()
@@ -384,7 +394,7 @@ class Venta(models.Model):
         return super(Venta, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.nro_cont} {self.cliente} {self.terreno}"
+        return f"{self.nro_cont} {'/'} {self.cliente} {'/'} {self.terreno}"
 
     class Meta:
         verbose_name = 'venta'

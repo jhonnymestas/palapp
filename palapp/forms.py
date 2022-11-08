@@ -155,12 +155,13 @@ class VentaForm(ModelForm):
     precios = forms.DecimalField(label="Precio de Venta S/", required=False, initial=0, widget = forms.NumberInput(attrs={'class':'form-control'}))
     comision = forms.DecimalField(label="% Comisión", widget = forms.NumberInput(attrs={'class':'form-control'}))
     observ = forms.CharField(label="Observaciones", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
+    aprobado = forms.Select(attrs={'class':'form-control'})
     fecha_creacion = forms.DateTimeField(disabled=True, initial=timezone.now())
 
     class Meta:
         model = Venta
         fields = ("cliente", "terreno", "vendedor", "notaria", "banco", "condvta", "nro_cont", "fec_con", "preciod",  "precios",
-                  "comision", "observ", "fecha_creacion")
+                  "comision", "observ", "aprobado", "fecha_creacion")
 
 
 class PagosForm(ModelForm):
