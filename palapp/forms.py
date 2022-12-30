@@ -14,11 +14,10 @@ class InmobiliariaForm(ModelForm):
     cel1 = forms.CharField(label="Nro.Celular 1", max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
     cel2 = forms.CharField(label="Nro.Celular 2", required=False, max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
     fecha_inicon = forms.DateField(label="Fecha de Inicio de Contrato", required=True, widget=forms.DateInput(attrs={'class': 'form-control'}))
-    fecha_creacion = forms.DateTimeField(disabled=True, initial=timezone.now())
 
     class Meta:
         model = Inmobiliaria
-        fields = ("ruc", "rassoc", "direccion", "correo", "telfij", "cel1", "cel2", "fecha_inicon",  "fecha_creacion")
+        fields = ("ruc", "rassoc", "direccion", "correo", "telfij", "cel1", "cel2", "fecha_inicon")
 
 
 class JefeForm(ModelForm):
@@ -30,11 +29,10 @@ class JefeForm(ModelForm):
     telfij = forms.CharField(label="Tel.Fijo", required=False, max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
     cel1 = forms.CharField(label="Nro.Celular 1", max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
     cel2 = forms.CharField(label="Nro.Celular 2", required=False, max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    fecha_creacion = forms.DateTimeField(disabled=True, initial=timezone.now())
 
     class Meta:
         model = Jefe
-        fields = ("inmobiliaria", "appat", "apmat", "nomb", "correo", "telfij", "cel1", "cel2", "fecha_creacion")
+        fields = ("inmobiliaria", "appat", "apmat", "nomb", "correo", "telfij", "cel1", "cel2")
 
 
 class VendedorForm(ModelForm):
@@ -51,12 +49,11 @@ class VendedorForm(ModelForm):
     cel2 = forms.CharField(label="Nro.Celular 2", required=False, max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
     fecha_ingreso = forms.DateField(label="Fecha de Ingreso", required=True, widget=forms.DateInput(attrs={'class': 'form-control'}))
     fecha_cese = forms.DateField(label="Fecha de Cese", required=False, widget=forms.DateInput(attrs={'class': 'form-control'}))
-    fecha_creacion = forms.DateTimeField(disabled=True, initial=timezone.now())
 
     class Meta:
         model = Vendedor
         fields = ("jefe", "id_usuario_jefe", "dni", "appat", "apmat", "nomb", "direccion", "codagente", "correo", "telfij", "cel1", "cel2",
-                  "fecha_ingreso", "fecha_cese",  "fecha_creacion")
+                  "fecha_ingreso", "fecha_cese")
 
 
 class ClienteForm(ModelForm):
@@ -76,13 +73,11 @@ class ClienteForm(ModelForm):
     celcon = forms.CharField(label="Celular Contacto", required=False, max_length=15, widget = forms.TextInput(attrs={'class':'form-control'}))
     ocupacion = forms.CharField(label="Ocupación", max_length=50, widget = forms.TextInput(attrs={'class':'form-control'}))
     observ = forms.CharField(label="Observaciones", required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    fecha_creacion = forms.DateTimeField(disabled=True, initial=timezone.now())
 
     class Meta:
         model = Cliente
         fields = ("vendedor", "dni", "appat", "apmat", "nomb", "direccion", "directra", "pais",
-                  "correo", "telfij", "cel1", "cel2", "ocupacion", "percon", "celcon", "observ",
-                  "fecha_creacion")
+                  "correo", "telfij", "cel1", "cel2", "ocupacion", "percon", "celcon", "observ")
 
 
 class TerrenoForm(ModelForm):
@@ -107,13 +102,12 @@ class TerrenoForm(ModelForm):
     este = forms.CharField(label="Este", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
     oeste = forms.CharField(label="Oeste", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
     observaciones = forms.CharField(label="Observaciones", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
-    fecha_creacion = forms.DateTimeField(disabled=True, initial=timezone.now())
 
     class Meta:
         model = Terreno
         fields = ("vendedor", "cliente", "codigo", "manzana", "lote", "area", "preciod", "precios", "comision", "lfrente",
                   "mlfrente", "lder", "mlder", "lizq", "mlizq", "lfondo", "mlfondo", "norte", "sur", "este", "oeste",
-                  "observaciones", "estado", "fecha_creacion")
+                  "observaciones", "estado")
 
 
 class TramitesForm(ModelForm):
@@ -122,12 +116,11 @@ class TramitesForm(ModelForm):
     resultado = forms.CharField(label="Resultado",  widget = forms.TextInput(attrs={'class':'form-control'}))
     fec_prox = forms.DateTimeField(label="Fecha Próximo Trámite",  initial=timezone.now(), widget = forms.DateTimeInput(attrs={'class':'form-control'}))
     observ = forms.CharField(label="Observaciones", required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
-    fecha_creacion = forms.DateTimeField(disabled=True, initial=timezone.now())
 
     class Meta:
         model = Tramites
         fields = ("cliente", "terreno", "vendedor", "descrip", "resultado", "nivel", "por_hacer", "fec_prox",  "lugar",
-                  "observ", "fecha_creacion")
+                  "observ")
 
 
 class NotariaForm(ModelForm):
@@ -139,11 +132,10 @@ class NotariaForm(ModelForm):
     telfij = forms.CharField(label="Tel.Fijo", required=False, max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
     cel1 = forms.CharField(label="Nro.Celular 1", max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
     cel2 = forms.CharField(label="Nro.Celular 2", required=False, max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    fecha_creacion = forms.DateTimeField(disabled=True, initial=timezone.now())
 
     class Meta:
         model = Notaria
-        fields = ("ruc", "rassoc", "direccion",  "correo", "telfij", "cel1", "cel2", "fecha_creacion")
+        fields = ("ruc", "rassoc", "direccion",  "correo", "telfij", "cel1", "cel2")
 
 
 class VentaForm(ModelForm):
@@ -156,12 +148,15 @@ class VentaForm(ModelForm):
     comision = forms.DecimalField(label="% Comisión", widget = forms.NumberInput(attrs={'class':'form-control'}))
     observ = forms.CharField(label="Observaciones", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
     aprobado = forms.Select(attrs={'class':'form-control'})
-    fecha_creacion = forms.DateTimeField(disabled=True, initial=timezone.now())
+    inicial = forms.DecimalField(label="Inicial US$", initial=0, widget = forms.NumberInput(attrs={'class':'form-control'}))
+    fecha_inicial = forms.DateTimeField(label="Fecha de entrega de Inicial", initial=timezone.now())
+    fecha_1ervct = forms.DateTimeField(label="Fecha Primer Vencimiento", initial=timezone.now())
+    cuotas = forms.DecimalField(label="No.Cuotas", required=False, initial=0, widget = forms.NumberInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = Venta
         fields = ("cliente", "terreno", "vendedor", "notaria", "banco", "condvta", "nro_cont", "fec_con", "preciod",  "precios",
-                  "comision", "observ", "aprobado", "fecha_creacion")
+                  "comision", "observ", "inicial", "fecha_inicial", "fecha_1ervct", "cuotas", "aprobado", "foto_contrato")
 
 
 class PagosForm(ModelForm):
@@ -176,9 +171,8 @@ class PagosForm(ModelForm):
     banco = forms.CharField(label="Banco",  widget = forms.TextInput(attrs={'class':'form-control'}))
     efectivo = forms.BooleanField(label="Efectivo",  widget = forms.CheckboxInput(attrs={'class':'form-control'}))
     observ = forms.CharField(label="Observaciones", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
-    fecha_creacion = forms.DateTimeField(disabled=True, initial=timezone.now())
 
     class Meta:
         model = Pagos
         fields = ("venta", "cuota", "fec_vcto", "fec_pago", "preciod",  "precios", "gastosd", "gastoss", "nrooper",
-                  "banco", "observ", "efectivo", "fecha_creacion")
+                  "banco", "observ", "efectivo")

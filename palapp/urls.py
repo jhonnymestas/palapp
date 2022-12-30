@@ -7,11 +7,10 @@ from .views import Pagoslistar, Ventalistar
 from .views import UpdtInmobiliaria, UpdtCliente, UpdtJefe, UpdtVendedor, UpdtTerreno, UpdtTramite, UpdtNotaria
 from .views import UpdtVenta, UpdtPagos
 from .views import InmobiliariaNuevo, InmobiliariaDetalle, JefeDetalle, VendedorDetalle, ClienteDetalle, TerrenoDetalle
-from .views import TramitesDetalle, NotarioDetalle, VentaDetalle, PagosDetalle
+from .views import TramitesDetalle, NotarioDetalle, VentaDetalle, gen_cron, ventasbulk, PagosDetalle
 
 app_name = 'palapp'
 
-# path('search/', views.search, name='search')
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
@@ -65,7 +64,8 @@ urlpatterns = [
     path('addvta', views.add_venta, name='addvta'),
     path('detvta/<int:pk>', VentaDetalle.as_view(template_name="palapp/detvta.html"), name='detvta'),
     path('edtvta/<int:pk>', UpdtVenta.as_view(template_name="palapp/edtvta.html"), name='edtvta'),
-    path('edtvta/cplan/<int:pk>', UpdtVenta.as_view(template_name="palapp/cplan.html"), name='cplan'),
+    path('edtvta/cplan/<int:pk>', gen_cron, name='cplan'),
+    path('lisdpag/<int:pk>', PagosDetalle.as_view(template_name="palapp/lisdpag.html"), name='lisdpag'),
 
     # Pagos
     path('lispag', Pagoslistar.as_view(template_name="palapp/lispag.html"), name='lispag'),

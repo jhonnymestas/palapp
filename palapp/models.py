@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from datetime import datetime
 
 
 class Inmobiliaria(models.Model):
@@ -16,8 +17,8 @@ class Inmobiliaria(models.Model):
     fecha_inicon = models.DateTimeField("Fecha Inicio de Contrato", default=timezone.now, null=False)
     activo = models.BooleanField(null=False, default=1)
 
-    fecha_creacion = models.DateTimeField(
-        default=timezone.now)
+    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
+        null=True, editable=False)
     fecha_act = models.DateTimeField(auto_now=True,
         blank=True, null=True)
     usuar=models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario Creación")
@@ -35,12 +36,44 @@ class Inmobiliaria(models.Model):
         self.direccion = (self.direccion).upper()
         return super(Inmobiliaria, self).save(*args, **kwargs)
 
-    def fecact(self):
-        self.fecha_act = timezone.now()
-        self.save()
-
     def __str__(self):
         return f"{self.ruc} {self.rassoc} {self.direccion}"
+
+
+class Bancos(models.Model):
+    id = models.AutoField(primary_key=True)
+    rassoc = models.CharField("Razón Social", max_length=80, default="", unique=True)
+    activo = models.BooleanField(null=False, default=1)
+    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
+        null=True, editable=False)
+    fecha_act = models.DateTimeField(auto_now=True,
+        blank=True, null=True)
+
+
+    def save(self, *args, **kwargs):
+        self.rassoc = (self.rassoc).upper()
+        return super(Bancos, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.rassoc}"
+
+
+class TipoDoc(models.Model):
+    id = models.AutoField(primary_key=True)
+    tipodoc = models.CharField("Tipo DOcumento Sunat", max_length=40, default="", unique=True)
+    activo = models.BooleanField(null=False, default=1)
+    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
+        null=True, editable=False)
+    fecha_act = models.DateTimeField(auto_now=True,
+        blank=True, null=True)
+
+
+    def save(self, *args, **kwargs):
+        self.rassoc = (self.tipodoc).upper()
+        return super(TipoDoc, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.tipodoc}"
 
 
 class Notaria(models.Model):
@@ -53,10 +86,9 @@ class Notaria(models.Model):
     cel1 = models.CharField("Celular 1", max_length=15, default="")
     cel2 = models.CharField("Celular 2", max_length=15, default="", null=True, blank=True)
     activo = models.BooleanField(null=False, default=True)
-    fecha_creacion = models.DateTimeField(
-        default=timezone.now)
-    fecact = models.DateTimeField(
-        default=timezone.now,
+    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
+        null=True, editable=False)
+    fecact = models.DateTimeField(auto_now=True,
         blank=True, null=True)
     usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario Coordinador", default=1,
                                      null=True)
@@ -70,10 +102,6 @@ class Notaria(models.Model):
         self.rassoc = (self.rassoc).upper()
         self.direccion = (self.direccion).upper()
         return super(Notaria, self).save(*args, **kwargs)
-
-    def fact(self):
-        self.fecact = timezone.now()
-        self.save()
 
     def __str__(self):
         return f"{self.rassoc} {self.ruc}"
@@ -90,10 +118,9 @@ class Jefe(models.Model):
     cel1 = models.CharField("Celular 1", max_length=15, default="")
     cel2 = models.CharField("Celular 2", max_length=15, null=True, default="" , blank=True)
     activo = models.BooleanField(null=False, default=True)
-    fecha_creacion = models.DateTimeField(
-        default=timezone.now)
-    fecact = models.DateTimeField(
-        default=timezone.now,
+    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
+        null=True, editable=False)
+    fecact = models.DateTimeField(auto_now=True,
         blank=True, null=True)
     usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1,)
 
@@ -107,10 +134,6 @@ class Jefe(models.Model):
         self.apmat = (self.apmat).upper()
         self.nomb = (self.nomb).upper()
         return super(Jefe, self).save(*args, **kwargs)
-
-    def fact(self):
-        self.fecact = timezone.now()
-        self.save()
 
     def __str__(self):
         return f"{self.appat} {self.apmat} {self.nomb}"
@@ -138,10 +161,9 @@ class Vendedor(models.Model):
     fecha_ingreso = models.DateTimeField("Fecha de Ingreso",
         default=timezone.now)
     fecha_cese = models.DateTimeField("Fecha de Cese", null=True, blank=True)
-    fecha_creacion = models.DateTimeField(
-        default=timezone.now, null=False)
-    fecact = models.DateTimeField(
-        default=timezone.now,
+    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
+        null=True, editable=False)
+    fecact = models.DateTimeField(auto_now=True,
         blank=True, null=True)
     id_usuario_jefe = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario Coordinador", default=1, null=True)
 
@@ -150,18 +172,12 @@ class Vendedor(models.Model):
             raise ValidationError(
                 {'cel1': "Celular 1 NO VALIDO"})
 
-
     def save(self, *args, **kwargs):
         self.appat = (self.appat).upper()
         self.apmat = (self.apmat).upper()
         self.nomb = (self.nomb).upper()
         self.direccion = (self.direccion).upper()
         return super(Vendedor, self).save(*args, **kwargs)
-
-
-    def fact(self):
-        self.fecact = timezone.now()
-        self.save()
 
     def __str__(self):
         return f"{self.appat} {self.apmat} {self.nomb} {'-'} {self.dni}"
@@ -182,19 +198,19 @@ class Cliente(models.Model):
     pais = models.CharField("Nacionalidad", max_length=50, default="PERU")
     correo = models.EmailField("eMail", default="@")
     telfij = models.CharField("Teléfono Fijo", max_length=15, default="", blank=True)
-    cel1 = models.CharField("Celular 1", max_length=15, default="")
+    cel1 = models.CharField("Celular 1", max_length=15, default="", unique=True)
     cel2 = models.CharField("Celular 2", max_length=15, default="", blank=True)
     ocupacion = models.CharField("Ocupación", max_length=100, default="")
     percon = models.TextField("Persona de contacto", default="", blank=True)
     celcon = models.CharField("Numero contacto", max_length=15, default="", blank=True)
     activo = models.BooleanField(null=False, default=True)
     observ = models.TextField("Observaciones", null=True, default="", blank=True)
-    fecha_creacion = models.DateTimeField(
-        default=timezone.now)
-    fecact = models.DateTimeField(
-        default=timezone.now,
+    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
+        null=True, editable=False)
+    fecact = models.DateTimeField(auto_now=True,
         blank=True, null=True)
-    usuario_crea=models.ForeignKey(User, on_delete=models.CASCADE, default=1,)
+    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1,)
+    feccad = models.DateTimeField("Fecha Caducidad", blank=True, null=True)
 
     def clean(self):
         if not len(self.cel1) >= 9:
@@ -211,11 +227,11 @@ class Cliente(models.Model):
         self.directra = (self.directra).upper()
         self.percon = (self.percon).upper()
         self.observ = (self.observ).upper()
+        try:
+            datetime.strptime(self.feccad, '%Y-%m-%d')
+        except ValueError:
+            self.feccad = self.fecha_creacion + datetime.timedelta(days=30)
         return super(Cliente, self).save(*args, **kwargs)
-
-    def fact(self):
-        self.fecact = timezone.now()
-        self.save()
 
     def __str__(self):
         return f"{self.appat} {self.apmat} {self.nomb}"
@@ -255,15 +271,11 @@ class Terreno(models.Model):
     oeste = models.TextField("Oeste", default="", null=True)
     observaciones = models.TextField("Observaciones", blank=True)
     estado = models.CharField("Estado", choices=ESTD, max_length=1, default='L')
-    fecha_creacion = models.DateTimeField(
-        default=timezone.now)
-    fecact = models.DateTimeField(
+    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
+        null=True, editable=False)
+    fecact = models.DateTimeField(auto_now=True,
         blank=True, null=True)
     usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1, )
-
-    def fact(self):
-        self.fecact = timezone.now()
-        self.save()
 
     def save(self, *args, **kwargs):
         self.codigo = (self.codigo).upper()
@@ -319,15 +331,11 @@ class Tramites(models.Model):
     lugar = models.CharField("Donde", choices=LUGAR, max_length=1)
     nivel = models.CharField("Nivel de Interes", choices=INTERES, max_length=1)
     observ = models.TextField("Observaciones", blank=True)
-    fecha_creacion = models.DateTimeField(
-        default=timezone.now)
-    fecact = models.DateTimeField(
+    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
+        null=True, editable=False)
+    fecact = models.DateTimeField(auto_now=True,
         blank=True, null=True)
     usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1,)
-
-    def fact(self):
-        self.fecact = timezone.now()
-        self.save()
 
     def clean(self):
         if not (self.fec_prox) >= timezone.now():
@@ -357,7 +365,7 @@ class Venta(models.Model):
 
     id = models.AutoField(primary_key=True)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name="Cliente", default=0)
-    terreno = models.ForeignKey(Terreno, on_delete=models.CASCADE, verbose_name="Terreno", default=0, unique=True)
+    terreno = models.OneToOneField(Terreno, on_delete=models.CASCADE, verbose_name="Terreno", default=0)
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE, verbose_name="Vendedor", default=0)
     notaria = models.ForeignKey(Notaria, on_delete=models.CASCADE, verbose_name="Notaria", default=0)
     banco = models.TextField("Banco", max_length=40, null=True, default="", blank=True)
@@ -368,18 +376,22 @@ class Venta(models.Model):
     precios = models.DecimalField("P.Venta S/", max_digits=10, decimal_places=2, default=0)
     comision = models.DecimalField("Comisión %", max_digits=5, decimal_places=2, default=0)
     observ = models.TextField("Observaciones", blank=True)
-    fecha_creacion = models.DateTimeField(
-        default=timezone.now)
-    fecact = models.DateTimeField(
+    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
+        null=True, editable=False)
+    fecact = models.DateTimeField(auto_now=True,
         blank=True, null=True)
     usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1, )
     aprobado = models.BooleanField("Aprobado", default=False)
     plan_generado = models.BooleanField("Plan de Pago Generado", default=False)
     foto_contrato = models.ImageField("Foto Voucher", blank=True)
-
-    def fact(self):
-        self.fecact = timezone.now()
-        self.save()
+    inicial = models.DecimalField("Inicial US$", max_digits=10, decimal_places=2, default=0)
+    fecha_inicial = models.DateTimeField("Fecha entrega Inicial", default=timezone.now, null=True)
+    fecha_1ervct = models.DateTimeField(default=timezone.now, null=True)
+    cuotas = models.DecimalField("No.Cuotas", max_digits=2, decimal_places=0, default=0)
+    foto_pago_com = models.ImageField("Foto Pago Comisión", blank=True)
+    fecha_pago_com = models.DateTimeField("Fecha Pago Comisión", default=timezone.now, null=True)
+    doc_pag_com = models.TextField("Documento Pago Comisión", max_length=30, null=True, default="", blank=True)
+    com_pag = models.BooleanField(null=False, default=False)
 
     def clean(self):
         if not (self.precios+self.preciod > 0):
@@ -408,7 +420,7 @@ class Pagos(models.Model):
     )
 
     id = models.AutoField(primary_key=True)
-    venta = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name="Contrato", default=0)
+    venta = models.ForeignKey(Venta, on_delete=models.CASCADE, verbose_name="Contrato", default=0)
     cuota = models.IntegerField("Cuota No.", default=1)
     fec_vcto = models.DateTimeField("Fecha Vencimiento", default=timezone.now, null=False)
     fec_pago = models.DateTimeField("Fecha Pago", null=False, blank=True)
@@ -422,15 +434,11 @@ class Pagos(models.Model):
     efectivo = models.BooleanField("Efectivo?", default=True)
     estado = models.CharField("Estado", choices=ESTADO, max_length=1, default="P")
     foto_vouc = models.ImageField("Foto Voucher", blank=True)
-    fecha_creacion = models.DateTimeField(
-        default=timezone.now)
-    fecact = models.DateTimeField(
+    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
+        null=True, editable=False)
+    fecact = models.DateTimeField(auto_now=True,
         blank=True, null=True)
     usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1, )
-
-    def fact(self):
-        self.fecact = timezone.now()
-        self.save()
 
     def clean(self):
         if not (self.precios+self.preciod > 0):
@@ -455,5 +463,4 @@ class Choice(models.Model):
       question = models.ForeignKey(Question, on_delete=models.CASCADE)
       choice_text = models.CharField(max_length=200)
       votes = models.IntegerField(default=0)
-
 

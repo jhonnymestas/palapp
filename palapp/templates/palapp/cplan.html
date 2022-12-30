@@ -32,10 +32,10 @@
                 <form method="get">
                         <div class="input-group col-md-12">
                             <table style="width:30%">
-                            <label class="txt_negrita">PRECIO US$</label>
-                            {{ form.preciod|add_class:"form-control" }}
-                            <label class="txt_negrita">Cuota Inicial</label><input type="number" name="inicial" id="inicial" min="0" max="99000" class="form-control" placeholder="Inicial...", value="{{ request.GET.inicial }}">
+                            <p><span style="font-weight: bold;">Precio US%:</span> <br style="margin-left: 60px;"> {{form.preciod}}</p>
+                            <label class="txt_negrita">Cuota Inicial</label><input type="number" name="cini" id="inicial" min="0" max="99000" class="form-control" placeholder="Inicial...", value="{{ request.GET.cini }}">
                             <label class="txt_negrita">Nro de Cuotas</label><input type="number" name="cuotas" id="cuotas" min="1" max="48" class="form-control" placeholder="Cuotas...", value="{{ request.GET.cuotas }}">
+                            <label class="txt_negrita">Fecha 1er.Vencimiento</label><input type="date" name="fvc" id="fvc" class="form-control" placeholder="Fec.1er Vencimiento...", value="{{ request.GET.fvc }}">
                             </table>
                         </div>
                 </form>
@@ -43,7 +43,7 @@
     </div>
 </table>
     <center>
-    <a type="submit" class="btn btn-primary">Generar</a>
+    <button type="submit" class="btn btn-primary">Generar</button>
     <a href="{% url 'palapp:lisvta' %}" type="submit" class="btn btn-primary">Cancelar</a>
 </center>
 </form>

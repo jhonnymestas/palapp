@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import Cliente, Inmobiliaria, Jefe, Vendedor
-from .models import Terreno, Tramites, Notaria, Venta, Pagos
+from .models import Bancos, TipoDoc, Inmobiliaria, Jefe, Vendedor
+from .models import Cliente, Terreno, Tramites, Notaria, Venta, Pagos
 
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
@@ -12,7 +12,8 @@ class ClienteAdmin(admin.ModelAdmin):
 
 
 class InmobiliariaAdmin(admin.ModelAdmin):
-    list_display = ['id', 'ruc', 'rassoc', 'direccion', 'correo', 'cel1', 'cel2', 'fecha_inicon', 'activo', 'usuar']
+    list_display = ['id', 'ruc', 'rassoc', 'direccion', 'correo', 'cel1', 'cel2', 'fecha_inicon', 'activo', 'usuar',
+    'fecha_creacion', 'fecha_act']
 
 
 class JefeAdmin(admin.ModelAdmin):
@@ -40,9 +41,18 @@ class NotariaAdmin(admin.ModelAdmin):
                     'fecha_creacion', 'usuario_crea']
 
 
+class BancosAdmin(admin.ModelAdmin):
+    list_display = ['id', 'rassoc', 'activo', 'fecha_creacion']
+
+
+class TipoDocAdmin(admin.ModelAdmin):
+    list_display = ['id', 'tipodoc', 'activo', 'fecha_creacion']
+
+
 class VentaAdmin(admin.ModelAdmin):
     list_display = ['id', 'cliente', 'terreno', 'vendedor', 'notaria', 'banco', 'condvta', 'nro_cont', 'fec_con',
-                    'preciod', 'precios', 'comision', 'observ', 'usuario_crea']
+                    'preciod', 'precios', 'comision', 'observ', 'usuario_crea', 'foto_pago_com', 'fecha_pago_com',
+                    'doc_pag_com', 'com_pag']
 
 
 class PagosAdmin(admin.ModelAdmin):
@@ -68,5 +78,5 @@ admin.site.register(Tramites, TramitesAdmin)
 admin.site.register(Notaria, NotariaAdmin)
 admin.site.register(Venta, VentaAdmin)
 admin.site.register(Pagos, PagosAdmin)
-
-
+admin.site.register(Bancos, BancosAdmin)
+admin.site.register(TipoDoc, TipoDocAdmin)

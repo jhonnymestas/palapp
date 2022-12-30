@@ -9,6 +9,8 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 from django.utils import timezone
 
+from .models import Pagos
+
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
@@ -477,7 +479,8 @@ class UpdtVenta(SuccessMessageMixin, UpdateView):
     model = Venta
     form = VentaForm
     fields = ("cliente", "terreno", "vendedor", "notaria", "banco", "condvta", "nro_cont", "fec_con", "preciod", "precios",
-              "comision", "observ")
+              "comision", "observ", "inicial", "fecha_inicial", "fecha_1ervct", "cuotas", "aprobado", "fecha_creacion",
+              "foto_contrato")
 
     # Mensaje que se mostrará cuando se actualice el registro
     success_message = 'Cierre de Venta actualizado correctamente.'
@@ -564,6 +567,88 @@ def Change_Password(request):
             success_message = 'ERROR EN LAS CONTRASEÑAS PROPORCIONADAS.'
             return HttpResponseRedirect('change_password')
     return render(request, 'palapp/change_password.html', {'form': form})
+
+
+# Define class for inserting multiple data
+def gen_cron(request, pk):
+    ventas = Venta.objects.get(id=pk)
+    if request.method == 'GET':
+        form2 = VentaForm(instance=ventas)
+        print("paso 3")
+    else:
+        form2 = VentaForm(request.POST, instance=ventas)
+        if form2.is_valid():
+            print ("Paso ok")
+         #  form2.save() # Guardar los datos en la base de datos
+            return HttpResponseRedirect(reverse('palapp:lisvta'))
+        else:
+           form2 = VentaForm() # Unbound form
+    print("paso 2")
+    model = Pagos
+    monto = ventas.preciod - ventas.inicial
+    icuo = monto / ventas.cuotas
+    saldo = monto
+    for indice in cuotas:
+        Pagos.objects.bulk_create([
+            Pagos(venta=ventas.id,
+                  cuota=indice,
+                  fec_vcto=ventas.fecha_1ervct,
+                  fec_pago=0,
+                  preciod=icuo,
+                  precios=0,
+                  gastosd=0,
+                  gastoss=0,
+                  nrooper='',
+                  banco='',
+                  observ='',
+                  efectivo=False,
+                  estado='P',
+                  fecha_creacion=timezone.now,
+                  fecact=timezone.now(),
+                  usuario_crea=request.user)])
+        saldo = saldo - icuo
+    return render(request, 'palapp/cplan.html', {'form': form2})
+
+
+
+def ventasbulk(request, pk):
+    model = Venta
+    venta = Venta.objects.get(id=pk)
+    form2 = VentaForm(request.POST, instance=venta)
+    if form2.is_valid():
+        if request.GET.get('inicial') is not None and request.GET.get('cuotas') is not None:
+           inicial = request.GET.get('cini')
+           cuotas = request.GET.get('cuotas')
+           fvc = request.GET.get('fvc')
+
+        # Insert 5 records in the books table at a time
+
+           model = Pagos
+           monto = venta.preciod-inicial
+           icuo=monto/cuotas
+           saldo=monto
+           for indice in cuotas:
+               Pagos.objects.bulk_create([
+                        Pagos(venta=venta.id,
+                            cuota=indice,
+                            fec_vcto=fvc,
+                            fec_pago=0,
+                            preciod=icuo,
+                            precios=0,
+                            gastosd=0,
+                            gastoss=0,
+                            nrooper='',
+                            banco='',
+                            observ='',
+                            efectivo=False,
+                            estado='P',
+                            fecha_creacion=timezone.now,
+                            fecact=timezone.now(),
+                            usuario_crea =request.user)])
+               saldo=saldo-icuo
+    else:
+        form2 = VentaForm()  # Unbound form
+    return HttpResponseRedirect(reverse('palapp:lisvta'))
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
