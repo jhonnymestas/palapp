@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class Inmobiliaria(models.Model):
@@ -192,7 +192,7 @@ class Cliente(models.Model):
     appat = models.CharField("Apellido Paterno", max_length=50, null=True)
     apmat = models.CharField("Apellido Materno", max_length=50, null=True)
     nomb = models.CharField("Nombre", max_length=50)
-    dni = models.CharField("DNI", max_length=8, default=" ")
+    dni = models.CharField("DNI", max_length=8, default=" ", blank=True)
     direccion = models.TextField("Dirección Casa", default="AREQUIPA")
     directra = models.TextField("Dirección Trabajo", default="AREQUIPA", blank=True)
     pais = models.CharField("Nacionalidad", max_length=50, default="PERU")
@@ -200,7 +200,7 @@ class Cliente(models.Model):
     telfij = models.CharField("Teléfono Fijo", max_length=15, default="", blank=True)
     cel1 = models.CharField("Celular 1", max_length=15, default="", unique=True)
     cel2 = models.CharField("Celular 2", max_length=15, default="", blank=True)
-    ocupacion = models.CharField("Ocupación", max_length=100, default="")
+    ocupacion = models.CharField("Ocupación", max_length=100, default="", blank=True)
     percon = models.TextField("Persona de contacto", default="", blank=True)
     celcon = models.CharField("Numero contacto", max_length=15, default="", blank=True)
     activo = models.BooleanField(null=False, default=True)
@@ -227,10 +227,8 @@ class Cliente(models.Model):
         self.directra = (self.directra).upper()
         self.percon = (self.percon).upper()
         self.observ = (self.observ).upper()
-        try:
-            datetime.strptime(self.feccad, '%Y-%m-%d')
-        except ValueError:
-            self.feccad = self.fecha_creacion + datetime.timedelta(days=30)
+        if isinstance(self.feccad, type(None)):
+            self.feccad = datetime.utcnow() + timedelta(days=30)
         return super(Cliente, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -392,6 +390,10 @@ class Venta(models.Model):
     fecha_pago_com = models.DateTimeField("Fecha Pago Comisión", default=timezone.now, null=True)
     doc_pag_com = models.TextField("Documento Pago Comisión", max_length=30, null=True, default="", blank=True)
     com_pag = models.BooleanField(null=False, default=False)
+    bco_pag_com = models.ForeignKey(Bancos, on_delete=models.CASCADE, verbose_name="Banco Pago Comisión", default=1,
+                                    null=True)
+    tdoc_sun_com = models.ForeignKey(TipoDoc, on_delete=models.CASCADE, verbose_name="Doctumento Pago Comisión",
+                                     default=1, )
 
     def clean(self):
         if not (self.precios+self.preciod > 0):
