@@ -21,9 +21,9 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from . models import Inmobiliaria, Question, Choice, Jefe, Vendedor, Cliente, Terreno, Tramites
-from . models import Notaria, Pagos, Venta
+from . models import Notaria, Pagos, Venta, Bancos, TipoDoc
 from .forms import InmobiliariaForm, JefeForm, VendedorForm, ClienteForm, TerrenoForm, TramitesForm, NotariaForm
-from .forms import VentaForm, PagosForm
+from .forms import VentaForm, PagosForm, BancosForm, TipoDocForm
 
 def is_in_multiple_groups(user):
     return user.groups.filter(name__in=['administrador', 'responsable']).exists()
@@ -164,8 +164,20 @@ class Pagoslistar(ListView):
                                            Q(fecha_con__icontains=q) | Q(terreno__icontains=q) |
                                            Q(vendedor__icontains=q) | Q(observ__icontains=q) |
                                            Q(banco__icontains=q) | Q(notaria__icontains=q) |
-                                           Q(fec_con__icontains=q))
+                                           Q(fec_con__icontains=q) | Q(nom_cotitular__icontains=q))
         return super().get_queryset()
+
+
+class Bancoslistar(ListView):
+    model = Bancos
+    paginate_by = 8
+    ordering = ['rassoc']
+
+
+class TipoDoclistar(ListView):
+    model = TipoDoc
+    paginate_by = 8
+    ordering = ['tipodoc']
 
 
 # Para obtener todos los campos de un registro de la tablas
@@ -196,6 +208,14 @@ class TramitesDetalle(DetailView):
 
 class NotarioDetalle(DetailView):
     model = Notaria
+
+
+class BancosDetalle(DetailView):
+    model = Bancos
+
+
+class TipoDocDetalle(DetailView):
+    model =  TipoDoc
 
 
 class VentaDetalle(DetailView):
@@ -378,6 +398,40 @@ def add_pagos(request):
     return render(request, 'palapp/addpag.html', {'form': form2})
 
 
+def add_bancos(request):
+    if request.method == 'POST': # si el usuario está enviando el formulario con datos
+        form2 = BancosForm(request.POST) # Bound form
+        if form2.is_valid():
+            new_bancos = form2.save(commit=False) # Guardar los datos en la base de datos
+            if form2.is_valid():
+                if request.user.is_authenticated:
+                    new_bancos.usuario_crea = request.user
+                else:
+                    new_bancos.usuario_crea = AnonymousUser.get_username()
+            new_bancos.save()
+            return HttpResponseRedirect(reverse('palapp:lisbco'))
+    else:
+        form2 = BancosForm() # Unbound form
+
+    return render(request, 'palapp/addbco.html', {'form': form2})
+
+
+def add_tipodoc(request):
+    if request.method == 'POST': # si el usuario está enviando el formulario con datos
+        form2 = TipoDocForm(request.POST) # Bound form
+        if form2.is_valid():
+            new_tipodoc = form2.save(commit=False) # Guardar los datos en la base de datos
+            if form2.is_valid():
+                if request.user.is_authenticated:
+                    new_tipodoc.usuario_crea = request.user
+                else:
+                    new_tipodoc.usuario_crea = AnonymousUser.get_username()
+            new_tipodoc.save()
+            return HttpResponseRedirect(reverse('palapp:listdoc'))
+    else:
+        form2 = TipoDocForm() # Unbound form
+
+    return render(request, 'palapp/addbco.html', {'form': form2})
 # Actualizaciones
 
 
@@ -516,6 +570,32 @@ def upd_jefe(request, id_jefe):
         else:
            form2 = JefeForm() # Unbound form
     return render(request, 'palapp/edtjef.html', {'form': form2})
+
+
+class UpdtBanco(SuccessMessageMixin, UpdateView):
+    model = Bancos
+    form = BancosForm
+    fields = ("rassoc")
+
+    # Mensaje que se mostrará cuando se actualice el registro
+    success_message = 'Entidades Financieras actualizadas correctamente.'
+
+    # Redireccionamos a la página principal tras actualizar el registro
+    def get_success_url(self):
+        return reverse_lazy('palapp:lisbco')
+
+
+class UpdtTipoDoc(SuccessMessageMixin, UpdateView):
+    model = TipoDoc
+    form = TipoDocForm
+    fields = ("tipdoc")
+
+    # Mensaje que se mostrará cuando se actualice el registro
+    success_message = 'Tipos de Documento actualizadas correctamente.'
+
+    # Redireccionamos a la página principal tras actualizar el registro
+    def get_success_url(self):
+        return reverse_lazy('palapp:listdoc')
 
 
 class MyView(LoginRequiredMixin, View):

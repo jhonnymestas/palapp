@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<p style="background-color: green; color: #ffffff; font-weight: bold; font-size: x-large"> CLIENTES </p>
+<p style="background-color: green; color: #ffffff; font-weight: bold; font-size: x-large"> INSTITUCIONES FINANCIERAS {{ pago.venta }} </p>
 {% block barra_busqueda %}
     <div class="container">
         <div class="row">
@@ -37,7 +37,7 @@
 {% if messages %}
   <ul class="messages list-group mb-3">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-primary"{% endif %}>{{ message }}</li>
+    <li>{% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-primary"{% endif %}>{{ message }}</li>
     {% endfor %}
   </ul>
 {% endif %}
@@ -48,41 +48,32 @@
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th>Vendedor</th>
-      <th width="20%">Nombre Cliente</th>
-      <th>DNI</th>
-      <th>Tfno. móvil</th>
-      <th>Tfno. contacto</th>
-      <th>EMail</th>
-      <th>Fec.Creac.</th>
-      <th>Fec.Vcto.</th>
+      <th>Nombre</th>
+      <th>Estado</th>
+      <th>Fecha de Creación</th>
+      <th>Fecha de Modificación</th>
+      <th>Usuario</th>
     </tr>
   </thead>
   <tbody>
 
 
-  <!-- Recorremos los registros de la tabla 'clientes' y los mostramos -->
-  {% for clie in object_list %}
+  <!-- Recorremos los registros de la tabla 'Terrenos' y los mostramos -->
+  {% for bancos in object_list %}
     <tr>
-      <td>{{ clie.vendedor }}</td>
-      <td>{{ clie.appat }} {{ clie.apmat }} {{ clie.nomb }}</td>
-      <td>{{ clie.dni }}</td>
-      <td>{{ clie.cel1 }}</td>
-      <td>{{ clie.cel1 }}</td>
-      <td>{{ clie.celcon }}</td>
-      <td>{{ clie.fecha_creacion }}</td>
-      <td>{{ clie.feccad }}</td>
+      <td>{{ bancos.rassoc }}</td>
+      <td>{{ bancos.activo }}</td>
       <td>
 
         <!-- Formulario para eliminar un registro desde la misma tabla HTML -->
-        <form method="POST" action="eliminar/{{jefe.id}}">
+        <form method="POST" action="eliminar/{{bancos.id}}">
           {% csrf_token %}
           <div class="btn-group">
 
             <!-- Creamos 3 botones Detalle, Editar y Eliminar -->
-            <a href="detcli/{{clie.id}}" title="Detalle" type="button" class="btn btn-success">Ver </a>
-            <a href="edtcli/{{clie.id}}" title="Editar" type="button" class="btn btn-primary">Editar </a>
-            <button hidden="True" class="btn btn-danger" onclick="return eliminar();" type="submit">
+            <a href="detbco/{{bancos.id}}" title="Detalle" type="button" class="btn btn-success">Ver </a>
+            <a href="edtbco/{{bancos.id}}" title="Editar" type="button" class="btn btn-primary">Editar </a>
+            <button hidden="false" class="btn btn-danger" onclick="return eliminar();" type="submit">
 			Eliminar
 			</button>
           </div>
@@ -94,12 +85,14 @@
 
   </tbody>
 </table>
+
 <center>
 <div align="center" class="btn_crear mb-3">
-  <a href="addcli" type="button" class="btn btn-primary">Añadir Cliente</a>
+  <a href="addbco" type="button" class="btn btn-primary">Añadir Cronograma</a>
   <a href="./" type="submit" class="btn btn-primary">Cancelar</a>
 </div>
 </center>
+
 </div>
 
     <script type="text/javascript">

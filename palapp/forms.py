@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from django.utils import timezone
 from .models import Inmobiliaria, Jefe, Vendedor, Cliente, Terreno, Tramites, Notaria, Venta, Pagos
+from .models import Bancos, TipoDoc
 
 
 class InmobiliariaForm(ModelForm):
@@ -168,7 +169,7 @@ class PagosForm(ModelForm):
     gastosd = forms.DecimalField(label=" Gastos US$", widget = forms.NumberInput(attrs={'class':'form-control'}))
     gastoss = forms.DecimalField(label=" Gastos S/", widget=forms.NumberInput(attrs={'class': 'form-control'}))
     nrooper = forms.CharField(label="Nro.Operación",  widget = forms.TextInput(attrs={'class':'form-control'}))
-    banco = forms.CharField(label="Banco",  widget = forms.TextInput(attrs={'class':'form-control'}))
+    banco = forms.CharField(label="Banco",  widget=forms.TextInput(attrs={'class':'form-control'}))
     efectivo = forms.BooleanField(label="Efectivo",  widget = forms.CheckboxInput(attrs={'class':'form-control'}))
     observ = forms.CharField(label="Observaciones", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
 
@@ -176,3 +177,21 @@ class PagosForm(ModelForm):
         model = Pagos
         fields = ("venta", "cuota", "fec_vcto", "fec_pago", "preciod",  "precios", "gastosd", "gastoss", "nrooper",
                   "banco", "observ", "efectivo")
+
+
+class BancosForm(ModelForm):
+
+    rassoc = forms.CharField(label="Razon Social", max_length=80, widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Bancos
+        fields = ("rassoc", "activo")
+
+
+class TipoDocForm(ModelForm):
+
+    tipodoc = forms.CharField(label="Tipo de Documento", max_length=150, widget = forms.TextInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = TipoDoc
+        fields = ("tipodoc", "activo")

@@ -3,11 +3,12 @@ from django.urls import path
 
 from . import views
 from .views import Inmoblistar, Jefelistar, Vendedorlistar, Clientelistar, Terrenolistar, Tramiteslistar, Notarialistar
-from .views import Pagoslistar, Ventalistar
+from .views import Pagoslistar, Ventalistar, Bancoslistar, TipoDoclistar
 from .views import UpdtInmobiliaria, UpdtCliente, UpdtJefe, UpdtVendedor, UpdtTerreno, UpdtTramite, UpdtNotaria
-from .views import UpdtVenta, UpdtPagos
+from .views import UpdtVenta, UpdtPagos, UpdtBanco, UpdtTipoDoc
 from .views import InmobiliariaNuevo, InmobiliariaDetalle, JefeDetalle, VendedorDetalle, ClienteDetalle, TerrenoDetalle
 from .views import TramitesDetalle, NotarioDetalle, VentaDetalle, gen_cron, ventasbulk, PagosDetalle
+from .views import BancosDetalle, TipoDocDetalle
 
 app_name = 'palapp'
 
@@ -72,6 +73,18 @@ urlpatterns = [
     path('addpag', views.add_pagos, name='addpag'),
     path('detpag/<int:pk>', PagosDetalle.as_view(template_name="palapp/detpag.html"), name='detpag'),
     path('edtpag/<int:pk>', UpdtPagos.as_view(template_name="palapp/edtpag.html"), name='edtpag'),
+
+    # Bancos
+    path('lisbco', Bancoslistar.as_view(template_name="palapp/lisbco.html"), name='lisbco'),
+    path('addbco', views.add_bancos, name='addbco'),
+    path('detbco/<int:pk>', BancosDetalle.as_view(template_name="palapp/detbco.html"), name='detbco'),
+    path('edtbco/<int:pk>', UpdtBanco.as_view(template_name="palapp/edtbco.html"), name='edtbco'),
+
+    # Tipos de Documento
+    path('listdoc', TipoDoclistar.as_view(template_name="palapp/listdoc.html"), name='lisbco'),
+    path('addtdoc', views.add_tipodoc, name='addtdoc'),
+    path('dettdoc/<int:pk>', TipoDocDetalle.as_view(template_name="palapp/dettdoc.html"), name='dettdoc'),
+    path('edttdoc/<int:pk>', UpdtTipoDoc.as_view(template_name="palapp/edttdoc.html"), name='edttdoc'),
 
     # Seguridad
     path('profile', views.Profile, name='profile'),

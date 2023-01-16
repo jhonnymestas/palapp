@@ -48,6 +48,8 @@ class Bancos(models.Model):
         null=True, editable=False)
     fecha_act = models.DateTimeField(auto_now=True,
         blank=True, null=True)
+    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario Coordinador", default=1,
+                                     null=True)
 
 
     def save(self, *args, **kwargs):
@@ -66,6 +68,8 @@ class TipoDoc(models.Model):
         null=True, editable=False)
     fecha_act = models.DateTimeField(auto_now=True,
         blank=True, null=True)
+    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario Coordinador", default=1,
+                                     null=True)
 
 
     def save(self, *args, **kwargs):
@@ -394,6 +398,9 @@ class Venta(models.Model):
                                     null=True)
     tdoc_sun_com = models.ForeignKey(TipoDoc, on_delete=models.CASCADE, verbose_name="Doctumento Pago Comisión",
                                      default=1, )
+    y_o = models.TextField("Y/O", max_length=1, null=True, default="", blank=True)
+    nom_cotitular = models.TextField("Cotitular", max_length=80, null=True, default="", blank=True)
+    doc_cotitular = models.TextField("Documento Cotitular", max_length=30, null=True, default="", blank=True)
 
     def clean(self):
         if not (self.precios+self.preciod > 0):
@@ -405,6 +412,9 @@ class Venta(models.Model):
         self.nro_cont = (self.nro_cont).upper()
         self.banco = (self.banco).upper()
         self.observ = (self.observ).upper()
+        self.doc_pag_com = (self.doc_pag_com).upper()
+        self.nom_cotitular = (self.nom_cotitular).upper()
+        self.doc_cotitular = (self.doc_cotitular).upper()
         return super(Venta, self).save(*args, **kwargs)
 
     def __str__(self):
