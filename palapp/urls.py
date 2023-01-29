@@ -8,7 +8,7 @@ from .views import UpdtInmobiliaria, UpdtCliente, UpdtJefe, UpdtVendedor, UpdtTe
 from .views import UpdtVenta, UpdtPagos, UpdtBanco, UpdtTipoDoc
 from .views import InmobiliariaNuevo, InmobiliariaDetalle, JefeDetalle, VendedorDetalle, ClienteDetalle, TerrenoDetalle
 from .views import TramitesDetalle, NotarioDetalle, VentaDetalle, gen_cron, ventasbulk, PagosDetalle
-from .views import BancosDetalle, TipoDocDetalle
+from .views import BancosDetalle, TipoDocDetalle, UpdtClientem
 
 app_name = 'palapp'
 
@@ -36,9 +36,11 @@ urlpatterns = [
 
     # Cliente
     path('clilist', Clientelistar.as_view(template_name="palapp/clilist.html"), name='clilist'),
+    path('clilistm', Clientelistar.as_view(template_name="palapp/clilistm.html"), name='clilistm'),
     path('addcli', views.add_cliente, name='addcli'),
     path('detcli/<int:pk>', ClienteDetalle.as_view(template_name="palapp/detcli.html"), name='detcli'),
     path('edtcli/<int:pk>', UpdtCliente.as_view(template_name="palapp/edtcli.html"), name='edtcli'),
+    path('edtclim/<int:pk>', UpdtClientem.as_view(template_name="palapp/edtclim.html"), name='edtclim'),
 
     # Terrenos
     path('terlist', Terrenolistar.as_view(template_name="palapp/terlist.html"), name='terlist'),
@@ -81,7 +83,7 @@ urlpatterns = [
     path('edtbco/<int:pk>', UpdtBanco.as_view(template_name="palapp/edtbco.html"), name='edtbco'),
 
     # Tipos de Documento
-    path('listdoc', TipoDoclistar.as_view(template_name="palapp/listdoc.html"), name='lisbco'),
+    path('listdoc', TipoDoclistar.as_view(template_name="palapp/listdoc.html"), name='listdoc'),
     path('addtdoc', views.add_tipodoc, name='addtdoc'),
     path('dettdoc/<int:pk>', TipoDocDetalle.as_view(template_name="palapp/dettdoc.html"), name='dettdoc'),
     path('edttdoc/<int:pk>', UpdtTipoDoc.as_view(template_name="palapp/edttdoc.html"), name='edttdoc'),

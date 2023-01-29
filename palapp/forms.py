@@ -81,6 +81,31 @@ class ClienteForm(ModelForm):
                   "correo", "telfij", "cel1", "cel2", "ocupacion", "percon", "celcon", "observ")
 
 
+class ClienteForm2(ModelForm):
+
+    appat = forms.CharField(label="Apellido Paterno", max_length=150, widget = forms.TextInput(attrs={'class':'form-control'}))
+    apmat = forms.CharField(label="Apellido Materno", required=False, max_length=150, widget = forms.TextInput(attrs={'class':'form-control'}))
+    nomb = forms.CharField(label="Nombres", max_length=150, widget = forms.TextInput(attrs={'class':'form-control'}))
+    dni = forms.CharField(label="D.N.I.", max_length=8, widget = forms.TextInput(attrs={'class':'form-control'}))
+    direccion = forms.CharField(label="Dirección Casa", widget = forms.TextInput(attrs={'class':'form-control'}))
+    directra = forms.CharField(label="Dirección Trabajo", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
+    pais = forms.CharField(label="Pais", max_length=80, widget = forms.TextInput(attrs={'class':'form-control'}))
+    percon = forms.CharField(label="Persona de contacto", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
+    correo = forms.EmailField(max_length=150, widget = forms.TextInput(attrs={'class':'form-control'}))
+    telfij = forms.CharField(label="Tel.Fijo", required=False, max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    cel1 = forms.CharField(label="Nro.Celular 1", max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    cel2 = forms.CharField(label="Nro.Celular 2", required=False, max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    celcon = forms.CharField(label="Celular Contacto", required=False, max_length=15, widget = forms.TextInput(attrs={'class':'form-control'}))
+    ocupacion = forms.CharField(label="Ocupación", max_length=50, widget = forms.TextInput(attrs={'class':'form-control'}))
+    observ = forms.CharField(label="Observaciones", required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    feccad = forms.DateField(label="Fecha de Caducidad", required=True, widget=forms.DateInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = Cliente
+        fields = ("vendedor", "dni", "appat", "apmat", "nomb", "direccion", "directra", "pais",
+                  "correo", "telfij", "cel1", "cel2", "ocupacion", "percon", "celcon", "feccad", "observ")
+
+
 class TerrenoForm(ModelForm):
 
     codigo = forms.CharField(label="Código", max_length=10, widget = forms.TextInput(attrs={'class':'form-control'}))
@@ -141,6 +166,9 @@ class NotariaForm(ModelForm):
 
 class VentaForm(ModelForm):
 
+    y_o = forms.CharField(label="Y/O", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
+    nom_cotitular = forms.CharField(label="Apellidos y Nombres COTITULAR", required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    doc_cotitular = forms.CharField(label="Nro.Documento Cotitular", required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
     banco = forms.CharField(label="Banco", required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
     nro_cont = forms.CharField(label="Nro.Contrato",  widget = forms.TextInput(attrs={'class':'form-control'}))
     fec_con = forms.DateTimeField(label="Fecha Contrato",  initial=timezone.now(), widget = forms.DateTimeInput(attrs={'class':'form-control'}))
@@ -156,7 +184,7 @@ class VentaForm(ModelForm):
 
     class Meta:
         model = Venta
-        fields = ("cliente", "terreno", "vendedor", "notaria", "banco", "condvta", "nro_cont", "fec_con", "preciod",  "precios",
+        fields = ("cliente", "y_o", "doc_cotitular", "nom_cotitular", "terreno", "vendedor", "notaria", "banco", "condvta", "nro_cont", "fec_con", "preciod",  "precios",
                   "comision", "observ", "inicial", "fecha_inicial", "fecha_1ervct", "cuotas", "aprobado", "foto_contrato")
 
 
@@ -182,6 +210,7 @@ class PagosForm(ModelForm):
 class BancosForm(ModelForm):
 
     rassoc = forms.CharField(label="Razon Social", max_length=80, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    activo = forms.CheckboxInput()
 
     class Meta:
         model = Bancos

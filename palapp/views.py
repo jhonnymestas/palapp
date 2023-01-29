@@ -80,6 +80,25 @@ class Clientelistar(ListView):
         return super().get_queryset()
 
 
+class Clientelistarm(ListView):
+    model = Cliente
+    paginate_by = 8
+    ordering = ['appat', 'apmat', 'nomb']
+
+    def get_queryset(self):
+        if self.request.GET.get('buscar') is not None:
+            q=self.request.GET.get('buscar')
+
+            return Cliente.objects.filter(Q(dni__icontains=q) | Q(direccion__icontains=q) |
+                                          Q(directra__icontains=q) | Q(correo__icontains=q) |
+                                          Q(cel1__icontains=q) | Q(appat__icontains=q) |
+                                          Q(apmat__icontains=q) | Q(nomb__icontains=q) |
+                                          Q(percon__icontains=q) | Q(celcon__icontains=q) |
+                                          Q(ocupacion__icontains=q))
+
+        return super().get_queryset()
+
+
 class Terrenolistar(ListView):
     model = Terreno
     paginate_by = 8
@@ -431,7 +450,7 @@ def add_tipodoc(request):
     else:
         form2 = TipoDocForm() # Unbound form
 
-    return render(request, 'palapp/addbco.html', {'form': form2})
+    return render(request, 'palapp/addtdoc.html', {'form': form2})
 # Actualizaciones
 
 
@@ -487,6 +506,18 @@ class UpdtCliente(SuccessMessageMixin, UpdateView):
         return reverse_lazy('palapp:clilist')
 
 
+class UpdtClientem(SuccessMessageMixin, UpdateView):
+    model = Cliente
+    form = ClienteForm
+    fields = ("vendedor", "dni", "appat", "apmat", "nomb", "direccion", "directra", "pais",
+                  "correo", "telfij", "cel1", "cel2", "ocupacion", "percon", "celcon", "observ", "feccad")
+
+    # Mensaje que se mostrará cuando se actualice el registro
+    success_message = 'Cliente actualizado correctamente.'
+
+    # Redireccionamos a la página principal tras actualizar el registro
+    def get_success_url(self):
+        return reverse_lazy('palapp:clilistm')
 class UpdtTerreno(SuccessMessageMixin, UpdateView):
     model = Terreno
     form = TerrenoForm
@@ -575,7 +606,7 @@ def upd_jefe(request, id_jefe):
 class UpdtBanco(SuccessMessageMixin, UpdateView):
     model = Bancos
     form = BancosForm
-    fields = ("rassoc")
+    fields = ("rassoc", "activo")
 
     # Mensaje que se mostrará cuando se actualice el registro
     success_message = 'Entidades Financieras actualizadas correctamente.'
@@ -588,7 +619,7 @@ class UpdtBanco(SuccessMessageMixin, UpdateView):
 class UpdtTipoDoc(SuccessMessageMixin, UpdateView):
     model = TipoDoc
     form = TipoDocForm
-    fields = ("tipdoc")
+    fields = ("tipodoc", "activo")
 
     # Mensaje que se mostrará cuando se actualice el registro
     success_message = 'Tipos de Documento actualizadas correctamente.'

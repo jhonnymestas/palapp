@@ -52,6 +52,9 @@
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="submenu_principal">
 						<li><a class="dropdown-item" href="clilist"><i class="fa fa-window-close"></i> Clientes</a></li>
+						{% if request.user.groups.all.0.name == 'responsable' or user.is_staff %}
+							<li><a class="dropdown-item" href="clilistm"><i class="fa fa-window-close"></i> Clientes Mantenimiento</a></li>
+						{% endif %}
 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="tralist"><i class="fa fa-window-close"></i> Gestión de Ventas</a></li>
 						<li><a class="dropdown-item" href="lisvta"><i class="fa fa-window-close"></i> Registro de Contratos</a></li>

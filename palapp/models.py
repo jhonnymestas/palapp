@@ -62,7 +62,7 @@ class Bancos(models.Model):
 
 class TipoDoc(models.Model):
     id = models.AutoField(primary_key=True)
-    tipodoc = models.CharField("Tipo DOcumento Sunat", max_length=40, default="", unique=True)
+    tipodoc = models.CharField("Tipo Documento", max_length=40, default="", unique=True)
     activo = models.BooleanField(null=False, default=1)
     fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
         null=True, editable=False)

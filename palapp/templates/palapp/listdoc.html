@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<p style="background-color: green; color: #ffffff; font-weight: bold; font-size: x-large"> INSTITUCIONES FINANCIERAS </p>
+<p style="background-color: green; color: #ffffff; font-weight: bold; font-size: x-large"> TIPOS DE DOCUMENTO </p>
 {% block barra_busqueda %}
     <div class="container">
         <div class="row">
@@ -37,9 +37,7 @@
 {% if messages %}
   <ul class="messages list-group mb-3">
     {% for message in messages %}
-    <li>
-        {{ message }}
-    </li>
+    <li>{% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-primary"{% endif %}>{{ message }}</li>
     {% endfor %}
   </ul>
 {% endif %}
@@ -60,28 +58,28 @@
   <tbody>
 
 
-  <!-- Recorremos los registros de la tabla 'Terrenos' y los mostramos -->
-  {% for bancos in object_list %}
+  <!-- Recorremos los registros de la tabla 'tipodoc' y los mostramos -->
+  {% for tipodoc in object_list %}
     <tr>
-      <td>{{ bancos.rassoc }}</td>
-      {% if bancos.activo %}
+      <td>{{ tipodoc.tipodoc }}</td>
+      {% if tipodoc.activo %}
         <th>ACTIVO</th>
       {% else %}
         <th>baja</th>
       {% endif %}
-      <td>{{ bancos.fecha_creacion }}</td>
-      <td>{{ bancos.fecha_act }}</td>
-      <td>{{ bancos.usuario_crea }}</td>
+      <td>{{ tipodoc.fecha_creacion }}</td>
+      <td>{{ tipodoc.fecha_act }}</td>
+      <td>{{ tipodoc.usuario_crea }}</td>
       <td>
 
         <!-- Formulario para eliminar un registro desde la misma tabla HTML -->
-        <form method="POST" action="eliminar/{{bancos.id}}">
+        <form method="POST" action="eliminar/{{tipodoc.id}}">
           {% csrf_token %}
           <div class="btn-group">
 
             <!-- Creamos 3 botones Detalle, Editar y Eliminar -->
-            <a href="detbco/{{bancos.id}}" title="Detalle" type="button" class="btn btn-success">Ver </a>
-            <a href="edtbco/{{bancos.id}}" title="Editar" type="button" class="btn btn-primary">Editar </a>
+            <a href="dettdoc/{{tipodoc.id}}" title="Detalle" type="button" class="btn btn-success">Ver </a>
+            <a href="edttdoc/{{tipodoc.id}}" title="Editar" type="button" class="btn btn-primary">Editar </a>
             <button hidden="false" class="btn btn-danger" onclick="return eliminar();" type="submit">
 			Eliminar
 			</button>
@@ -97,7 +95,7 @@
 
 <center>
 <div align="center" class="btn_crear mb-3">
-  <a href="addbco" type="button" class="btn btn-primary">Añadir Entidad</a>
+  <a href="addtdoc" type="button" class="btn btn-primary">Añadir Documento</a>
   <a href="./" type="submit" class="btn btn-primary">Cancelar</a>
 </div>
 </center>
