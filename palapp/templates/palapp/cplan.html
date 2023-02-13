@@ -6,7 +6,9 @@
 
 {% block content %}
 
-<p style="background-color: green; color: #ffffff; font-weight: bold; font-size: x-large"> GENERA PLAN DE PAGOS </p>
+<center>
+<p style="background-color: green; color: #ffffff; font-weight: bold; font-size: x-large"> PLAN DE PAGOS GENERADO EXITOSAMENTE</p>
+</center>
 
 <style>
     .cuerpo {
@@ -33,9 +35,8 @@
                         <div class="input-group col-md-12">
                             <table style="width:30%">
                             <p><span style="font-weight: bold;">Precio US%:</span> <br style="margin-left: 60px;"> {{form.preciod}}</p>
-                            <label class="txt_negrita">Cuota Inicial</label><input type="number" name="cini" id="inicial" min="0" max="99000" class="form-control" placeholder="Inicial...", value="{{ request.GET.cini }}">
-                            <label class="txt_negrita">Nro de Cuotas</label><input type="number" name="cuotas" id="cuotas" min="1" max="48" class="form-control" placeholder="Cuotas...", value="{{ request.GET.cuotas }}">
-                            <label class="txt_negrita">Fecha 1er.Vencimiento</label><input type="date" name="fvc" id="fvc" class="form-control" placeholder="Fec.1er Vencimiento...", value="{{ request.GET.fvc }}">
+                            <p><span style="font-weight: bold;">Inicial:</span> <br style="margin-left: 60px;"> {{form.inicial}}</p>
+                            <p><span style="font-weight: bold;">Cuotas:</span> <br style="margin-left: 60px;"> {{form.cuotas}}</p>
                             </table>
                         </div>
                 </form>
@@ -43,8 +44,7 @@
     </div>
 </table>
     <center>
-    <button type="submit" class="btn btn-primary">Generar</button>
-    <a href="{% url 'palapp:lisvta' %}" type="submit" class="btn btn-primary">Cancelar</a>
+    <a href="{% url 'palapp:lisvta' %}" type="submit" class="btn btn-primary">RETORNA</a>
 </center>
 </form>
 </div>

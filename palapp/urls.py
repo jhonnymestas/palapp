@@ -8,7 +8,7 @@ from .views import UpdtInmobiliaria, UpdtCliente, UpdtJefe, UpdtVendedor, UpdtTe
 from .views import UpdtVenta, UpdtPagos, UpdtBanco, UpdtTipoDoc
 from .views import InmobiliariaNuevo, InmobiliariaDetalle, JefeDetalle, VendedorDetalle, ClienteDetalle, TerrenoDetalle
 from .views import TramitesDetalle, NotarioDetalle, VentaDetalle, gen_cron, ventasbulk, PagosDetalle
-from .views import BancosDetalle, TipoDocDetalle, UpdtClientem
+from .views import BancosDetalle, TipoDocDetalle, UpdtClientem, Pagosl
 
 app_name = 'palapp'
 
@@ -71,7 +71,7 @@ urlpatterns = [
     path('lisdpag/<int:pk>', PagosDetalle.as_view(template_name="palapp/lisdpag.html"), name='lisdpag'),
 
     # Pagos
-    path('lispag', Pagoslistar.as_view(template_name="palapp/lispag.html"), name='lispag'),
+    path('lispag/<int:id>', views.Pagosl, name='lispag'),
     path('addpag', views.add_pagos, name='addpag'),
     path('detpag/<int:pk>', PagosDetalle.as_view(template_name="palapp/detpag.html"), name='detpag'),
     path('edtpag/<int:pk>', UpdtPagos.as_view(template_name="palapp/edtpag.html"), name='edtpag'),

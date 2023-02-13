@@ -82,7 +82,9 @@
             <!-- Creamos 3 botones Detalle, Editar y Eliminar -->
             <a href="detvta/{{vta.id}}" title="Detalle" type="button" class="btn btn-success">Ver </a>
             <a href="edtvta/{{vta.id}}" title="Editar" type="button" class="btn btn-primary">Editar </a>
-            <a href="lispag/{{vta.id}}" title="Cronograma" type="button" class="btn btn-success">Cronograma </a>
+            {% if vta.plan_generado %}
+                <a href="lispag/{{vta.id}}" title="Cronograma" type="button" class="btn btn-success">Cronograma </a>
+            {% endif %}
             <button hidden="false" class="btn btn-danger" onclick="return eliminar();" type="submit">
 			Eliminar
 			</button>

@@ -8,6 +8,8 @@ from django.core.mail import send_mail
 from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 from django.utils import timezone
+from datetime import datetime, timedelta
+from dateutil.relativedelta import *
 
 from .models import Pagos
 
@@ -170,20 +172,32 @@ class Ventalistar(ListView):
         return super().get_queryset()
 
 
+def Pagosl(request, id):
+
+    pagos = Pagos.objects.filter(venta=id)
+
+    print(pagos)
+
+    return render(request, 'palapp/lispag.html', {'pagos': pagos})
+
+
 class Pagoslistar(ListView):
     model = Pagos
-    paginate_by = 8
-    ordering = ['-nro_cont']
+    ordering = ['fec_vcto']
 
     def get_queryset(self):
+        pk4 = self.request.GET.get('pk4')
+        print(pk4)
         if self.request.GET.get('buscar') is not None:
             q = self.request.GET.get('buscar')
+            return Pagos.objects.filter(Q(cuota__icontains=q) | Q(fec_vcto__icontains=q) |
+                                           Q(fec_pag__icontains=q) | Q(terreno__icontains=q) |
+                                           Q(banco__icontains=q) | Q(observ__icontains=q) |
+                                           Q(banco__icontains=q) | Q(estado__icontains=q) |
+                                           Q(fec_con__icontains=q), Q(venta = pk4))
+        else:
+            return Pagos.objects.filter(Q(venta=pk4))
 
-            return Tramites.objects.filter(Q(nro_cont__icontains=q) | Q(cliente__icontains=q) |
-                                           Q(fecha_con__icontains=q) | Q(terreno__icontains=q) |
-                                           Q(vendedor__icontains=q) | Q(observ__icontains=q) |
-                                           Q(banco__icontains=q) | Q(notaria__icontains=q) |
-                                           Q(fec_con__icontains=q) | Q(nom_cotitular__icontains=q))
         return super().get_queryset()
 
 
@@ -564,7 +578,7 @@ class UpdtVenta(SuccessMessageMixin, UpdateView):
     model = Venta
     form = VentaForm
     fields = ("cliente", "terreno", "vendedor", "notaria", "banco", "condvta", "nro_cont", "fec_con", "preciod", "precios",
-              "comision", "observ", "inicial", "fecha_inicial", "fecha_1ervct", "cuotas", "aprobado", "fecha_creacion",
+              "comision", "observ", "inicial", "fecha_inicial", "fecha_1ervct", "cuotas", "aprobado",
               "foto_contrato")
 
     # Mensaje que se mostrará cuando se actualice el registro
@@ -686,6 +700,8 @@ def gen_cron(request, pk):
     if request.method == 'GET':
         form2 = VentaForm(instance=ventas)
         print("paso 3")
+        ventas.plan_generado = True
+        ventas.save()
     else:
         form2 = VentaForm(request.POST, instance=ventas)
         if form2.is_valid():
@@ -699,25 +715,32 @@ def gen_cron(request, pk):
     monto = ventas.preciod - ventas.inicial
     icuo = monto / ventas.cuotas
     saldo = monto
-    for indice in cuotas:
-        Pagos.objects.bulk_create([
-            Pagos(venta=ventas.id,
-                  cuota=indice,
-                  fec_vcto=ventas.fecha_1ervct,
-                  fec_pago=0,
-                  preciod=icuo,
-                  precios=0,
-                  gastosd=0,
-                  gastoss=0,
-                  nrooper='',
-                  banco='',
-                  observ='',
-                  efectivo=False,
-                  estado='P',
-                  fecha_creacion=timezone.now,
-                  fecact=timezone.now(),
-                  usuario_crea=request.user)])
+    ncuo = ventas.cuotas
+    fevc = ventas.fecha_1ervct
+    fecin = datetime.utcnow() + timedelta(days=30)
+    indice=1
+    print(monto, icuo, saldo, ventas.cuotas, ncuo)
+    while indice <= ncuo:
+        Pagos.objects.create(
+            venta=Venta.objects.get(id = ventas.id),
+            cuota=indice,
+            fec_vcto=fevc,
+            fec_pago='1901-01-01',
+            preciod=icuo,
+            precios=0,
+            gastosd=0,
+            gastoss=0,
+            nrooper='',
+            banco='',
+            observ='',
+            efectivo=False,
+            estado='P',
+            usuario_crea=request.user)
         saldo = saldo - icuo
+        if indice == ncuo:
+            icuo = saldo
+        indice = indice +1
+        fevc = fevc + relativedelta(months=+1)
     return render(request, 'palapp/cplan.html', {'form': form2})
 
 

@@ -6,26 +6,9 @@
 
 {% block content %}
 
-<p style="background-color: green; color: #ffffff; font-weight: bold; font-size: x-large"> PLAN DE PAGOS CONTRATO {{ pago.venta }} </p>
-{% block barra_busqueda %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 search">
-                <form method="get">
-                    <div id="custom-serach-input">
-                        <div class="input-group col-md-12">
-                            <input type="text" class="form-control" placeholder="Buscar..." name="buscar", value="{{ request.GET.buscar }}">
-                            <span class="input-group-list">
-                                <i class="icon icon-search"></i>
-                                <button type="submit" class="boton btn-success">Buscar</button>
-                            </span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-{% endblock barra_busqueda %}
+<p style="background-color: green; color: #ffffff; font-weight: bold; font-size: x-large"> PLAN DE PAGOS CONTRATO </p>
+
+
 <style>
     .cuerpo {
         margin-left: 40px;
@@ -37,7 +20,7 @@
 {% if messages %}
   <ul class="messages list-group mb-3">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-primary"{% endif %}>{{ message }}</li>
+    <li>{% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-primary"{% endif %}>{{ message }}</li>
     {% endfor %}
   </ul>
 {% endif %}
@@ -52,9 +35,8 @@
       <th>Fecha de Vencimiento</th>
       <th>Fecha de Pago</th>
       <th>Importe US$</th>
-      <th>Importe S/</th>
       <th>Nro.Operación</th>
-      <th>Banco</th>
+      <th>Contrato</th>
       <th>Estado</th>
       <th>Usuario</th>
     </tr>
@@ -63,16 +45,23 @@
 
 
   <!-- Recorremos los registros de la tabla 'Terrenos' y los mostramos -->
-  {% for pago in object_list %}
+  {% for pago in pagos %}
     <tr>
       <td>{{ pago.cuota }}</td>
       <td>{{ pago.fec_vcto }}</td>
-      <td>{{ pago.fec_pag }}</td>
+      <td>{{ pago.fec_pago }}</td>
       <td>{{ pago.preciod }}</td>
-      <td>{{ pago.precios }}</td>
       <td>{{ pago.nrooper }}</td>
-      <td>{{ pago.banco }}</td>
+      <td>{{ pago.venta.nro_cont }}</td>
+      <td>
+      {% if pago.estado == 'P' %}
+         <p style="background-color: red; color: #ffffff; font-weight: bold">PENDIENTE</p>
+      {% else %}
+         <p style="background-color: white; color: #000000; font-weight: bold">CANCELADO</p>
+      </td>>
+      {% endif %}
       <td>{{ pago.usuario_crea }}</td>
+
       <td>
 
         <!-- Formulario para eliminar un registro desde la misma tabla HTML -->
@@ -92,14 +81,16 @@
       </td>
     </tr>
   {% endfor %}
-
+        <table>
+        {{ form.as_table }}
+        </table>
   </tbody>
 </table>
 
 <center>
 <div align="center" class="btn_crear mb-3">
   <a href="addvpag" type="button" class="btn btn-primary">Añadir Cronograma</a>
-  <a href="./" type="submit" class="btn btn-primary">Cancelar</a>
+  <a href="{% url 'palapp:lisvta' %}" type="submit" class="btn btn-primary">Cancelar</a>
 </div>
 </center>
 
