@@ -176,8 +176,6 @@ def Pagosl(request, id):
 
     pagos = Pagos.objects.filter(venta=id)
 
-    print(pagos)
-
     return render(request, 'palapp/lispag.html', {'pagos': pagos})
 
 
@@ -406,6 +404,8 @@ def add_venta(request):
                 else:
                     new_venta.usuario_crea = AnonymousUser.get_username()
             new_venta.save()
+            Terreno.objects.filter(id=new_venta.terreno.id).update(estado="S", cliente=new_venta.cliente,
+                                                                vendedor=new_venta.vendedor)
             return HttpResponseRedirect(reverse('palapp:lisvta'))
     else:
         form2 = VentaForm() # Unbound form
@@ -532,6 +532,8 @@ class UpdtClientem(SuccessMessageMixin, UpdateView):
     # Redireccionamos a la página principal tras actualizar el registro
     def get_success_url(self):
         return reverse_lazy('palapp:clilistm')
+
+
 class UpdtTerreno(SuccessMessageMixin, UpdateView):
     model = Terreno
     form = TerrenoForm
@@ -586,6 +588,7 @@ class UpdtVenta(SuccessMessageMixin, UpdateView):
 
     # Redireccionamos a la página principal tras actualizar el registro
     def get_success_url(self):
+        print(Venta.terreno.estado)
         return reverse_lazy('palapp:lisvta')
 
 
@@ -699,25 +702,23 @@ def gen_cron(request, pk):
     ventas = Venta.objects.get(id=pk)
     if request.method == 'GET':
         form2 = VentaForm(instance=ventas)
-        print("paso 3")
         ventas.plan_generado = True
         ventas.save()
     else:
         form2 = VentaForm(request.POST, instance=ventas)
         if form2.is_valid():
-            print ("Paso ok")
          #  form2.save() # Guardar los datos en la base de datos
             return HttpResponseRedirect(reverse('palapp:lisvta'))
         else:
            form2 = VentaForm() # Unbound form
-    print("paso 2")
+    Terreno.objects.filter(id=ventas.terreno.id).update(estado="V", cliente=ventas.cliente, vendedor=ventas.vendedor)
+
     model = Pagos
     monto = ventas.preciod - ventas.inicial
     icuo = monto / ventas.cuotas
     saldo = monto
     ncuo = ventas.cuotas
     fevc = ventas.fecha_1ervct
-    fecin = datetime.utcnow() + timedelta(days=30)
     indice=1
     print(monto, icuo, saldo, ventas.cuotas, ncuo)
     while indice <= ncuo:

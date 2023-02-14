@@ -184,8 +184,9 @@ class VentaForm(ModelForm):
 
     class Meta:
         model = Venta
-        fields = ("cliente", "y_o", "doc_cotitular", "nom_cotitular", "terreno", "vendedor", "notaria", "banco", "condvta", "nro_cont", "fec_con", "preciod",  "precios",
-                  "comision", "observ", "inicial", "fecha_inicial", "fecha_1ervct", "cuotas", "aprobado", "foto_contrato")
+        fields = ("cliente", "y_o", "doc_cotitular", "nom_cotitular", "terreno", "vendedor", "notaria", "banco",
+                  "condvta", "nro_cont", "fec_con", "preciod",  "precios", "comision", "observ", "inicial",
+                  "fecha_inicial", "fecha_1ervct", "cuotas", "aprobado", "foto_contrato")
 
 
 class PagosForm(ModelForm):

@@ -27,7 +27,7 @@
 </table>
 <center>
   <button type="submit" class="btn btn-primary">Guardar</button>
-              {% if not venta.plan_generado %}
+              {% if not venta.plan_generado and venta.fecha_1ervct  and venta.cuotas > 0  %}
                     <a href="cplan/{{venta.id}}" title="Generar Plan de Pagos" type="button" class="btn btn-primary">Generar Plan de Pagos </a>
               {% endif %}
   <a href="{% url 'palapp:lisvta' %}" type="submit" class="btn btn-primary">Cancelar</a>

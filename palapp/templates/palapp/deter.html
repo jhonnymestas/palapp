@@ -19,9 +19,13 @@
     <div class="cuerpo">
 <center>
       {% if 'L' == object.estado %}
-        <p style="background-color: green; color: #ffffff; font-weight: bold"> LIBRE </p>
+        <p style="background-color: red; color: #ffffff; font-weight: bold"> LIBRE </p>
       {% else %}
-        <p> VENDIDO </p>
+          {% if 'S' == object.estado %}
+            <p style="background-color: yelñlow; color: #ffffff; font-weight: bold"> SEPARADO </p>
+          {% else %}
+            <p style="background-color: green; color: #ffffff; font-weight: bold"> VENDIDO </p>
+          {% endif %}
       {% endif %}
 </center>
     <p><span style="font-weight: bold;">Código:</span> <br style="margin-left: 60px;"> {{object.codigo}}</p>

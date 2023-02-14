@@ -37,7 +37,7 @@
 {% if messages %}
   <ul class="messages list-group mb-3">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-primary"{% endif %}>{{ message }}</li>
+    <li> {% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-primary"{% endif %}>{{ message }}</li>
     {% endfor %}
   </ul>
 {% endif %}
@@ -73,9 +73,13 @@
       <td>{{ terr.observaciones }}</td>
       <td>
       {% if 'L' == terr.estado %}
-        <p style="background-color: green; color: #ffffff; font-weight: bold"> LIBRE </p>
+        <p style="background-color: red; color: #ffffff; font-weight: bold"> LIBRE </p>
       {% else %}
-        <p> VENDIDO </p>
+        {% if 'S' == terr.estado %}
+            <p style="background-color: yellow; color: #000000; font-weight: bold"> SEPARADO </p>
+        {% else %}
+            <p style="background-color: green; color: #ffffff; font-weight: bold"> VENDIDO </p>
+        {% endif %}
       {% endif %}
       </td>
       <td>
