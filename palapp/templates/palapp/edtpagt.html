@@ -1,0 +1,38 @@
+{% extends "palapp/base.html" %}
+
+ {% load static %} <!-- Cargar URL raíz -->
+
+ {% load widget_tweaks %}
+
+{% block content %}
+
+<p style="background-color: green; color: #ffffff; font-weight: bold; font-size: x-large"> PAGOS </p>
+
+<style>
+    .cuerpo {
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+
+</style>
+<div id>
+  <div class="cuerpo">
+
+<form method="post" enctype="multipart/form-data">
+
+  <!-- Token de seguridad para poder crear un nuevo registro -->
+  {% csrf_token %}
+<table style="width:100%">
+  {{ form.as_table }}
+</table>
+<center>
+  <button type="submit" class="btn btn-primary">Guardar</button>
+  <a href="{% url 'palapp:lispagt' %}" type="submit" class="btn btn-primary">Cancelar</a>
+</center>
+
+</form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</div>
+{% endblock %}

@@ -60,7 +60,7 @@
 						<li><a class="dropdown-item" href="lisvta"><i class="fa fa-window-close"></i> Registro de Contratos</a></li>
 						<li><hr class="dropdown-divider"></li>
 						{% if request.user.groups.all.0.name == 'caja' or user.is_staff %}
-							<li><a class="dropdown-item" href="lispag"><i class="fa fa-window-close"></i> Registra pagos</a></li>
+							<li><a class="dropdown-item" href="lispagt"><i class="fa fa-window-close"></i> Registra pagos</a></li>
 						{% endif %}
 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="profile"><i class="fa fa-window-close"></i> Perfil</a></li>
@@ -91,7 +91,7 @@
 						<li><a class="dropdown-item" href="tralist"><i class="fa fa-window-close"></i> Gestión de Ventas</a></li>
 						<li><a class="dropdown-item" href="lisvta"><i class="fa fa-window-close"></i> Registro de Contratos</a></li>
 						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="lispag"><i class="fa fa-window-close"></i> Registra pagos</a></li>
+						<li><a class="dropdown-item" href="lispagt"><i class="fa fa-window-close"></i> Registra pagos</a></li>
 						<li><hr class="dropdown-divider"></li>
 						<li><a class="dropdown-item" href="/admin"><i class="fa fa-window-close"></i> Configuración</a></li>
 						<li><hr class="dropdown-divider"></li>

@@ -68,13 +68,18 @@ urlpatterns = [
     path('detvta/<int:pk>', VentaDetalle.as_view(template_name="palapp/detvta.html"), name='detvta'),
     path('edtvta/<int:pk>', UpdtVenta.as_view(template_name="palapp/edtvta.html"), name='edtvta'),
     path('edtvta/cplan/<int:pk>', gen_cron, name='cplan'),
-    path('lisdpag/<int:pk>', PagosDetalle.as_view(template_name="palapp/lisdpag.html"), name='lisdpag'),
+    # path('lisdpag/<int:pk>', PagosDetalle.as_view(template_name="palapp/lisdpag.html"), name='lisdpag')
 
-    # Pagos
+    # Pagos x contrato
     path('lispag/<int:id>', views.Pagosl, name='lispag'),
+    path('lispag/detpag/<int:pk>', PagosDetalle.as_view(template_name="palapp/detpag.html"), name='detpag'),
+    path('lispag/edtpag/<int:pk>', UpdtPagos.as_view(template_name="palapp/edtpag.html"), name='edtpag'),
+
+    # Pagos TODO
+    path('lispagt/', Pagoslistar.as_view(template_name="palapp/lispagt.html"), name='lispagt'),
     path('addpag', views.add_pagos, name='addpag'),
-    path('detpag/<int:pk>', PagosDetalle.as_view(template_name="palapp/detpag.html"), name='detpag'),
-    path('edtpag/<int:pk>', UpdtPagos.as_view(template_name="palapp/edtpag.html"), name='edtpag'),
+    path('detpagt/<int:pk>', PagosDetalle.as_view(template_name="palapp/detpagt.html"), name='detpagt'),
+    path('edtpagt/<int:pk>', UpdtPagos.as_view(template_name="palapp/edtpagt.html"), name='edtpagt'),
 
     # Bancos
     path('lisbco', Bancoslistar.as_view(template_name="palapp/lisbco.html"), name='lisbco'),

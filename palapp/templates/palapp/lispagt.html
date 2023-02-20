@@ -1,0 +1,218 @@
+{% extends "palapp/base.html" %}
+
+ {% load static %} <!-- Cargar URL raíz -->
+
+
+
+
+{% block content %}
+
+{% block buscar %}
+    <body>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" type="text/css" href="{% static 'palapp/jquery.datetimepicker.css' %}"/>
+
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            main {
+                width: 960px;
+                margin: 0 auto;
+            }
+
+            #search {
+                position: fixed;
+                bottom: 0;
+                z-index: 3;
+                width: 100%;
+                color: #f0f0f0;
+                background-color: #333;
+                opacity: 0.9;
+                -webkit-opacity: 0.9;
+                -moz-opacity: 0.9;
+            }
+
+            #search form {
+                width: 960px;
+                margin: 0 auto;
+                padding: 0.5em;
+            }
+
+            #search form > div,
+            #filters form > div {
+                display: inline;
+            }
+        </style>
+
+    <body>
+        <main>
+            <ul>
+            </ul>
+        </main>
+
+        <footer>
+            <div id="search">
+                <form method="post" action="?">
+                    <div>
+                        <label for="search-from-date">Fecha Desde</label>
+                        <input type="text" name="search-from-date" id="search-from-date"/>
+                    </div>
+
+                    <div>
+                        <label for="search-to-date">Fecha Hasta</label>
+                        <input type="text" name="search-to-date" id="search-to-date"/>
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Search"/>
+                    </div>
+                </form>
+            </div>
+        </footer>
+
+        <script src="{% static 'palapp/jquery.js' %}"></script>
+        <script src="{% static 'palapp/build/jquery.datetimepicker.full.js' %}"></script>
+
+        <script>
+            /*jslint browser:true*/
+            /*global jQuery, document*/
+
+            jQuery(document).ready(function () {
+                'use strict';
+
+                jQuery('#filter-date, #search-from-date, #search-to-date').datetimepicker();
+            });
+        </script>
+
+ {% endblock %}
+
+ {% load widget_tweaks %}
+
+<p style="background-color: green; color: #ffffff; font-weight: bold; font-size: x-large"> PLAN DE PAGOS </p>
+
+<style>
+    .cuerpo {
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+</style>
+
+<div>
+{% if messages %}
+  <ul class="messages list-group mb-3">
+    {% for message in messages %}
+    <li>{% if message.tags %} class="{{ message.tags }} list-group-item list-group-item-primary"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+</div>
+
+<div>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Contrato</th>
+      <th>Cuota</th>
+      <th>Fecha de Vencimiento</th>
+      <th>Fecha de Pago</th>
+      <th>Importe US$</th>
+      <th>Nro.Operación</th>
+      <th>Contrato</th>
+      <th>Estado</th>
+      <th>Usuario</th>
+    </tr>
+  </thead>
+  <tbody>
+
+
+  <!-- Recorremos los registros de la tabla 'Terrenos' y los mostramos -->
+  {% for pago in object_list  %}
+    <tr>
+      <td>{{ pago.venta }}</td>
+      <td>{{ pago.cuota }}</td>
+      <td>{{ pago.fec_vcto }}</td>
+      <td>{{ pago.fec_pago }}</td>
+      <td>{{ pago.preciod }}</td>
+      <td>{{ pago.nrooper }}</td>
+      <td>{{ pago.venta.nro_cont }}</td>
+      <td>
+      {% if pago.estado == 'P' %}
+         <p style="background-color: red; color: #ffffff; font-weight: bold">PENDIENTE</p>
+      {% else %}
+         <p style="background-color: white; color: #000000; font-weight: bold">CANCELADO</p>
+      </td>>
+      {% endif %}
+      <td>{{ pago.usuario_crea }}</td>
+
+      <td>
+
+        <!-- Formulario para eliminar un registro desde la misma tabla HTML -->
+        <form method="POST" action="eliminar/{{jefe.id}}">
+          {% csrf_token %}
+          <div class="btn-group">
+
+            <!-- Creamos 3 botones Detalle, Editar y Eliminar -->
+            <a href="detpag/{{pago.id}}" title="Detalle" type="button" class="btn btn-success">Ver </a>
+            <a href="edtpag/{{pago.id}}" title="Editar" type="button" class="btn btn-primary">Editar </a>
+            <button hidden="false" class="btn btn-danger" onclick="return eliminar();" type="submit">
+			Eliminar
+			</button>
+          </div>
+        </form>
+
+      </td>
+    </tr>
+  {% endfor %}
+        <table>
+        {{ form.as_table }}
+        </table>
+  </tbody>
+</table>
+
+<center>
+<div align="center" class="btn_crear mb-3">
+  <a href="addvpag" type="button" class="btn btn-primary">Añadir Cronograma</a>
+  <a href="../" type="submit" class="btn btn-primary">Cancelar</a>
+</div>
+</center>
+
+</div>
+
+    <script type="text/javascript">
+      function eliminar() {
+        var x = confirm("¿Está seguro de que desea eliminar el contacto?");
+        if (x)
+          return true;
+        else
+          return false;
+      }
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+    {% if is_paginated %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; primera</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">prox.</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">ultima &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+{% endblock %}

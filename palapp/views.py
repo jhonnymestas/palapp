@@ -181,21 +181,20 @@ def Pagosl(request, id):
 
 class Pagoslistar(ListView):
     model = Pagos
+    paginate_by = 8
     ordering = ['fec_vcto']
 
     def get_queryset(self):
-        pk4 = self.request.GET.get('pk4')
-        print(pk4)
+
         if self.request.GET.get('buscar') is not None:
             q = self.request.GET.get('buscar')
-            return Pagos.objects.filter(Q(cuota__icontains=q) | Q(fec_vcto__icontains=q) |
-                                           Q(fec_pag__icontains=q) | Q(terreno__icontains=q) |
-                                           Q(banco__icontains=q) | Q(observ__icontains=q) |
-                                           Q(banco__icontains=q) | Q(estado__icontains=q) |
-                                           Q(fec_con__icontains=q), Q(venta = pk4))
-        else:
-            return Pagos.objects.filter(Q(venta=pk4))
 
+            return Pagos.objects.filter(Q(venta__terreno__codigo__icontains=q))
+                # Q(cuota__icontains=q) | Q(fec_vcto__icontains=q) |
+                #                         Q(fec_pago__icontains=q) | Q(banco__icontains=q) |
+                #                         Q(observ__icontains=q) | Q(estado__icontains=q) |
+                #                         Q(venta__icontains=q))
+            #                               Q(venta__fec_con__icontains=q))
         return super().get_queryset()
 
 
@@ -588,7 +587,6 @@ class UpdtVenta(SuccessMessageMixin, UpdateView):
 
     # Redireccionamos a la página principal tras actualizar el registro
     def get_success_url(self):
-        print(Venta.terreno.estado)
         return reverse_lazy('palapp:lisvta')
 
 
@@ -596,14 +594,14 @@ class UpdtPagos(SuccessMessageMixin, UpdateView):
     model = Pagos
     form = PagosForm
     fields = ("venta", "cuota", "fec_vcto", "fec_pago", "preciod", "precios", "gastosd", "gastoss", "nrooper",
-              "banco", "observ", "efectivo", "fecha_creacion")
+              "banco", "observ", "efectivo")
 
     # Mensaje que se mostrará cuando se actualice el registro
     success_message = 'Pagos actualizados correctamente.'
 
     # Redireccionamos a la página principal tras actualizar el registro
     def get_success_url(self):
-        return reverse_lazy('palapp:lispag')
+        return reverse_lazy('palapp:lispag/form.venta.id')
 
 
 def upd_jefe(request, id_jefe):

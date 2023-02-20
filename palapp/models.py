@@ -418,7 +418,7 @@ class Venta(models.Model):
         return super(Venta, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.nro_cont} {'/'} {self.cliente} {'/'} {self.terreno}"
+        return f"{self.nro_cont} {'/'} {self.cliente} {'/'} {self.terreno} {'*'} {self.id}"
 
     class Meta:
         verbose_name = 'venta'
