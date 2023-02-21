@@ -194,19 +194,19 @@ class Cliente(models.Model):
     id = models.AutoField(primary_key=True)
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE, verbose_name="Vendedor",)
     appat = models.CharField("Apellido Paterno", max_length=50, null=True)
-    apmat = models.CharField("Apellido Materno", max_length=50, null=True)
+    apmat = models.CharField("Apellido Materno", max_length=50, blank=True, null=True)
     nomb = models.CharField("Nombre", max_length=50)
-    dni = models.CharField("DNI", max_length=8, default=" ", blank=True)
-    direccion = models.TextField("Dirección Casa", default="AREQUIPA")
-    directra = models.TextField("Dirección Trabajo", default="AREQUIPA", blank=True)
-    pais = models.CharField("Nacionalidad", max_length=50, default="PERU")
+    dni = models.CharField("DNI", max_length=8, default=" ", blank=True, null=True)
+    direccion = models.TextField("Dirección Casa", default="AREQUIPA", null=True)
+    directra = models.TextField("Dirección Trabajo", default="AREQUIPA", blank=True, null=True)
+    pais = models.CharField("Nacionalidad", max_length=50, default="PERU", null=True)
     correo = models.EmailField("eMail", default="@")
-    telfij = models.CharField("Teléfono Fijo", max_length=15, default="", blank=True)
+    telfij = models.CharField("Teléfono Fijo", max_length=15, default="", blank=True, null=True)
     cel1 = models.CharField("Celular 1", max_length=15, default="", unique=True)
-    cel2 = models.CharField("Celular 2", max_length=15, default="", blank=True)
-    ocupacion = models.CharField("Ocupación", max_length=100, default="", blank=True)
-    percon = models.TextField("Persona de contacto", default="", blank=True)
-    celcon = models.CharField("Numero contacto", max_length=15, default="", blank=True)
+    cel2 = models.CharField("Celular 2", max_length=15, default="", blank=True, null=True)
+    ocupacion = models.CharField("Ocupación", max_length=100, default="", blank=True, null=True)
+    percon = models.TextField("Persona de contacto", default="", blank=True, null=True)
+    celcon = models.CharField("Numero contacto", max_length=15, default="", blank=True, null=True)
     activo = models.BooleanField(null=False, default=True)
     observ = models.TextField("Observaciones", null=True, default="", blank=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
@@ -222,15 +222,23 @@ class Cliente(models.Model):
                 {'cel1': "Celular 1 NO VALIDO"})
 
     def save(self, *args, **kwargs):
-        self.appat = (self.appat).upper()
-        self.apmat = (self.apmat).upper()
+        if not isinstance(self.appat, type(None)):
+            self.appat = (self.appat).upper()
+        if not isinstance(self.apmat, type(None)):
+            self.apmat = (self.apmat).upper()
         self.nomb = (self.nomb).upper()
-        self.pais = (self.pais).upper()
-        self.ocupacion = (self.ocupacion).upper()
-        self.direccion = (self.direccion).upper()
-        self.directra = (self.directra).upper()
-        self.percon = (self.percon).upper()
-        self.observ = (self.observ).upper()
+        if not isinstance(self.pais, type(None)):
+            self.pais = (self.pais).upper()
+        if not isinstance(self.ocupacion, type(None)):
+            self.ocupacion = (self.ocupacion).upper()
+        if not isinstance(self.direccion, type(None)):
+            self.direccion = (self.direccion).upper()
+        if not isinstance(self.directra, type(None)):
+            self.directra = (self.directra).upper()
+        if not isinstance(self.percon, type(None)):
+            self.percon = (self.percon).upper()
+        if not isinstance(self.observ, type(None)):
+            self.observ = (self.observ).upper()
         if isinstance(self.feccad, type(None)):
             self.feccad = datetime.utcnow() + timedelta(days=30)
         return super(Cliente, self).save(*args, **kwargs)
