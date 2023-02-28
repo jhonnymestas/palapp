@@ -98,7 +98,7 @@ DATABASES = {
         'NAME': 'palmar',
         'USER': 'palmar',
         'PASSWORD': 'palmar215577',
-        # 'HOST': 'localhost',
+        'HOST': 'localhost',
         'PORT': '5432',
         'TIMEZONE': 'EST',
     }
