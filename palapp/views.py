@@ -722,8 +722,6 @@ def Change_Password(request):
 
 # Define class for inserting multiple data
 def gen_cron(request, pk):
-    print ('OJOOOOO')
-
     ventas = Venta.objects.get(id=pk)
     if request.method == 'GET':
         form2 = VentaForm(instance=ventas)
