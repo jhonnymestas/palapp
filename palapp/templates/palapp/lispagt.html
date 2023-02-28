@@ -8,72 +8,53 @@
 {% block content %}
 
 {% block buscar %}
-    <body>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" type="text/css" href="{% static 'palapp/jquery.datetimepicker.css' %}"/>
 
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }
+        <div class="search">
+            <div class="row">
+                <div class="col-md-12 search">
+                    <form method="get">
+                        <div id="custom-serach-input">
+                            <div class="input-group col-md-12">
+                                <input type="text" class="form-control" placeholder="Fec.Inicial" name="search-from-date", id="search-from-date" value="{{ request.GET.fini }}">
+                                <span class="input-group-list">
+                                    <i class="icon icon-search"></i>
+                                    <button type="submit" class="boton btn-success">Filtrar</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-            main {
-                width: 960px;
-                margin: 0 auto;
-            }
-
-            #search {
-                position: fixed;
-                bottom: 0;
-                z-index: 3;
-                width: 100%;
-                color: #f0f0f0;
-                background-color: #333;
-                opacity: 0.9;
-                -webkit-opacity: 0.9;
-                -moz-opacity: 0.9;
-            }
-
-            #search form {
-                width: 960px;
-                margin: 0 auto;
-                padding: 0.5em;
-            }
-
-            #search form > div,
-            #filters form > div {
-                display: inline;
-            }
-        </style>
-
-    <body>
-        <main>
-            <ul>
-            </ul>
-        </main>
-
-        <footer>
-            <div id="search">
                 <form method="post" action="?">
-                    <div>
-                        <label for="search-from-date">Fecha Desde</label>
-                        <input type="text" name="search-from-date" id="search-from-date"/>
-                    </div>
 
                     <div>
-                        <label for="search-to-date">Fecha Hasta</label>
+                        <label for="search-to-date">Fecha Final</label>
                         <input type="text" name="search-to-date" id="search-to-date"/>
                     </div>
 
                     <div>
-                        <input type="submit" value="Search"/>
+                        <label for="canc">¿Canceladas?</label>
+                        <input type="checkbox" name="canc" id="canc"/>
+                    </div>
+
+                    <div>
+                        <label for="lote">Lote/Cliente</label>
+                        <input type="text" name="lote" id="lote"/>
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Filtrar"/>
                     </div>
                 </form>
-            </div>
-        </footer>
+        </div>
+
 
         <script src="{% static 'palapp/jquery.js' %}"></script>
         <script src="{% static 'palapp/build/jquery.datetimepicker.full.js' %}"></script>
@@ -85,7 +66,7 @@
             jQuery(document).ready(function () {
                 'use strict';
 
-                jQuery('#filter-date, #search-from-date, #search-to-date').datetimepicker();
+                jQuery('#filter-date, #fini, #search-to-date').datetimepicker();
             });
         </script>
 

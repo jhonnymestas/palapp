@@ -52,7 +52,7 @@ class TipoDocAdmin(admin.ModelAdmin):
 class VentaAdmin(admin.ModelAdmin):
     list_display = ['id', 'cliente', 'y_o', 'doc_cotitular', 'nom_cotitular',  'terreno', 'vendedor', 'notaria', 'banco', 'condvta', 'nro_cont', 'fec_con',
                     'plan_generado', 'preciod', 'precios', 'comision', 'observ', 'usuario_crea', 'foto_pago_com', 'fecha_pago_com',
-                    'bco_pag_com', 'tdoc_sun_com', 'doc_pag_com', 'com_pag']
+                    'bco_pag_com', 'tdoc_sun_com', 'doc_pag_com', 'com_pag', 'd_contrato']
 
 
 class PagosAdmin(admin.ModelAdmin):

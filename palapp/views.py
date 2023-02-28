@@ -186,15 +186,42 @@ class Pagoslistar(ListView):
 
     def get_queryset(self):
 
-        if self.request.GET.get('buscar') is not None:
-            q = self.request.GET.get('buscar')
-
-            return Pagos.objects.filter(Q(venta__terreno__codigo__icontains=q))
-                # Q(cuota__icontains=q) | Q(fec_vcto__icontains=q) |
-                #                         Q(fec_pago__icontains=q) | Q(banco__icontains=q) |
-                #                         Q(observ__icontains=q) | Q(estado__icontains=q) |
-                #                         Q(venta__icontains=q))
-            #                               Q(venta__fec_con__icontains=q))
+        if (self.request.GET.get('search-from-date') is not None) and (self.request.GET.get('search-to-date') is not None):
+            if self.request.GET.get('lote') is not None:
+                fini = self.request.GET.get('search-from-date')
+                ffin = self.request.GET.get('search-to-date')
+                if self.request.GET.get('canc') is not None:
+                    canc = True
+                else:
+                    canc = False
+                lote = self.request.GET.get('lote')
+                return Pagos.objects.filter((Q(venta__terreno__codigo__icontains=lote) | Q(venta__terreno__codigo__icontains=lote)) &
+                                            Q(estado__icontains=canc) &
+                                            (Q(fec_vcto__gte=fini) & Q(fec_vcto__lte=ffin)))
+            else:
+                    fini = self.request.GET.get('search-from-date')
+                    ffin = self.request.GET.get('search-to-date')
+                    if self.request.GET.get('canc') is not None:
+                        canc = True
+                    else:
+                        canc = False
+                    return Pagos.objects.filter(Q(estado__icontains=canc) &
+                                                (Q(fec_vcto__gte=fini) & Q(fec_vcto__lte=ffin)))
+        else:
+            if self.request.GET.get('lote') is not None:
+                if self.request.GET.get('canc') is not None:
+                    canc = True
+                else:
+                    canc = False
+                lote = self.request.GET.get('lote')
+                return Pagos.objects.filter((Q(venta__terreno__codigo__icontains=lote) | Q(venta__terreno__codigo__icontains=lote)) &
+                                            Q(estado__icontains=canc))
+            else:
+                if self.request.GET.get('canc') is not None:
+                    canc = True
+                else:
+                    canc = False
+                return Pagos.objects.filter(Q(estado__icontains=canc))
         return super().get_queryset()
 
 
@@ -580,7 +607,7 @@ class UpdtVenta(SuccessMessageMixin, UpdateView):
     form = VentaForm
     fields = ("cliente", "terreno", "vendedor", "notaria", "banco", "condvta", "nro_cont", "fec_con", "preciod", "precios",
               "comision", "observ", "inicial", "fecha_inicial", "fecha_1ervct", "cuotas", "aprobado",
-              "foto_contrato")
+              "d_contrato")
 
     # Mensaje que se mostrará cuando se actualice el registro
     success_message = 'Cierre de Venta actualizado correctamente.'

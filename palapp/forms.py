@@ -62,17 +62,17 @@ class ClienteForm(ModelForm):
     appat = forms.CharField(label="Apellido Paterno", max_length=150, widget = forms.TextInput(attrs={'class':'form-control'}))
     apmat = forms.CharField(label="Apellido Materno", required=False, max_length=150, widget = forms.TextInput(attrs={'class':'form-control'}))
     nomb = forms.CharField(label="Nombres", max_length=150, widget = forms.TextInput(attrs={'class':'form-control'}))
-    dni = forms.CharField(label="D.N.I.", max_length=8, widget = forms.TextInput(attrs={'class':'form-control'}))
-    direccion = forms.CharField(label="Dirección Casa", widget = forms.TextInput(attrs={'class':'form-control'}))
+    dni = forms.CharField(label="D.N.I.", max_length=8, required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
+    direccion = forms.CharField(label="Dirección Casa", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
     directra = forms.CharField(label="Dirección Trabajo", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
-    pais = forms.CharField(label="Pais", max_length=80, widget = forms.TextInput(attrs={'class':'form-control'}))
+    pais = forms.CharField(label="Pais", max_length=80, required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
     percon = forms.CharField(label="Persona de contacto", required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
     correo = forms.EmailField(max_length=150, widget = forms.TextInput(attrs={'class':'form-control'}))
     telfij = forms.CharField(label="Tel.Fijo", required=False, max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
     cel1 = forms.CharField(label="Nro.Celular 1", max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
     cel2 = forms.CharField(label="Nro.Celular 2", required=False, max_length=15, widget=forms.TextInput(attrs={'class': 'form-control'}))
     celcon = forms.CharField(label="Celular Contacto", required=False, max_length=15, widget = forms.TextInput(attrs={'class':'form-control'}))
-    ocupacion = forms.CharField(label="Ocupación", max_length=50, widget = forms.TextInput(attrs={'class':'form-control'}))
+    ocupacion = forms.CharField(label="Ocupación", max_length=50, required=False, widget = forms.TextInput(attrs={'class':'form-control'}))
     observ = forms.CharField(label="Observaciones", required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
@@ -186,7 +186,7 @@ class VentaForm(ModelForm):
         model = Venta
         fields = ("cliente", "y_o", "doc_cotitular", "nom_cotitular", "terreno", "vendedor", "notaria", "banco",
                   "condvta", "nro_cont", "fec_con", "preciod",  "precios", "comision", "observ", "inicial",
-                  "fecha_inicial", "fecha_1ervct", "cuotas", "aprobado", "foto_contrato")
+                  "fecha_inicial", "fecha_1ervct", "cuotas", "aprobado", "d_contrato")
 
 
 class PagosForm(ModelForm):

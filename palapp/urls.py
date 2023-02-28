@@ -10,6 +10,7 @@ from .views import InmobiliariaNuevo, InmobiliariaDetalle, JefeDetalle, Vendedor
 from .views import TramitesDetalle, NotarioDetalle, VentaDetalle, gen_cron, ventasbulk, PagosDetalle
 from .views import BancosDetalle, TipoDocDetalle, UpdtClientem, Pagosl
 
+
 app_name = 'palapp'
 
 
@@ -107,3 +108,4 @@ urlpatterns = [
     path('<int:question_id>/vote/', views.vote, name='vote'),
 
 ]
+

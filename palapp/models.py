@@ -32,8 +32,8 @@ class Inmobiliaria(models.Model):
                 {'cel1': "Celular 1 NO VALIDO"})
 
     def save(self, *args, **kwargs):
-        self.rassoc = (self.rassoc).upper()
-        self.direccion = (self.direccion).upper()
+        self.rassoc = self.rassoc.upper()
+        self.direccion = self.direccion.upper()
         return super(Inmobiliaria, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -53,7 +53,7 @@ class Bancos(models.Model):
 
 
     def save(self, *args, **kwargs):
-        self.rassoc = (self.rassoc).upper()
+        self.rassoc = self.rassoc.upper()
         return super(Bancos, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -73,7 +73,7 @@ class TipoDoc(models.Model):
 
 
     def save(self, *args, **kwargs):
-        self.rassoc = (self.tipodoc).upper()
+        self.rassoc = self.tipodoc.upper()
         return super(TipoDoc, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -103,8 +103,8 @@ class Notaria(models.Model):
                 {'cel1': "Celular 1 NO VALIDO"})
 
     def save(self, *args, **kwargs):
-        self.rassoc = (self.rassoc).upper()
-        self.direccion = (self.direccion).upper()
+        self.rassoc = self.rassoc.upper()
+        self.direccion = self.direccion.upper()
         return super(Notaria, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -134,9 +134,9 @@ class Jefe(models.Model):
                 {'cel1': "Celular 1 NO VALIDO"})
 
     def save(self, *args, **kwargs):
-        self.appat = (self.appat).upper()
-        self.apmat = (self.apmat).upper()
-        self.nomb = (self.nomb).upper()
+        self.appat = self.appat.upper()
+        self.apmat = self.apmat.upper()
+        self.nomb = self.nomb.upper()
         return super(Jefe, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -177,9 +177,9 @@ class Vendedor(models.Model):
                 {'cel1': "Celular 1 NO VALIDO"})
 
     def save(self, *args, **kwargs):
-        self.appat = (self.appat).upper()
-        self.apmat = (self.apmat).upper()
-        self.nomb = (self.nomb).upper()
+        self.appat = self.appat.upper()
+        self.apmat = self.apmat.upper()
+        self.nomb = self.nomb.upper()
         self.direccion = (self.direccion).upper()
         return super(Vendedor, self).save(*args, **kwargs)
 
@@ -223,22 +223,22 @@ class Cliente(models.Model):
 
     def save(self, *args, **kwargs):
         if not isinstance(self.appat, type(None)):
-            self.appat = (self.appat).upper()
+            self.appat = self.appat.upper()
         if not isinstance(self.apmat, type(None)):
-            self.apmat = (self.apmat).upper()
-        self.nomb = (self.nomb).upper()
+            self.apmat = self.apmat.upper()
+        self.nomb = self.nomb.upper()
         if not isinstance(self.pais, type(None)):
-            self.pais = (self.pais).upper()
+            self.pais = self.pais.upper()
         if not isinstance(self.ocupacion, type(None)):
-            self.ocupacion = (self.ocupacion).upper()
+            self.ocupacion = self.ocupacion.upper()
         if not isinstance(self.direccion, type(None)):
-            self.direccion = (self.direccion).upper()
+            self.direccion = self.direccion.upper()
         if not isinstance(self.directra, type(None)):
-            self.directra = (self.directra).upper()
+            self.directra = self.directra.upper()
         if not isinstance(self.percon, type(None)):
-            self.percon = (self.percon).upper()
+            self.percon = self.percon.upper()
         if not isinstance(self.observ, type(None)):
-            self.observ = (self.observ).upper()
+            self.observ = self.observ.upper()
         if isinstance(self.feccad, type(None)):
             self.feccad = datetime.utcnow() + timedelta(days=30)
         return super(Cliente, self).save(*args, **kwargs)
@@ -288,17 +288,17 @@ class Terreno(models.Model):
     usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1, )
 
     def save(self, *args, **kwargs):
-        self.codigo = (self.codigo).upper()
-        self.manzana = (self.manzana).upper()
-        self.lfrente = (self.lfrente).upper()
-        self.lder = (self.lder).upper()
-        self.lizq = (self.lizq).upper()
-        self.lfondo = (self.lfondo).upper()
-        self.norte = (self.norte).upper()
-        self.sur = (self.sur).upper()
-        self.este = (self.este).upper()
-        self.oeste = (self.oeste).upper()
-        self.observaciones = (self.observaciones).upper()
+        self.codigo = self.codigo.upper()
+        self.manzana = self.manzana.upper()
+        self.lfrente = self.lfrente.upper()
+        self.lder = self.lder.upper()
+        self.lizq = self.lizq.upper()
+        self.lfondo = self.lfondo.upper()
+        self.norte = self.norte.upper()
+        self.sur = self.sur.upper()
+        self.este = self.este.upper()
+        self.oeste = self.oeste.upper()
+        self.observaciones = self.observaciones.upper()
         return super(Terreno, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -409,6 +409,8 @@ class Venta(models.Model):
     y_o = models.TextField("Y/O", max_length=1, null=True, default="", blank=True)
     nom_cotitular = models.TextField("Cotitular", max_length=80, null=True, default="", blank=True)
     doc_cotitular = models.TextField("Documento Cotitular", max_length=30, null=True, default="", blank=True)
+    d_contrato = models.FileField(upload_to="media/", default='')
+
 
     def clean(self):
         if not (self.precios+self.preciod > 0):
