@@ -20,7 +20,10 @@
                     <form method="get">
                         <div id="custom-serach-input">
                             <div class="input-group col-md-12">
-                                <input type="text" class="form-control" placeholder="Fec.Inicial" name="search-from-date", id="search-from-date" value="{{ request.GET.fini }}">
+                                <label><b>Fecha Inicial</b></label> <input type="text" name="fini", id="fini" value="{{ request.GET.fini }}">
+                                <label><b>&nbsp;&nbsp;Fecha Final</b></label> <input type="text" name="ffin", id="ffin" value="{{ request.GET.ffin }}">
+                                <label><b>&nbsp;&nbsp;¿Canceladas?</b></label> <input type="checkbox" name="canc", id="canc" value="{{ request.GET.canc }}">
+                                <label><b>&nbsp;&nbsp;Lote o Cliente</b></label> <input type="text" name="lote", id="lote" value="{{ request.GET.lote }}">
                                 <span class="input-group-list">
                                     <i class="icon icon-search"></i>
                                     <button type="submit" class="boton btn-success">Filtrar</button>
@@ -32,30 +35,6 @@
             </div>
         </div>
 
-                <form method="post" action="?">
-
-                    <div>
-                        <label for="search-to-date">Fecha Final</label>
-                        <input type="text" name="search-to-date" id="search-to-date"/>
-                    </div>
-
-                    <div>
-                        <label for="canc">¿Canceladas?</label>
-                        <input type="checkbox" name="canc" id="canc"/>
-                    </div>
-
-                    <div>
-                        <label for="lote">Lote/Cliente</label>
-                        <input type="text" name="lote" id="lote"/>
-                    </div>
-
-                    <div>
-                        <input type="submit" value="Filtrar"/>
-                    </div>
-                </form>
-        </div>
-
-
         <script src="{% static 'palapp/jquery.js' %}"></script>
         <script src="{% static 'palapp/build/jquery.datetimepicker.full.js' %}"></script>
 
@@ -66,7 +45,7 @@
             jQuery(document).ready(function () {
                 'use strict';
 
-                jQuery('#filter-date, #fini, #search-to-date').datetimepicker();
+                jQuery('#filter-date, #fini, #ffin').datetimepicker();
             });
         </script>
 

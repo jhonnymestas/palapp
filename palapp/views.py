@@ -186,41 +186,39 @@ class Pagoslistar(ListView):
 
     def get_queryset(self):
 
-        if (self.request.GET.get('search-from-date') is not None) and (self.request.GET.get('search-to-date') is not None):
-            if self.request.GET.get('lote') is not None:
-                fini = self.request.GET.get('search-from-date')
-                ffin = self.request.GET.get('search-to-date')
-                if self.request.GET.get('canc') is not None:
-                    canc = True
-                else:
-                    canc = False
-                lote = self.request.GET.get('lote')
-                return Pagos.objects.filter((Q(venta__terreno__codigo__icontains=lote) | Q(venta__terreno__codigo__icontains=lote)) &
-                                            Q(estado__icontains=canc) &
-                                            (Q(fec_vcto__gte=fini) & Q(fec_vcto__lte=ffin)))
-            else:
-                    fini = self.request.GET.get('search-from-date')
-                    ffin = self.request.GET.get('search-to-date')
-                    if self.request.GET.get('canc') is not None:
-                        canc = True
-                    else:
-                        canc = False
-                    return Pagos.objects.filter(Q(estado__icontains=canc) &
-                                                (Q(fec_vcto__gte=fini) & Q(fec_vcto__lte=ffin)))
+
+
+        if (self.request.GET.get('fini') is not None):
+            fini = self.request.GET.get('fini')
+            fini = fini.replace("/", "-")
+        if (self.request.GET.get('fini') is not None):
+            ffin = self.request.GET.get('ffin')
+            ffin = ffin.replace("/", "-")
+        if (self.request.GET.get('lote') is not None):
+            lote = self.request.GET.get('lote')
+        if self.request.GET.get('canc') is not None:
+           canc = True
+        else:
+            canc = False
+
+        if (self.request.GET.get('fini') is not None) and (self.request.GET.get('ffin') is not None):
+           if self.request.GET.get('lote') is not None:
+               print (1, self.request.GET.get('fini'))
+
+               return Pagos.objects.filter((Q(venta__terreno__codigo__icontains=lote) | Q(venta__cliente__appat__icontains=lote)) &
+                                           Q(estado__icontains=canc) &
+                                          (Q(fec_vcto__gte=fini) & Q(fec_vcto__lte=ffin)))
+           else:
+               print(2)
+               return Pagos.objects.filter(Q(estado__icontains=canc) &
+                                          (Q(fec_vcto__gte=fini) & Q(fec_vcto__lte=ffin)))
         else:
             if self.request.GET.get('lote') is not None:
-                if self.request.GET.get('canc') is not None:
-                    canc = True
-                else:
-                    canc = False
-                lote = self.request.GET.get('lote')
+                print(3)
                 return Pagos.objects.filter((Q(venta__terreno__codigo__icontains=lote) | Q(venta__terreno__codigo__icontains=lote)) &
-                                            Q(estado__icontains=canc))
+                                           Q(estado__icontains=canc))
             else:
-                if self.request.GET.get('canc') is not None:
-                    canc = True
-                else:
-                    canc = False
+                print(4)
                 return Pagos.objects.filter(Q(estado__icontains=canc))
         return super().get_queryset()
 
@@ -724,6 +722,8 @@ def Change_Password(request):
 
 # Define class for inserting multiple data
 def gen_cron(request, pk):
+    print ('OJOOOOO')
+
     ventas = Venta.objects.get(id=pk)
     if request.method == 'GET':
         form2 = VentaForm(instance=ventas)
@@ -745,7 +745,7 @@ def gen_cron(request, pk):
     ncuo = ventas.cuotas
     fevc = ventas.fecha_1ervct
     indice=1
-    print(monto, icuo, saldo, ventas.cuotas, ncuo)
+    # print(monto, icuo, saldo, ventas.cuotas, ncuo)
     while indice <= ncuo:
         Pagos.objects.create(
             venta=Venta.objects.get(id = ventas.id),
