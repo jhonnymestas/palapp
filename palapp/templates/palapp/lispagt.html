@@ -20,10 +20,10 @@
                     <form method="get">
                         <div id="custom-serach-input">
                             <div class="input-group col-md-12">
-                                <label><b>Fecha Inicial</b></label> <input type="text" name="fini", id="fini" value="{{ request.GET.fini }}">
+                                <label><b>Fecha Inicial</b></label> <input type="text" placeholder="F.Inicial" name="fini", id="fini" value="{{ request.GET.fini }}">
                                 <label><b>&nbsp;&nbsp;Fecha Final</b></label> <input type="text" name="ffin", id="ffin" value="{{ request.GET.ffin }}">
                                 <label><b>&nbsp;&nbsp;¿Canceladas?</b></label> <input type="checkbox" name="canc", id="canc" value="{{ request.GET.canc }}">
-                                <label><b>&nbsp;&nbsp;Lote o Cliente</b></label> <input type="text" name="lote", id="lote" value="{{ request.GET.lote }}">
+                                <label><b>&nbsp;&nbsp;Lote o Cliente</b></label> <input type="text" placeholder="Lote/Apellido" name="lote", id="lote" value="{{ request.GET.lote }}">
                                 <span class="input-group-list">
                                     <i class="icon icon-search"></i>
                                     <button type="submit" class="boton btn-success">Filtrar</button>

@@ -409,7 +409,7 @@ class Venta(models.Model):
     y_o = models.TextField("Y/O", max_length=1, null=True, default="", blank=True)
     nom_cotitular = models.TextField("Cotitular", max_length=80, null=True, default="", blank=True)
     doc_cotitular = models.TextField("Documento Cotitular", max_length=30, null=True, default="", blank=True)
-    d_contrato = models.FileField(upload_to="media/", default='')
+    d_contrato = models.FileField("Doc.Escaneado", upload_to="media/", default='', blank=True)
 
 
     def clean(self):

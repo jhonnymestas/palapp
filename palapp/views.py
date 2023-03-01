@@ -185,41 +185,40 @@ class Pagoslistar(ListView):
     ordering = ['fec_vcto']
 
     def get_queryset(self):
-
-
-
-        if (self.request.GET.get('fini') is not None):
-            fini = self.request.GET.get('fini')
-            fini = fini.replace("/", "-")
-        if (self.request.GET.get('fini') is not None):
-            ffin = self.request.GET.get('ffin')
-            ffin = ffin.replace("/", "-")
-        if (self.request.GET.get('lote') is not None):
-            lote = self.request.GET.get('lote')
+        fini = '1900-01-01'
+        ffin = '2050-12-31'
+        canc = False
+        if self.request.GET.get('fini') is not None:
+            if len(self.request.GET.get('fini')) !=0:
+                fini = self.request.GET.get('fini')
+                fini = fini.replace("/", "-")
+        if self.request.GET.get('ffin') is not None:
+            if len(self.request.GET.get('ffin')) !=0:
+                ffin = self.request.GET.get('ffin')
+                ffin = ffin.replace("/", "-")
+        if (self.request.GET.get('fini') is None and self.request.GET.get('ffin') is not None):
+            if len(self.request.GET.get('fini')) == 0 and len(self.request.GET.get('ffin')) != 0:
+                fini=ffin
+        if (self.request.GET.get('fini') is not None and self.request.GET.get('ffin') is None):
+            if len(self.request.GET.get('fini')) != 0 and len(self.request.GET.get('ffin')) == 0:
+                ffin=fini
+        if self.request.GET.get('lote') is not None:
+            if len(self.request.GET.get('lote')) != 0:
+                lote = self.request.GET.get('lote')
         if self.request.GET.get('canc') is not None:
-           canc = True
-        else:
-            canc = False
-
-        if (self.request.GET.get('fini') is not None) and (self.request.GET.get('ffin') is not None):
-           if self.request.GET.get('lote') is not None:
-               print (1, self.request.GET.get('fini'))
-
-               return Pagos.objects.filter((Q(venta__terreno__codigo__icontains=lote) | Q(venta__cliente__appat__icontains=lote)) &
-                                           Q(estado__icontains=canc) &
-                                          (Q(fec_vcto__gte=fini) & Q(fec_vcto__lte=ffin)))
-           else:
-               print(2)
-               return Pagos.objects.filter(Q(estado__icontains=canc) &
-                                          (Q(fec_vcto__gte=fini) & Q(fec_vcto__lte=ffin)))
-        else:
-            if self.request.GET.get('lote') is not None:
-                print(3)
-                return Pagos.objects.filter((Q(venta__terreno__codigo__icontains=lote) | Q(venta__terreno__codigo__icontains=lote)) &
-                                           Q(estado__icontains=canc))
+            if len(self.request.GET.get('canc')) != 0:
+               canc = True
             else:
-                print(4)
-                return Pagos.objects.filter(Q(estado__icontains=canc))
+               canc = False
+
+        print (fini, ffin, canc)
+        if self.request.GET.get('lote') is not None:
+            if len(self.request.GET.get('lote')) != 0:
+                return Pagos.objects.filter((Q(venta__terreno__codigo__icontains=lote) | Q(venta__cliente__appat__icontains=lote)) &
+                                             Q(estado=canc) & Q(fec_vcto__range=(fini, ffin)))
+            else:
+                return Pagos.objects.filter(Q(estado=canc) & Q(fec_vcto__range=(fini, ffin)))
+
         return super().get_queryset()
 
 
