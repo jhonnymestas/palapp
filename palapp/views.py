@@ -187,7 +187,7 @@ class Pagoslistar(ListView):
     def get_queryset(self):
         fini = '1900-01-01'
         ffin = '2050-12-31'
-        canc = False
+        canc = 'P'
         if self.request.GET.get('fini') is not None:
             if len(self.request.GET.get('fini')) !=0:
                 fini = self.request.GET.get('fini')
@@ -207,17 +207,19 @@ class Pagoslistar(ListView):
                 lote = self.request.GET.get('lote')
         if self.request.GET.get('canc') is not None:
             if len(self.request.GET.get('canc')) != 0:
-               canc = True
+               if self.request.GET.get('canc')=='Pendientes':
+                   canc = 'P'
+               else:
+                   canc = 'C'
             else:
-               canc = False
-
-        print (fini, ffin, canc)
+               canc = 'P'
+   
         if self.request.GET.get('lote') is not None:
             if len(self.request.GET.get('lote')) != 0:
                 return Pagos.objects.filter((Q(venta__terreno__codigo__icontains=lote) | Q(venta__cliente__appat__icontains=lote)) &
-                                             Q(estado=canc) & Q(fec_vcto__range=(fini, ffin)))
+                                             Q(fec_vcto__range=(fini, ffin))).filter(estado=canc)
             else:
-                return Pagos.objects.filter(Q(estado=canc) & Q(fec_vcto__range=(fini, ffin)))
+                return Pagos.objects.filter(Q(fec_vcto__range=(fini, ffin))).filter(estado=canc)
 
         return super().get_queryset()
 
