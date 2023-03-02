@@ -6,22 +6,31 @@ from datetime import datetime, timedelta
 
 
 class Inmobiliaria(models.Model):
+    """
+    #ToDo: agregar documentacion
+    """
     id = models.AutoField(primary_key=True)
-    ruc = models.CharField("RUC",max_length=11, unique=True)
-    rassoc = models.CharField("Razón Social", max_length=80, default="", unique=True)
-    direccion = models.CharField("Dirección", max_length=150, default="AREQUIPA")
+    ruc = models.CharField("RUC", max_length=11, unique=True)
+    rassoc = models.CharField(
+        "Razón Social", max_length=80, default="", unique=True)
+    direccion = models.CharField(
+        "Dirección", max_length=150, default="AREQUIPA")
     correo = models.EmailField("eMail", default="@")
-    telfij = models.CharField("Teléfono Fijo", max_length=15, null=True, default="", blank=True)
+    telfij = models.CharField(
+        "Teléfono Fijo", max_length=15, null=True, default="", blank=True)
     cel1 = models.CharField("Celular 1", max_length=15, default="")
-    cel2 = models.CharField("Celular 2", max_length=15, null=True, default="", blank=True)
-    fecha_inicon = models.DateTimeField("Fecha Inicio de Contrato", default=timezone.now, null=False)
+    cel2 = models.CharField(
+        "Celular 2", max_length=15, null=True, default="", blank=True)
+    fecha_inicon = models.DateTimeField(
+        "Fecha Inicio de Contrato", default=timezone.now, null=False)
     activo = models.BooleanField(null=False, default=1)
 
     fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
         null=True, editable=False)
     fecha_act = models.DateTimeField(auto_now=True,
         blank=True, null=True)
-    usuar=models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario Creación")
+    usuar=models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="Usuario Creación")
 
     def clean(self):
         if not len(self.ruc) >= 11:
@@ -41,16 +50,20 @@ class Inmobiliaria(models.Model):
 
 
 class Bancos(models.Model):
+    """
+    #ToDo: agregar documentacion
+    """
     id = models.AutoField(primary_key=True)
-    rassoc = models.CharField("Razón Social", max_length=80, default="", unique=True)
+    rassoc = models.CharField(
+        "Razón Social", max_length=80, default="", unique=True)
     activo = models.BooleanField(null=False, default=1)
-    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
-        null=True, editable=False)
-    fecha_act = models.DateTimeField(auto_now=True,
-        blank=True, null=True)
-    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario Coordinador", default=1,
-                                     null=True)
-
+    fecha_creacion = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True, editable=False)
+    fecha_act = models.DateTimeField(
+        auto_now=True, blank=True, null=True)
+    usuario_crea = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="Usuario Coordinador",
+        default=1, null=True)
 
     def save(self, *args, **kwargs):
         self.rassoc = self.rassoc.upper()
@@ -61,15 +74,20 @@ class Bancos(models.Model):
 
 
 class TipoDoc(models.Model):
+    """
+    #ToDo: agregar documentacion
+    """
     id = models.AutoField(primary_key=True)
-    tipodoc = models.CharField("Tipo Documento", max_length=40, default="", unique=True)
+    tipodoc = models.CharField(
+        "Tipo Documento", max_length=40, default="", unique=True)
     activo = models.BooleanField(null=False, default=1)
-    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
-        null=True, editable=False)
+    fecha_creacion = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True, editable=False)
     fecha_act = models.DateTimeField(auto_now=True,
         blank=True, null=True)
-    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario Coordinador", default=1,
-                                     null=True)
+    usuario_crea = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="Usuario Coordinador",
+        default=1, null=True)
 
 
     def save(self, *args, **kwargs):
@@ -81,21 +99,27 @@ class TipoDoc(models.Model):
 
 
 class Notaria(models.Model):
+    """
+    #ToDo: agregar documentacion
+    """
     id = models.AutoField(primary_key=True)
     rassoc = models.CharField("Razón Social", max_length=50, null=True)
     ruc = models.CharField("RUC", max_length=11, default="", null=True)
     direccion = models.TextField("Dirección", default="AREQUIPA")
     correo = models.EmailField("eMail", default="@")
-    telfij = models.CharField("Teléfono Fijo", max_length=15, default="", null=True, blank=True)
+    telfij = models.CharField(
+        "Teléfono Fijo", max_length=15, default="", null=True, blank=True)
     cel1 = models.CharField("Celular 1", max_length=15, default="")
-    cel2 = models.CharField("Celular 2", max_length=15, default="", null=True, blank=True)
+    cel2 = models.CharField(
+        "Celular 2", max_length=15, default="", null=True, blank=True)
     activo = models.BooleanField(null=False, default=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
         null=True, editable=False)
     fecact = models.DateTimeField(auto_now=True,
         blank=True, null=True)
-    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario Coordinador", default=1,
-                                     null=True)
+    usuario_crea = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="Usuario Coordinador",
+        default=1, null=True)
 
     def clean(self):
         if not len(self.cel1) >= 9:
@@ -113,20 +137,23 @@ class Notaria(models.Model):
 
 class Jefe(models.Model):
     id = models.AutoField(primary_key=True)
-    inmobiliaria = models.ForeignKey(Inmobiliaria, on_delete=models.CASCADE, verbose_name="Inmobiliaria",)
+    inmobiliaria = models.ForeignKey(
+        Inmobiliaria, on_delete=models.CASCADE, verbose_name="Inmobiliaria",)
     appat = models.CharField("Apellido Paterno", max_length=50, null=True)
     apmat = models.CharField("Apellido Materno", max_length=50, null=True)
     nomb = models.CharField("Nombre", max_length=50)
     correo = models.EmailField("eMail", default="@")
-    telfij = models.CharField("Teléfono Fijo", max_length=15, null=True, default="" , blank=True)
+    telfij = models.CharField(
+        "Teléfono Fijo", max_length=15, null=True, default="" , blank=True)
     cel1 = models.CharField("Celular 1", max_length=15, default="")
-    cel2 = models.CharField("Celular 2", max_length=15, null=True, default="" , blank=True)
+    cel2 = models.CharField(
+        "Celular 2", max_length=15, null=True, default="" , blank=True)
     activo = models.BooleanField(null=False, default=True)
-    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
-        null=True, editable=False)
-    fecact = models.DateTimeField(auto_now=True,
-        blank=True, null=True)
-    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1,)
+    fecha_creacion = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True, editable=False)
+    fecact = models.DateTimeField(
+        auto_now=True, blank=True, null=True)
+    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def clean(self):
         if not len(self.cel1) >= 9:
@@ -149,27 +176,34 @@ class Jefe(models.Model):
 
 class Vendedor(models.Model):
     id = models.AutoField(primary_key=True)
-    jefe = models.ForeignKey(Jefe, on_delete=models.CASCADE, verbose_name="Nombre Coordinador", default=1)
+    jefe = models.ForeignKey(
+        Jefe, on_delete=models.CASCADE, verbose_name="Nombre Coordinador",
+        default=1)
     appat = models.CharField("Apellido Paterno", max_length=50, null=True)
     apmat = models.CharField("Apellido Materno", max_length=50, null=True)
     nomb = models.CharField("Nombre", max_length=50)
     dni = models.CharField("DNI", max_length=8, default="")
-    ruc = models.CharField("RUC", max_length=11, default="", null=True, blank=True)
-    codagente = models.CharField("Cod.Agente Inmobiliario", max_length=20, default="")
+    ruc = models.CharField(
+        "RUC", max_length=11, default="", null=True, blank=True)
+    codagente = models.CharField(
+        "Cod.Agente Inmobiliario", max_length=20, default="")
     direccion = models.TextField("Dirección Casa", default="AREQUIPA")
     correo = models.EmailField("eMail", default="@")
-    telfij = models.CharField("Teléfono Fijo", max_length=15, default="", blank=True)
+    telfij = models.CharField(
+        "Teléfono Fijo", max_length=15, default="", blank=True)
     cel1 = models.CharField("Celular 1", max_length=15, default="")
     cel2 = models.CharField("Celular 2", max_length=15, default="", blank=True)
     activo = models.BooleanField(null=False, default=True)
     fecha_ingreso = models.DateTimeField("Fecha de Ingreso",
         default=timezone.now)
     fecha_cese = models.DateTimeField("Fecha de Cese", null=True, blank=True)
-    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
-        null=True, editable=False)
-    fecact = models.DateTimeField(auto_now=True,
-        blank=True, null=True)
-    id_usuario_jefe = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario Coordinador", default=1, null=True)
+    fecha_creacion = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True, editable=False)
+    fecact = models.DateTimeField(
+        auto_now=True, blank=True, null=True)
+    id_usuario_jefe = models.ForeignKey(
+        User, on_delete=models.CASCADE, verbose_name="Usuario Coordinador",
+        default=1, null=True)
 
     def clean(self):
         if not len(self.cel1) >= 9:
@@ -192,28 +226,40 @@ class Vendedor(models.Model):
 
 class Cliente(models.Model):
     id = models.AutoField(primary_key=True)
-    vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE, verbose_name="Vendedor",)
+    vendedor = models.ForeignKey(
+        Vendedor, on_delete=models.CASCADE, verbose_name="Vendedor",)
     appat = models.CharField("Apellido Paterno", max_length=50, null=True)
-    apmat = models.CharField("Apellido Materno", max_length=50, blank=True, null=True)
+    apmat = models.CharField(
+        "Apellido Materno", max_length=50, blank=True, null=True)
     nomb = models.CharField("Nombre", max_length=50)
-    dni = models.CharField("DNI", max_length=8, default=" ", blank=True, null=True)
-    direccion = models.TextField("Dirección Casa", default="AREQUIPA", null=True)
-    directra = models.TextField("Dirección Trabajo", default="AREQUIPA", blank=True, null=True)
-    pais = models.CharField("Nacionalidad", max_length=50, default="PERU", null=True)
+    dni = models.CharField(
+        "DNI", max_length=8, default=" ", blank=True, null=True)
+    direccion = models.TextField(
+        "Dirección Casa", default="AREQUIPA", null=True)
+    directra = models.TextField(
+        "Dirección Trabajo", default="AREQUIPA", blank=True, null=True)
+    pais = models.CharField(
+        "Nacionalidad", max_length=50, default="PERU", null=True)
     correo = models.EmailField("eMail", default="@")
-    telfij = models.CharField("Teléfono Fijo", max_length=15, default="", blank=True, null=True)
+    telfij = models.CharField(
+        "Teléfono Fijo", max_length=15, default="", blank=True, null=True)
     cel1 = models.CharField("Celular 1", max_length=15, default="", unique=True)
-    cel2 = models.CharField("Celular 2", max_length=15, default="", blank=True, null=True)
-    ocupacion = models.CharField("Ocupación", max_length=100, default="", blank=True, null=True)
-    percon = models.TextField("Persona de contacto", default="", blank=True, null=True)
-    celcon = models.CharField("Numero contacto", max_length=15, default="", blank=True, null=True)
+    cel2 = models.CharField(
+        "Celular 2", max_length=15, default="", blank=True, null=True)
+    ocupacion = models.CharField(
+        "Ocupación", max_length=100, default="", blank=True, null=True)
+    percon = models.TextField(
+        "Persona de contacto", default="", blank=True, null=True)
+    celcon = models.CharField(
+        "Numero contacto", max_length=15, default="", blank=True, null=True)
     activo = models.BooleanField(null=False, default=True)
-    observ = models.TextField("Observaciones", null=True, default="", blank=True)
-    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
-        null=True, editable=False)
-    fecact = models.DateTimeField(auto_now=True,
-        blank=True, null=True)
-    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1,)
+    observ = models.TextField(
+        "Observaciones", null=True, default="", blank=True)
+    fecha_creacion = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True, editable=False)
+    fecact = models.DateTimeField(
+        auto_now=True, blank=True, null=True)
+    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     feccad = models.DateTimeField("Fecha Caducidad", blank=True, null=True)
 
     def clean(self):
@@ -222,6 +268,7 @@ class Cliente(models.Model):
                 {'cel1': "Celular 1 NO VALIDO"})
 
     def save(self, *args, **kwargs):
+        #ToDo: refactor
         if not isinstance(self.appat, type(None)):
             self.appat = self.appat.upper()
         if not isinstance(self.apmat, type(None)):
@@ -261,12 +308,18 @@ class Terreno(models.Model):
     codigo = models.CharField("Código", max_length=10, unique=True)
     manzana = models.CharField("Manzana", max_length=2,default="A")
     lote = models.IntegerField("Lote", null=True)
-    area = models.DecimalField("Area m2", max_digits=8, decimal_places=2, default=100)
-    vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE, verbose_name="Vendedor",)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name="Cliente",)
-    preciod = models.DecimalField("P.Venta US$", max_digits=10, decimal_places=2, default=0)
-    precios = models.DecimalField("P.Venta S/", max_digits=10, decimal_places=2, default=0)
-    comision = models.DecimalField("Comisión %", max_digits=5, decimal_places=2, default=0)
+    area = models.DecimalField(
+        "Area m2", max_digits=8, decimal_places=2, default=100)
+    vendedor = models.ForeignKey(
+        Vendedor, on_delete=models.CASCADE, verbose_name="Vendedor",)
+    cliente = models.ForeignKey(
+        Cliente, on_delete=models.CASCADE, verbose_name="Cliente",)
+    preciod = models.DecimalField(
+        "P.Venta US$", max_digits=10, decimal_places=2, default=0)
+    precios = models.DecimalField(
+        "P.Venta S/", max_digits=10, decimal_places=2, default=0)
+    comision = models.DecimalField(
+        "Comisión %", max_digits=5, decimal_places=2, default=0)
     lfrente = models.TextField("Limite de Frente", default="", null=True)
     mlfrente = models.TextField("Mts Lin. de Frente", default="", null=True)
     lder = models.TextField("Limite Derecho", default="", null=True)
@@ -281,11 +334,11 @@ class Terreno(models.Model):
     oeste = models.TextField("Oeste", default="", null=True)
     observaciones = models.TextField("Observaciones", blank=True)
     estado = models.CharField("Estado", choices=ESTD, max_length=1, default='L')
-    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
-        null=True, editable=False)
-    fecact = models.DateTimeField(auto_now=True,
-        blank=True, null=True)
-    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1, )
+    fecha_creacion = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True, editable=False)
+    fecact = models.DateTimeField(
+        auto_now=True, blank=True, null=True)
+    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def save(self, *args, **kwargs):
         self.codigo = self.codigo.upper()
@@ -331,20 +384,24 @@ class Tramites(models.Model):
     )
 
     id = models.AutoField(primary_key=True)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name="Cliente", default=0)
-    terreno = models.ForeignKey(Terreno, on_delete=models.CASCADE, verbose_name="Terreno", default=0)
-    vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE, verbose_name="Vendedor", default=0)
+    cliente = models.ForeignKey(
+        Cliente, on_delete=models.CASCADE, verbose_name="Cliente", default=0)
+    terreno = models.ForeignKey(
+        Terreno, on_delete=models.CASCADE, verbose_name="Terreno", default=0)
+    vendedor = models.ForeignKey(
+        Vendedor, on_delete=models.CASCADE, verbose_name="Vendedor", default=0)
     descrip = models.TextField("Detalle")
     por_hacer = models.CharField("Via", choices=POR_HACER, max_length=1)
     resultado = models.TextField("Resultado Gestión")
-    fec_prox = models.DateTimeField("Fecha proximo trámite", default=timezone.now)
+    fec_prox = models.DateTimeField(
+        "Fecha proximo trámite", default=timezone.now)
     lugar = models.CharField("Donde", choices=LUGAR, max_length=1)
     nivel = models.CharField("Nivel de Interes", choices=INTERES, max_length=1)
     observ = models.TextField("Observaciones", blank=True)
-    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
-        null=True, editable=False)
-    fecact = models.DateTimeField(auto_now=True,
-        blank=True, null=True)
+    fecha_creacion = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True, editable=False)
+    fecact = models.DateTimeField(
+        auto_now=True, blank=True, null=True)
     usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1,)
 
     def clean(self):
@@ -374,42 +431,63 @@ class Venta(models.Model):
     )
 
     id = models.AutoField(primary_key=True)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name="Cliente", default=0)
-    terreno = models.OneToOneField(Terreno, on_delete=models.CASCADE, verbose_name="Terreno", default=0)
-    vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE, verbose_name="Vendedor", default=0)
-    notaria = models.ForeignKey(Notaria, on_delete=models.CASCADE, verbose_name="Notaria", default=0)
-    banco = models.TextField("Banco", max_length=40, null=True, default="", blank=True)
-    condvta = models.CharField("Condición Venta", choices=CONDICION, max_length=1, default='C')
+    cliente = models.ForeignKey(
+        Cliente, on_delete=models.CASCADE, verbose_name="Cliente", default=0)
+    terreno = models.OneToOneField(
+        Terreno, on_delete=models.CASCADE, verbose_name="Terreno", default=0)
+    vendedor = models.ForeignKey(
+        Vendedor, on_delete=models.CASCADE, verbose_name="Vendedor", default=0)
+    notaria = models.ForeignKey(
+        Notaria, on_delete=models.CASCADE, verbose_name="Notaria", default=0)
+    banco = models.TextField(
+        "Banco", max_length=40, null=True, default="", blank=True)
+    condvta = models.CharField(
+        "Condición Venta", choices=CONDICION, max_length=1, default='C')
     nro_cont = models.TextField("Número de Contrato", null=False, unique=True)
-    fec_con = models.DateTimeField("Fecha Contrato", default=timezone.now, null=False)
-    preciod = models.DecimalField("P.Venta US$", max_digits=10, decimal_places=2, default=0)
-    precios = models.DecimalField("P.Venta S/", max_digits=10, decimal_places=2, default=0)
-    comision = models.DecimalField("Comisión %", max_digits=5, decimal_places=2, default=0)
+    fec_con = models.DateTimeField(
+        "Fecha Contrato", default=timezone.now, null=False)
+    preciod = models.DecimalField(
+        "P.Venta US$", max_digits=10, decimal_places=2, default=0)
+    precios = models.DecimalField(
+        "P.Venta S/", max_digits=10, decimal_places=2, default=0)
+    comision = models.DecimalField(
+        "Comisión %", max_digits=5, decimal_places=2, default=0)
     observ = models.TextField("Observaciones", blank=True)
-    fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
-        null=True, editable=False)
-    fecact = models.DateTimeField(auto_now=True,
-        blank=True, null=True)
-    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1, )
+    fecha_creacion = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True, editable=False)
+    fecact = models.DateTimeField(
+        auto_now=True, blank=True, null=True)
+    usuario_crea = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     aprobado = models.BooleanField("Aprobado", default=False)
     plan_generado = models.BooleanField("Plan de Pago Generado", default=False)
     foto_contrato = models.ImageField("Foto Voucher", blank=True)
-    inicial = models.DecimalField("Inicial US$", max_digits=10, decimal_places=2, default=0)
-    fecha_inicial = models.DateTimeField("Fecha entrega Inicial", default=timezone.now, null=True)
+    inicial = models.DecimalField(
+        "Inicial US$", max_digits=10, decimal_places=2, default=0)
+    fecha_inicial = models.DateTimeField(
+        "Fecha entrega Inicial", default=timezone.now, null=True)
     fecha_1ervct = models.DateTimeField(default=timezone.now, null=True)
-    cuotas = models.DecimalField("No.Cuotas", max_digits=2, decimal_places=0, default=0)
+    cuotas = models.DecimalField(
+        "No.Cuotas", max_digits=2, decimal_places=0, default=0)
     foto_pago_com = models.ImageField("Foto Pago Comisión", blank=True)
-    fecha_pago_com = models.DateTimeField("Fecha Pago Comisión", default=timezone.now, null=True)
-    doc_pag_com = models.TextField("Documento Pago Comisión", max_length=30, null=True, default="", blank=True)
+    fecha_pago_com = models.DateTimeField(
+        "Fecha Pago Comisión", default=timezone.now, null=True)
+    doc_pag_com = models.TextField(
+        "Documento Pago Comisión", max_length=30, null=True, default="", blank=True)
     com_pag = models.BooleanField(null=False, default=False)
-    bco_pag_com = models.ForeignKey(Bancos, on_delete=models.CASCADE, verbose_name="Banco Pago Comisión", default=1,
-                                    null=True)
-    tdoc_sun_com = models.ForeignKey(TipoDoc, on_delete=models.CASCADE, verbose_name="Doctumento Pago Comisión",
-                                     default=1, )
-    y_o = models.TextField("Y/O", max_length=1, null=True, default="", blank=True)
-    nom_cotitular = models.TextField("Cotitular", max_length=80, null=True, default="", blank=True)
-    doc_cotitular = models.TextField("Documento Cotitular", max_length=30, null=True, default="", blank=True)
-    d_contrato = models.FileField("Doc.Escaneado", upload_to="media/", default='', blank=True)
+    bco_pag_com = models.ForeignKey(
+        Bancos, on_delete=models.CASCADE, verbose_name="Banco Pago Comisión",
+        default=1, null=True)
+    tdoc_sun_com = models.ForeignKey(
+        TipoDoc, on_delete=models.CASCADE,
+        verbose_name="Doctumento Pago Comisión", default=1)
+    y_o = models.TextField(
+        "Y/O", max_length=1, null=True, default="", blank=True)
+    nom_cotitular = models.TextField(
+        "Cotitular", max_length=80, null=True, default="", blank=True)
+    doc_cotitular = models.TextField(
+        "Documento Cotitular", max_length=30, null=True, default="", blank=True)
+    d_contrato = models.FileField(
+        "Doc.Escaneado", upload_to="media/", default='', blank=True)
 
 
     def clean(self):
@@ -442,19 +520,26 @@ class Pagos(models.Model):
     )
 
     id = models.AutoField(primary_key=True)
-    venta = models.ForeignKey(Venta, on_delete=models.CASCADE, verbose_name="Contrato", default=0)
+    venta = models.ForeignKey(
+        Venta, on_delete=models.CASCADE, verbose_name="Contrato", default=0)
     cuota = models.IntegerField("Cuota No.", default=1)
-    fec_vcto = models.DateTimeField("Fecha Vencimiento", default=timezone.now, null=False)
+    fec_vcto = models.DateTimeField(
+        "Fecha Vencimiento", default=timezone.now, null=False)
     fec_pago = models.DateTimeField("Fecha Pago", null=False, blank=True)
-    preciod = models.DecimalField("Pago US$", max_digits=10, decimal_places=2, default=0)
-    precios = models.DecimalField("Pago S/", max_digits=10, decimal_places=2, default=0)
-    gastosd = models.DecimalField("Gastos US$", max_digits=5, decimal_places=2, default=0)
-    gastoss = models.DecimalField("Gastos S/", max_digits=5, decimal_places=2, default=0)
+    preciod = models.DecimalField(
+        "Pago US$", max_digits=10, decimal_places=2, default=0)
+    precios = models.DecimalField(
+        "Pago S/", max_digits=10, decimal_places=2, default=0)
+    gastosd = models.DecimalField(
+        "Gastos US$", max_digits=5, decimal_places=2, default=0)
+    gastoss = models.DecimalField(
+        "Gastos S/", max_digits=5, decimal_places=2, default=0)
     nrooper = models.CharField("Numero Operación", max_length=30)
     banco = models.CharField("Banco", max_length=40, blank=True)
     observ = models.TextField("Observaciones", blank=True)
     efectivo = models.BooleanField("Efectivo?", default=True)
-    estado = models.CharField("Estado", choices=ESTADO, max_length=1, default="P")
+    estado = models.CharField(
+        "Estado", choices=ESTADO, max_length=1, default="P")
     foto_vouc = models.ImageField("Foto Voucher", blank=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True, blank=True,
         null=True, editable=False)
